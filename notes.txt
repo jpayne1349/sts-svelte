@@ -1,3 +1,16 @@
 
 
-#create sveltekit app
+#create sveltekit directory from desktop
+npm init svelte <directory name>
+
+cd <directory name>
+npm install
+git init && git add -A && git commit -m "Initial commit"
+npm run dev -- --open
+
+# can clean up the default stuff to start out with a clean slate
+# deleted everything except app.css , app.html , and routes folder
+# created components folder
+# added back in an empty __layout.svelte
+
+# this seems like a good starting point?
