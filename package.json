@@ -22,5 +22,17 @@
     "@fontsource/fira-mono": "^4.5.0",
     "@lukeed/uuid": "^2.0.0",
     "cookie": "^0.4.1"
-  }
+  },
+  "description": "Re-building my company website with svelte.",
+  "main": "package.json",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jpayne1349/sts-svelte.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jpayne1349/sts-svelte/issues"
+  },
+  "homepage": "https://github.com/jpayne1349/sts-svelte#readme"
 }

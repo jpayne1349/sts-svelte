@@ -38,7 +38,7 @@ export let buttonText;
         font-family: openSans-lightitalic;
         color: #C5C5C5;
         width: 20vw;
-        max-width: 300px;
+        max-width: 400px;
         font-size: 2vw;
         background: #293A55;
         box-shadow: -2px 1px 0 0 #121E31;
