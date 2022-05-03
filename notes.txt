@@ -14,3 +14,6 @@ npm run dev -- --open
 # added back in an empty __layout.svelte
 
 # this seems like a good starting point?
+# can create a remote git repo and link at this point if wanted.
+
+index.svelte created as the main route for the app '/'
