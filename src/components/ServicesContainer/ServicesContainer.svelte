@@ -1,4 +1,5 @@
 <script>
+import ConsultingContainer from "./ConsultingContainer.svelte";
 import ServicesTitle from "./ServicesTitle.svelte";
 import WebDevContainer from "./WebDevContainer.svelte";
 
@@ -10,6 +11,7 @@ import WebDevContainer from "./WebDevContainer.svelte";
     
 <ServicesTitle />
 <WebDevContainer />
+<ConsultingContainer />
 
 </div>
 
@@ -22,6 +24,7 @@ import WebDevContainer from "./WebDevContainer.svelte";
         margin-left: 10vw;
         display: flex;
         flex-direction: column;
+        margin-top: 0;
     }
     @media only screen and (max-width: 775px) {
         #container {

@@ -13,7 +13,7 @@
         font-family: openSans-regular;
         font-size: 1vw;
         color: #BBBEC5;
-        margin-left: 9.6vw;
+        margin-left: 10vw;
         margin-top: 10px;
         text-shadow: -1px 1px 0 #162439;
     }

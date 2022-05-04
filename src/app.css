@@ -39,9 +39,10 @@ body {
 	background-image: linear-gradient(
 		180deg,
 		#020d1f 0%,
-		#3c4f71 25%,
+		#3c4f71 15%,
 		#425471 44%,
+		#485e81 74%,
 		#395381 100%
-	);
-	height: 230vh;
+	   );
+	height: 500vh;
 }

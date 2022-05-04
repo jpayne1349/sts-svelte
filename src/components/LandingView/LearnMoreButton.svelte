@@ -52,7 +52,7 @@
         font-family: openSans-lightitalic;
         color: #0d1420de;
         width: 20vw;
-        max-width: 400px;
+        
         font-size: 2vw;
         background: #d8d8d880;
         box-shadow: -2px 1px 0 0 #121E31;

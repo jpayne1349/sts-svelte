@@ -7,6 +7,7 @@ import SvgOvals from '../components/SvgOvals.svelte';
 import ButtonContainer from '../components/LandingView/ButtonContainer.svelte';
 import UnderButtonPhrase from '../components/LandingView/UnderButtonPhrase.svelte';
 import ServicesContainer from '../components/ServicesContainer/ServicesContainer.svelte';
+import PricingContainer from '../components/PricingContainer/PricingContainer.svelte';
 
 </script>
 
@@ -16,6 +17,7 @@ import ServicesContainer from '../components/ServicesContainer/ServicesContainer
 <UnderButtonPhrase />
 
 <ServicesContainer />
+<PricingContainer />
 
 
 
