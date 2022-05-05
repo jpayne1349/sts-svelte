@@ -101,14 +101,51 @@
         position: absolute;
         z-index: -1;
         width: 80vw;
-        left: -30vw;
-        top: -15vw;
+        left: -40vw;
+        top: -25vw;
     }
 
 	@media only screen and (max-width: 775px) {
+        #pricing-container {
+            margin-left: 4vw;
+            top: 290vh;
+            width: 92vw;
+        }
         #pricing-title {
             font-size: 8vw;
-            width: 80vw;
+            width: 92vw;
+        }
+        #left-section{
+            width: 92vw;
+        }
+        .par-title {
+            font-size: 5.5vw;
+        }
+        .par-body {
+            font-size: 4vw;
+        }
+        .par-wrapper {
+            width: 50vw;
+            margin-top: 6vw;
+        }
+        #right-section {
+            width: 92vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-top: 25vw;
+        }
+        .details {
+            font-size: 4.5vw;
+            text-align: center;
+        }
+        #small-detail {
+            font-size: 3vw;
+        }
+        #oval-wrapper {
+            top: -3vh;
+            left: -4vw;
+            
         }
 	}
 </style>

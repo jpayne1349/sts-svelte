@@ -82,7 +82,7 @@
 		#consulting-container {
 			flex-direction: row;
 			flex-wrap: wrap;
-			margin-top: 10vh;
+			margin-top: 15vh;
 		}
 		#main-content {
 			width: 80vw;
@@ -100,11 +100,12 @@
 		#details {
 			width: 80vw;
 			height: 40vh;
-			padding-top: 5vh;
-			margin: 0;
+			margin-top: 10vh;
+			
 		}
 		.text {
 			font-size: 4.2vw;
+			margin-bottom: 5vh;
 		}
 		#cloud {
 			width: 96vw;
