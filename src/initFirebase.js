@@ -16,9 +16,9 @@ export async function initFirebase() {
 
 			// for development only?
 			self.FIREBASE_APPCHECK_DEBUG_TOKEN = true;
-			
+
 			const appCheck = initializeAppCheck(app, {
-				provider: new ReCaptchaV3Provider(firebaseConfig.recaptchaSite),
+				provider: new ReCaptchaV3Provider(firebaseConfig.recaptchaPublic),
 
 				
 				isTokenAutoRefreshEnabled: true
