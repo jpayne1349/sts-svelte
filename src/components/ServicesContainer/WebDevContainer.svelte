@@ -45,21 +45,29 @@
 		text-align: center;
 		color: #bbbec5;
 		width: 30vw;
-		font-size: 1.5vw;
+		font-size: 1.2vw;
 	}
 	
 
 	@media only screen and (max-width: 775px) {
 		#webdev-container {
-			margin-top: 9vw;
+            height: 75vh;
+			margin-top: 10vw;
+            flex-direction: column;
+            justify-content: flex-start;
+			scroll-snap-align: start;
+			scroll-margin-top: 17vh;
 		}
 
 		#shifted-outline {
 			transform: translate(-3vw, -5vw);
+			width: 100%;
 		}
-
+		#left-section {
+			width: 100%;
+		}
 		#right-section {
-			width: 80vw;
+			width: 100%;
 			font-size: 4.2vw;
 			height: 40vh;
 		}

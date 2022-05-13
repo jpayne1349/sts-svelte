@@ -97,7 +97,7 @@
 
 <style>
 	#mock-screen {
-		width: 40vw;
+		width: 35vw;
         position: relative;
 	}
     #text-container {
@@ -106,30 +106,30 @@
         left: 0;
         padding-left: 3vw;
         padding-top: 4vw;
-        width: 37vw;
+        width: 32vw;
         color: #3F4042;
         text-align: center;
     }
     #title {
         font-family: openSans-medium;
-        font-size: 2.2vw;
+        font-size: 2vw;
     }
     #examples {
         margin-top: 10px;
-        font-size: 1.8vw;
+        font-size: 1.5vw;
     }
     .row {
         font-family: openSans-light;
-        line-height: 5vw;
+        line-height: 4vw;
     }
 	@media only screen and (max-width: 775px) {
 		#mock-screen {
-			width: 80vw;
+			width: 100%;
 		}
         #text-container {
-            padding-left: 5vw;
-            padding-top: 6vw;
-            width: 75vw;
+            width: 100%;
+			padding-top: 5vh;
+			padding-left: 0;
         }
         #title {
             font-size: 5.4vw;

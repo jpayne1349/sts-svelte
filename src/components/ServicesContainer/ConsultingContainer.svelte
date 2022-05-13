@@ -10,19 +10,18 @@
 			<p class="st">Local/Cloud Databases</p>
 			<p class="st">Local Networking & Security</p>
 		</div>
-		<div id="cloud">
-			<ConsultingCloud />
-		</div>
 	</div>
-
+	<div id="cloud">
+		<ConsultingCloud />
+	</div>
 	<div id="details">
 		<p class="text">Automate data entry, computer tasks, file organization, etc.</p>
-		<p class="text">Organize and store your data with a custom interface for managing.</p>
+		<p class="text">Organize and store your data with a custom interface for management.</p>
 		<p class="text">
 			Setup your home or business with modern infrastructure and security. 
             <a
 				id="contact-link"
-				href="#contact-form">Contact Us</a
+				href="/contact-us">Contact Us</a
 			> for a free quote.
 		</p>
 	</div>
@@ -36,41 +35,46 @@
 		color: #bbbec5;
 		text-align: center;
 		margin-top: 5vh;
-		height: 32vw;
+        margin-bottom: 50vh;
+        justify-content: space-between;
+		position: relative;
 	}
 	#details {
 		display: flex;
 		flex-direction: column;
 		justify-content: space-evenly;
-		width: 32vw;
-		margin-right: 3vw;
-		padding-top: 10vh;
-		padding-bottom: 3vh;
+		width: 30vw;
+		
+		padding-top: 16vh;
+		
 	}
 	.text {
 		font-family: openSans-light;
-		font-size: 1.5vw;
+		font-size: 1.2vw;
 	}
 	#title {
 		font-family: openSans-medium;
-		font-size: 2.2vw;
-		margin-top: 8vw;
+		font-size: 2vw;
+		margin-top: 5vw;
+        width: 25vw;
+        text-align:center;
+
 	}
 	.st {
 		font-family: openSans-light;
-		font-size: 1.8vw;
-		line-height: 5vw;
+		font-size: 1.5vw;
+		line-height: 4vw;
 	}
 	#main-content {
 		position: relative;
-		width: 45vw;
+		width: 32vw;
 		display: flex;
 		flex-direction: column;
+        align-items:center;
 	}
 	#cloud {
 		position: absolute;
-		top: 0;
-		left: -2vw;
+		right: -2vw;
 		z-index: -1;
 	}
     #contact-link {
@@ -80,37 +84,40 @@
 
 	@media only screen and (max-width: 775px) {
 		#consulting-container {
-			flex-direction: row;
+			flex-direction: column;
 			flex-wrap: wrap;
-			margin-top: 15vh;
+			margin-top: 0;
+            height: 75vh;
+            margin-bottom: 0;
+			align-items: center;
+			justify-content: flex-start;
+			scroll-snap-align: start;
+			scroll-margin-top: 10vh;
 		}
 		#main-content {
-			width: 80vw;
+			width: 100%;
 		}
 		#title {
 			padding: 0 5vw;
 			font-size: 5.4vw;
 			margin-top: 13vw;
 			text-align: center;
+			width: 70vw;
 		}
 		.st {
 			font-size: 4.5vw;
             line-height: 10vw;
 		}
 		#details {
-			width: 80vw;
-			height: 40vh;
-			margin-top: 10vh;
-			
+			width: 92vw;
+			padding-top: 5vh;
 		}
 		.text {
 			font-size: 4.2vw;
 			margin-bottom: 5vh;
 		}
 		#cloud {
-			width: 96vw;
-			overflow-x: hidden;
-			transform: translateX(-8vw);
+			width: 92vw;
 			left: 0;
 		}
 	}

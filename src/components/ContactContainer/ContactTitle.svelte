@@ -1,26 +1,24 @@
-
 <script>
-
 
 </script>
 
 
-<a href='/services' id='title' >
-    Services
+<a href='/contact-us' id='title' >
+    Contact Us!
 </a>
 
 <style>
     #title {
         font-family: openSans-bolditalic;
-        font-size: 3vw;
-        color: #BBBEC5;
-        text-align: center;
+        font-size: 4vw;
         text-decoration: none;
-    }  
+        width: 100%;
+        text-align: right;
+        color: #BBBEC5;
+    }
     @media only screen and (max-width: 775px) {
         #title {
             font-size: 8vw;
         }
-
-    }
+	}
 </style>

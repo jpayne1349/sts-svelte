@@ -4,7 +4,7 @@
 
 <div id="pricing-container">
 	<div id="left-section">
-		<div id="pricing-title">Pricing</div>
+		<a href='/pricing' id="pricing-title">Pricing</a>
         <div id='one' class='par-wrapper'>
 		<div class="par-title">Fixed</div>
 		<div class="par-body">
@@ -20,11 +20,12 @@
 	</div>
 
 	<div id="right-section">
+        <div id='pricing-cont'> Cont.</div>
 		<div class="details">
 			Every project is different. Simple static websites and landing pages average a $200-$500 build
 			fee. This includes a graphic design meeting and pre-deployment satisfaction guarantee. All
 			web-related software requires third-party hosting and domain/url name subscriptions that
-			average us $5/month. Most customers prefer a simple $30/month plan that includes
+			average us $5/month. We offer a simple $30/month plan that includes
 			hosting/domain management and up to four hours of maintenance. Additional change requests are
 			billed at $50/hour.
 
@@ -47,48 +48,53 @@
 	#pricing-container {
 		display: flex;
 		flex-wrap: wrap;
-		position: absolute;
-		top: 270vh;
-		width: 80vw;
-		margin-left: 10vw;
+		width: 70vw;
+		margin-left: 15vw;
         color: #BBBEC5;
         justify-content: space-between;
+        position: relative;
+        margin-top: 10vh;
 	}
     #left-section {
         display: flex;
         flex-direction: column;
-        width: 40vw;
+        width: 35vw;
     }
     #pricing-title {
         font-family: openSans-bolditalic;
-        font-size: 4vw;
+        font-size: 3vw;
         text-align: left;
+        text-decoration: none;
+        color: #BBBEC5;
+    }
+    #pricing-cont {
+        display: none;
     }
     .par-wrapper {
         margin-top: 10vh;
-        width: 20vw;
+        width: 25vw;
     }
     #two.par-wrapper {
         margin-left: 10vw;
     }
     .par-title {
         font-family: openSans-medium;
-        font-size: 2.5vw;
+        font-size: 2vw;
         text-align: center;
     }
     .par-body {
         font-family: openSans-light;
-        font-size: 1.5vw;
+        font-size: 1.2vw;
         text-align: center;
     }
 
     #right-section {
         width: 35vw;
-        margin-top: 8vw;
+        margin-top: 18vh;
     }
     .details {
         font-family: openSans-light;
-        font-size: 1.3vw;
+        font-size: 1.1vw;
         text-align: center;
         
         margin-bottom: 8vh;
@@ -101,22 +107,31 @@
         position: absolute;
         z-index: -1;
         width: 80vw;
-        left: -40vw;
+        left: -45vw;
         top: -25vw;
     }
 
 	@media only screen and (max-width: 775px) {
         #pricing-container {
-            margin-left: 4vw;
-            top: 290vh;
+            margin-left: 4vw;          
             width: 92vw;
+            margin-top: 0;
         }
         #pricing-title {
             font-size: 8vw;
             width: 92vw;
         }
+        #pricing-cont {
+            display: block;
+            font-family: openSans-bolditalic;
+            font-size: 7vw;
+            margin-bottom: 2vh;
+        }
         #left-section{
             width: 92vw;
+            height:50vh;
+            scroll-snap-align: start;
+            scroll-margin-top: 25vh;
         }
         .par-title {
             font-size: 5.5vw;
@@ -125,15 +140,16 @@
             font-size: 4vw;
         }
         .par-wrapper {
-            width: 50vw;
-            margin-top: 6vw;
+            width: 70vw;
+            margin-top: 15vw;
         }
         #right-section {
             width: 92vw;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            margin-top: 25vw;
+            height: 84vh;
+            scroll-snap-align: start;
         }
         .details {
             font-size: 4.5vw;
@@ -145,7 +161,7 @@
         #oval-wrapper {
             top: -3vh;
             left: -4vw;
-            
+            width: 100vw;
         }
 	}
 </style>

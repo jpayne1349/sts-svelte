@@ -17,3 +17,21 @@ npm run dev -- --open
 # can create a remote git repo and link at this point if wanted.
 
 index.svelte created as the main route for the app '/'
+
+
+# getting started with firebase & firestore
+npm install firebase
+
+# create a env.js that can be excluded from git
+# put the firebase config in this. -> export default {..your config object}
+
+# create initFirebase.js file, exports an async function that attempts firebase connections
+# once we get this done for first project, should be pretty boilerplate
+
+# call the initFirebase function out of the __layout , modified for loading within a function only on client
+# returns app and db objects for return into the layout.. layout then adds them into the global context,
+# so that we can pull the db object wherever necessary..
+
+# ^^^ this may not be ideal, but it is working well for now.
+
+

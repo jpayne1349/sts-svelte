@@ -8,27 +8,28 @@
 
 <div id="MainPitch">
 
-    <div id="line1" transition:fly>Develop your ideas</div>
-	<div id="line2" transition:fly>Let us take care of the tech</div>
+    <div id="line1" >Develop your ideas</div>
+	<div id="line2" >Let us take care of the tech</div>
 </div>
 
 <style>
 	#MainPitch {
 		color: #bbbec5;
-		font-size: 5vw;
+		font-size: 4vw;
 		font-family: openSans-extrabolditalic;
 		margin-top: 30px;
-		margin-left: 10vw;
-		max-width: 80vw;
+		margin-left: 15vw;
+		max-width: 70vw;
 	}
 
 	@media only screen and (max-width: 775px) {
 		#MainPitch {
 			font-size: 9.6vw;
             text-align: center;
-			margin-left: 4vw;
+			margin: 0 4vw;
 			max-width: 92vw;
-			margin-top: 10px;
+			scroll-snap-align: start;
+			scroll-margin-top: 8vh;
 		}
 		#line2 {
 			font-size: 5vw;

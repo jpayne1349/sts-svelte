@@ -11,11 +11,13 @@
 <style>
     #phrase {
         font-family: openSans-regular;
-        font-size: 1vw;
+        font-size: 0.9vw;
         color: #BBBEC5;
-        margin-left: 10vw;
+        margin-left: 16.5vw;
         margin-top: 10px;
         text-shadow: -1px 1px 0 #162439;
+        width: 30vw;
+        text-align: center;
     }
 
     @media only screen and (max-width: 775px) {
@@ -25,7 +27,7 @@
             width: 80vw;
             text-align: center;
             position: absolute;
-            bottom: 2.6vh;
+            bottom: 19vh;
         }
     }
 

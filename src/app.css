@@ -40,9 +40,27 @@ body {
 		180deg,
 		#020d1f 0%,
 		#3c4f71 15%,
-		#425471 44%,
-		#485e81 74%,
-		#395381 100%
+		#425471 64%,
+		#020d1fe8 100%
 	   );
-	height: 500vh;
+		
+}
+
+#fullpage {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	
+}
+
+
+@media only screen and (max-width: 775px) {
+	body {
+		
+		scroll-behavior: smooth;
+	}
+	#fullpage {
+		position: relative;
+		top:0;
+	}
 }

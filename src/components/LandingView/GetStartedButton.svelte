@@ -6,7 +6,7 @@ export let buttonText;
 </script>
 
 
-<div id='button' >
+<a id='button' href='/contact-us' >
     <div id='text'>{buttonText}</div>
     <div id='icon' >
         <svg id="curly" viewBox="0 0 24 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -30,28 +30,28 @@ export let buttonText;
             </g>
         </svg>
     </div>
-</div>
+</a>
 
 <style>
     #button {
         display: flex;
         font-family: openSans-lightitalic;
         color: #C5C5C5;
-        width: 20vw;
-        
-        font-size: 2vw;
+        width: 17vw;
+        text-decoration: none;
+        font-size: 1.7vw;
         background: #293A55;
         box-shadow: -2px 1px 0 0 #121E31;
         border-radius: 5px;
         padding: 5px;
-        line-height: 4vw;
+        line-height: 3vw;
         justify-content: space-between;
         margin-right: 10px;
         cursor: pointer;
         transition: all 0.2s;
     }
     #button:hover {
-        background: #2e415f;
+        background: rgba(46, 65, 95, 0.52);
         transform: translateX(-0.5px);
         box-shadow: -1.5px 1px 0 0 #121E31;
         

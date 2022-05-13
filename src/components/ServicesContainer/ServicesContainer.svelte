@@ -7,7 +7,7 @@ import WebDevContainer from "./WebDevContainer.svelte";
 </script>
 
 
-<div id='container' >
+<div id='services-container' >
     
 <ServicesTitle />
 <WebDevContainer />
@@ -17,19 +17,17 @@ import WebDevContainer from "./WebDevContainer.svelte";
 
 
 <style>
-    #container {
-        position: absolute;
-        top: 100vh;
-        width: 80vw;
-        margin-left: 10vw;
+    #services-container {
+        width: 70vw;
+        margin-left: 15vw;
         display: flex;
         flex-direction: column;
-        margin-top: 0;
+
     }
     @media only screen and (max-width: 775px) {
-        #container {
-            top: 100vh;
-        }
-
+       #services-container {
+        width: 92vw;
+        margin-left: 4vw;
+       }
     }
 </style>

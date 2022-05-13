@@ -19,10 +19,10 @@
 
 <style>
 #cloud-container {
-    width: 45vw;
+    width: 38vw;
 }
 #Homepage {
-    fill: #425471;
+    fill: #253752;
 }
 
 @media only screen and (max-width: 775px) {

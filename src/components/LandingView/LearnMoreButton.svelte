@@ -2,7 +2,7 @@
 	export let buttonText;
 </script>
 
-<div id="button">
+<a id="button" href='/services'>
 	<div id="text">{buttonText}</div>
 	<div id="icon"> 
 
@@ -44,28 +44,28 @@
     </g>
 </svg>
     </div>
-</div>
+</a>
 
 <style>
     #button {
         display: flex;
         font-family: openSans-lightitalic;
         color: #0d1420de;
-        width: 20vw;
-        
-        font-size: 2vw;
+        width: 17vw;
+        text-decoration: none;
+        font-size: 1.7vw;
         background: #d8d8d880;
         box-shadow: -2px 1px 0 0 #121E31;
         border-radius: 5px;
         padding: 5px;
-        line-height: 4vw;
+        line-height: 3vw;
         justify-content: space-between;
         margin-right: 10px;
         cursor: pointer;
         transition: all 0.2s;
     }
     #button:hover {
-        background: #d8d8d887;
+        background: #d8d8d86e;
         transform: translateX(-0.5px);
         box-shadow: -1.5px 1px 0 0 #121E31;
         
