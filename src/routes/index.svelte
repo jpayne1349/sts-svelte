@@ -6,6 +6,8 @@
 
 <!-- TODO: setup an email trigger off the firebase document creation -->
 
+<!-- TODO: create a favicon for the tabss -->
+
 <script>
 
 import ServicesContainer from '../components/ServicesContainer/ServicesContainer.svelte';

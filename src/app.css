@@ -14,7 +14,7 @@
 }
 @font-face {
 	font-family: openSans-regular;
-	src: url('../static/OpenSans/OpenSans-regular.ttf');
+	src: url('../static/OpenSans/OpenSans-Regular.ttf');
 }
 @font-face {
 	font-family: openSans-medium;
@@ -50,7 +50,7 @@ body {
 	min-height: 100vh;
 	display: flex;
 	flex-direction: column;
-	
+
 }
 
 

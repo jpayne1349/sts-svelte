@@ -11,18 +11,19 @@ export async function initFirebase() {
 			let {initializeAppCheck, ReCaptchaV3Provider } = await import('firebase/app-check');
 
 			const app = initializeApp(firebaseConfig);
-            //const analytics = getAnalytics(app);
+           
 			const db = getFirestore(app);
 
 			// for development only?
 			//self.FIREBASE_APPCHECK_DEBUG_TOKEN = true;
 
-			const appCheck = initializeAppCheck(app, {
-				provider: new ReCaptchaV3Provider(firebaseConfig.recaptchaPublic),
+			// NOT USING UNTIL DOMAIN NAME IS STEADY
+			//const analytics = getAnalytics(app);
+			// const appCheck = initializeAppCheck(app, {
+			// 	provider: new ReCaptchaV3Provider(firebaseConfig.recaptchaPublic),
 
-				
-				isTokenAutoRefreshEnabled: true
-			});
+			// 	isTokenAutoRefreshEnabled: true
+			// });
 
 			return { app , db};
 		}
