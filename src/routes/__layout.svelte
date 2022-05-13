@@ -3,8 +3,15 @@
 
     // specific to svelte. must be called load, and uses a special fetch function.
     export async function load({ params, fetch, session, stuff }) {
-        const fbObject = await initFirebase();
         
+        try {
+            const fbObject = await initFirebase();
+            console.log(fbObject);
+        } catch(e) {
+            console.log(e);
+            
+        }
+
         return {
             props: {fbObject:fbObject}
         }
