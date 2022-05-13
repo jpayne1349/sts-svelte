@@ -4,14 +4,17 @@
     // specific to svelte. must be called load, and uses a special fetch function.
     export async function load({ params, fetch, session, stuff }) {
         
+        let fbObject;
+
         try {
-            const fbObject = await initFirebase();
-            console.log(fbObject);
+            fbObject = await initFirebase();
+            
         } catch(e) {
             console.log(e);
             
         }
-
+        
+        
         return {
             props: {fbObject:fbObject}
         }
@@ -26,8 +29,14 @@
     import Footer from '../components/Footer.svelte';
 
     import { setContext } from 'svelte';
+    import { onMount } from 'svelte';
 
     export let fbObject;
+    
+    onMount(() => {
+        console.log(fbObject);
+    });
+    
 
     setContext('fbObject', fbObject);
 
