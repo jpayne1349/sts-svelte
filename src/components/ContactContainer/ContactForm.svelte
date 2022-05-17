@@ -92,11 +92,46 @@
 	if (autoSubject != undefined) {
 		subject_value = autoSubject;
 	}
+
+
+	// *** Intersection Observer boilerplate ***
+	// css needed:  transform: translateY(4vh);
+	//				opacity: 0;
+	//				transition: all 1s;
+
+	//				transform: translateY(0);
+	//				opacity: 1;
+
+	import { onMount } from 'svelte';
+
+	let component; // bind:this={component}
+	let intersected; //class:show={intersected}
+
+	onMount(setupObserver);
+
+	// threshold = amount of screen crossing element top
+	let intersectOptions = {
+		threshold: 0.25
+	};
+
+	function setupObserver() {
+		let observer = new IntersectionObserver(intersectCallback, intersectOptions);
+		observer.observe(component);
+	}
+
+	// runs every time the intersection happens
+	function intersectCallback(observerEvent) {
+		if (observerEvent[0].isIntersecting) {
+			intersected ? '' : (intersected = true);
+		}
+	}
+
+	// *** end of intersection observer  ***
 </script>
 
 <!-- <button on:click={changeStatus}> Change Status </button> -->
 
-<div id="outer-container">
+<div id="outer-container" bind:this={component} class:show={intersected}>
 	<div id="filter" class:active={formStatus != 'idle'}>
 		<div class="small-row" id="to-line">
 			<div class="row-label">To:</div>
@@ -132,6 +167,11 @@
 		margin-top: 1vh;
 		padding-top: 1vw;
 		position: relative;
+		opacity: 0;
+		transition: all 1s;
+	}
+	#outer-container.show {
+		opacity: 1;
 	}
 	#filter {
 		position: absolute;

@@ -1,7 +1,7 @@
 <script>
 	import ConsultingCloud from './ConsultingCloud.svelte';
 
-	import { onMount } from 'svelte';
+	
 
 	// *** Intersection Observer boilerplate ***
 	// css needed: transform: translateY(4vh);
@@ -10,6 +10,8 @@
 
 	//				transform: translateY(0);
 	//				opacity: 1;
+
+	import { onMount } from 'svelte';
 
 	let component; // bind:this={component}
 	let intersected; //class:show={intersected}
