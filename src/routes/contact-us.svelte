@@ -41,7 +41,7 @@
 		width: 70vw;
 		margin: 3vh 0;
 	}
-	@media only screen and (max-width: 775px) {
+	@media only screen and (max-width: 615px) {
 		.details {
 			width: 92vw;
 			font-size: 4vw;

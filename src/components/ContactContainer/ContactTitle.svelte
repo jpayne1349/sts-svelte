@@ -16,7 +16,7 @@
         text-align: right;
         color: #BBBEC5;
     }
-    @media only screen and (max-width: 775px) {
+    @media only screen and (max-width: 615px) {
         #title {
             font-size: 8vw;
         }

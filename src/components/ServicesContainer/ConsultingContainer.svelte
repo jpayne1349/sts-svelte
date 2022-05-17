@@ -118,10 +118,10 @@
 		text-decoration: none;
 	}
 
-	@media only screen and (max-width: 775px) {
+	@media only screen and (max-width: 615px) {
 		#consulting-container {
 			flex-direction: column;
-			flex-wrap: wrap;
+			flex-wrap: nowrap;
 			margin-top: 0;
 			height: 75vh;
 			margin-bottom: 0;

@@ -29,7 +29,7 @@
 		text-decoration: none;
     }
 
-    @media only screen and (max-width: 775px) {
+    @media only screen and (max-width: 615px) {
         #footer  {
             font-size: 1.6vw;
             margin-bottom: 5vh;

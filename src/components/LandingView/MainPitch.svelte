@@ -22,7 +22,7 @@
 		max-width: 70vw;
 	}
 
-	@media only screen and (max-width: 775px) {
+	@media only screen and (max-width: 615px) {
 		#MainPitch {
 			font-size: 9.6vw;
             text-align: center;

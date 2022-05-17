@@ -33,7 +33,7 @@
 		}
 	}
 	// *** end of intersection observer  ***
-	
+
 </script>
 
 <div id="webdev-container" bind:this={component} class:show={intersected}>
@@ -89,7 +89,7 @@
 		font-size: 1.2vw;
 	}
 
-	@media only screen and (max-width: 775px) {
+	@media only screen and (max-width: 615px) {
 		#webdev-container {
 			height: 75vh;
 			margin-top: 10vw;
@@ -97,6 +97,7 @@
 			justify-content: flex-start;
 			scroll-snap-align: start;
 			scroll-margin-top: 17vh;
+			flex-wrap: nowrap;
 		}
 
 		#shifted-outline {

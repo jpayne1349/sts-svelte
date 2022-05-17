@@ -27,7 +27,7 @@
 		font-size: 2vw;
 		text-decoration: none;
 	}
-	@media only screen and (max-width: 775px) {
+	@media only screen and (max-width: 615px) {
 		#header-container {
 			margin: 10px 4vw 10px;
 			

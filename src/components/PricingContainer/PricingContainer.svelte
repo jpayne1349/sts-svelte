@@ -111,7 +111,7 @@
         top: -25vw;
     }
 
-	@media only screen and (max-width: 775px) {
+	@media only screen and (max-width: 615px) {
         #pricing-container {
             margin-left: 4vw;          
             width: 92vw;

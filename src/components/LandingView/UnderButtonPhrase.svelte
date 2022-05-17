@@ -20,7 +20,7 @@
         text-align: center;
     }
 
-    @media only screen and (max-width: 775px) {
+    @media only screen and (max-width: 615px) {
         #phrase {
             font-size: 3.2vw;
             margin: 0 10vw;

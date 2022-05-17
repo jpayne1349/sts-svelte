@@ -62,7 +62,7 @@ function validateAndSend() {
     #send-button.active:hover {
         background: #6a92d1e5;
     }
-    @media only screen and (max-width: 775px) {
+    @media only screen and (max-width: 615px) {
         .button {
             width: 20vw;
             height: 7vw;

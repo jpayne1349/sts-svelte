@@ -197,7 +197,7 @@
 		font-size: 1.3vw;
 		resize: none;
 	}
-	@media only screen and (max-width: 775px) {
+	@media only screen and (max-width: 615px) {
 		#outer-container {
 			width: 92vw;
 			height: 60vh;

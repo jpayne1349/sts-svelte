@@ -27,7 +27,7 @@ import ContactTitle from "./ContactTitle.svelte";
     }
 
 
-    @media only screen and (max-width: 775px) {
+    @media only screen and (max-width: 615px) {
 	#contact-form {
         width: 92vw;
         margin-left: 4vw;
