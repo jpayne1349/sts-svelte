@@ -33,7 +33,7 @@ import PricingContainer from '../components/PricingContainer/PricingContainer.sv
         color: #6A91D1;
         
     }
-    @media only screen and (max-width: 775px) {
+    @media only screen and (max-width: 615px) {
 		#pricing-page {
             margin-bottom: 5vh;
         }

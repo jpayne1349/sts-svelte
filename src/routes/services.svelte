@@ -24,7 +24,7 @@
         color: #6A91D1;
         
     }
-	@media only screen and (max-width: 775px) {
+	@media only screen and (max-width: 615px) {
 		.details {
 			width: 100vw;
 			font-size: 4.5vw;

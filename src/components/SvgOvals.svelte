@@ -79,7 +79,7 @@
         z-index: -1;
 	}
 
-@media only screen and (max-width: 775px) {
+@media only screen and (max-width: 615px) {
     #oval1 {
 		position: absolute;
 		top:55vh;

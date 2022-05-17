@@ -10,7 +10,7 @@
 	if(status == 404) {
 		title = 'Page Not Found';
 	} else {
-		title = 'Error - ' + status + message;
+		title = 'Error - ' + status + ' ' + message;
 	}
 
 	let autoSubject = message;
@@ -51,7 +51,7 @@
 		margin: 3vh 0;
 	}
 
-	@media only screen and (max-width: 775px) {
+	@media only screen and (max-width: 615px) {
 		#notfound-container {
 			width: 92vw;
 			margin-left: 4vw;

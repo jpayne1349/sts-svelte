@@ -1,5 +1,10 @@
 <script>
+	import { onMount } from "svelte";
+
+
 	export let text;
+	
+
 </script>
 
 <div id="mock-screen">
@@ -122,7 +127,7 @@
         font-family: openSans-light;
         line-height: 4vw;
     }
-	@media only screen and (max-width: 775px) {
+	@media only screen and (max-width: 615px) {
 		#mock-screen {
 			width: 100%;
 		}

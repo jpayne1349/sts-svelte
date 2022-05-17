@@ -20,9 +20,8 @@ export async function initFirebase() {
 			const appCheck = initializeAppCheck(app, {
 				provider: new ReCaptchaV3Provider(firebaseConfig.recaptchaSite),
 
-				
-				isTokenAutoRefreshEnabled: true
-			});
+			// 	isTokenAutoRefreshEnabled: true
+			// });
 
 			return { app , db};
 		}

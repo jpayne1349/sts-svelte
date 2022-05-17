@@ -89,7 +89,7 @@
     margin-top: 1px;
     }
 
-    @media only screen and (max-width: 775px) {
+    @media only screen and (max-width: 615px) {
        #button {
             width: 35vw;
             box-shadow: -1px 0.5px 0 0 #121E31;
