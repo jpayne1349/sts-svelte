@@ -1,5 +1,10 @@
 <script>
+	import { onMount } from "svelte";
+
+
 	export let text;
+	
+
 </script>
 
 <div id="mock-screen">

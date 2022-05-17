@@ -10,7 +10,7 @@
 	if(status == 404) {
 		title = 'Page Not Found';
 	} else {
-		title = 'Error - ' + status + message;
+		title = 'Error - ' + status + ' ' + message;
 	}
 
 	let autoSubject = message;

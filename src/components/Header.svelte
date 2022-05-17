@@ -2,11 +2,14 @@
 	let header_string = '{ "South Texas" : "Software" }';
 
 	let initials_string = '{"STS"}';
+
+
 </script>
 
 <div id="header-container">
 	<a href="/" id="header">
-		{header_string}
+			{header_string}
+
 	</a>
 	
 </div>
@@ -16,22 +19,21 @@
 	#header-container {
 		display: flex;
 		margin: 10px 15vw;
-		justify-content: flex-end;
+		justify-content: center;
 	}
 	#header {
 		color: #898f99;
 		font-family: openSans-semibold;
-		font-size: 1.1em;
+		font-size: 2vw;
 		text-decoration: none;
 	}
 	@media only screen and (max-width: 775px) {
 		#header-container {
-			margin: 10px 4vw 0px;
+			margin: 10px 4vw 10px;
 			
-			justify-content: flex-end;
 		}
 		#header {
-			font-size: 0.7em;
+			font-size: 5vw;
 		}
 
 	}
