@@ -21,7 +21,7 @@ export async function initFirebase() {
 				provider: new ReCaptchaV3Provider(firebaseConfig.recaptchaSite),
 
 			// 	isTokenAutoRefreshEnabled: true
-			// });
+			 });
 
 			return { app , db};
 		}
