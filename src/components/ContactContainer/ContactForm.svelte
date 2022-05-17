@@ -89,7 +89,7 @@
 
 	// used in error pages..
 	export let autoSubject;
-	if (autoSubject != undefined) {
+	if (autoSubject != 'none') {
 		subject_value = autoSubject;
 	}
 
@@ -199,6 +199,7 @@
 		font-family: openSans-medium;
 		font-size: 1.5vw;
 		width: 7vw;
+		margin-right: 1vw;
 	}
 	.small-input {
 		outline: none;

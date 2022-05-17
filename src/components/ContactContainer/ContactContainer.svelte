@@ -9,7 +9,7 @@ import ContactTitle from "./ContactTitle.svelte";
 <div id='contact-container'>
 
 <ContactTitle />
-<ContactForm />
+<ContactForm autoSubject={'none'}/>
 
 </div>
 

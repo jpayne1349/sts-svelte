@@ -10,7 +10,7 @@
 		questions, proposals, etc. and we will promptly get back to you via your provided contact
 		information.
 	</div>
-	<ContactForm />
+	<ContactForm autoSubject={'none'} />
 	<div class="details">
 		If you haven't already, please review our current <a class="link" href="/services">Services</a>
 		and <a class="link" href="/pricing">Pricing</a>.

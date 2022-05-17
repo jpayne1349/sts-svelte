@@ -6,8 +6,6 @@
 
 <!-- TODO: setup an email trigger off the firebase document creation -->
 
-<!-- TODO: create a favicon for the tabss -->
-
 <!-- TODO: contact form hides bottom of letter on the from/subject lines -->
 
 <script>
