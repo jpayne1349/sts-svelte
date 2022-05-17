@@ -100,7 +100,7 @@
 		color: #49576d;
 	}
 
-    @media only screen and (max-width: 775px) {
+    @media only screen and (max-width: 615px) {
         #popup-container {
             width: 50vw;
     height: 50vw;

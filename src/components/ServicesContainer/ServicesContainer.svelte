@@ -24,7 +24,7 @@ import WebDevContainer from "./WebDevContainer.svelte";
         flex-direction: column;
 
     }
-    @media only screen and (max-width: 775px) {
+    @media only screen and (max-width: 615px) {
        #services-container {
         width: 92vw;
         margin-left: 4vw;

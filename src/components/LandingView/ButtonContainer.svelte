@@ -21,7 +21,7 @@ import LearnMoreButton from "./LearnMoreButton.svelte";
         width: 70vw;
         margin-top: 15px;
     }
-@media only screen and (max-width: 775px) {
+@media only screen and (max-width: 615px) {
     #buttonContainer {
         margin-left: 8vw;
         justify-content: space-evenly;

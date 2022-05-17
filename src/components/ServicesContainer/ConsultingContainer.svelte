@@ -1,8 +1,44 @@
 <script>
 	import ConsultingCloud from './ConsultingCloud.svelte';
+
+	
+
+	// *** Intersection Observer boilerplate ***
+	// css needed: transform: translateY(4vh);
+	//				opacity: 0;
+	//				transition: all 1s;
+
+	//				transform: translateY(0);
+	//				opacity: 1;
+
+	import { onMount } from 'svelte';
+
+	let component; // bind:this={component}
+	let intersected; //class:show={intersected}
+
+	onMount(setupObserver);
+
+	// threshold = amount of screen crossing element top
+	let intersectOptions = {
+		threshold: 0.25
+	};
+
+	function setupObserver() {
+		let observer = new IntersectionObserver(intersectCallback, intersectOptions);
+		observer.observe(component);
+	}
+
+	// runs every time the intersection happens
+	function intersectCallback(observerEvent) {
+		if (observerEvent[0].isIntersecting) {
+			intersected ? '' : (intersected = true);
+		}
+	}
+
+	// *** end of intersection observer  ***
 </script>
 
-<div id="consulting-container">
+<div id="consulting-container" bind:this={component} class:show={intersected}>
 	<div id="main-content">
 		<div id="title">I.T. and Software Consulting</div>
 		<div id="sub-titles">
@@ -18,11 +54,8 @@
 		<p class="text">Automate data entry, computer tasks, file organization, etc.</p>
 		<p class="text">Organize and store your data with a custom interface for management.</p>
 		<p class="text">
-			Setup your home or business with modern infrastructure and security. 
-            <a
-				id="contact-link"
-				href="/contact-us">Contact Us</a
-			> for a free quote.
+			Setup your home or business with modern infrastructure and security.
+			<a id="contact-link" href="/contact-us">Contact Us</a> for a free quote.
 		</p>
 	</div>
 </div>
@@ -35,18 +68,24 @@
 		color: #bbbec5;
 		text-align: center;
 		margin-top: 5vh;
-        margin-bottom: 50vh;
-        justify-content: space-between;
+		margin-bottom: 50vh;
+		justify-content: space-between;
 		position: relative;
+		transform: translateY(4vh);
+		opacity: 0;
+		transition: all 1s;
+	}
+	#consulting-container.show {
+		transform: translateY(0);
+		opacity: 1;
 	}
 	#details {
 		display: flex;
 		flex-direction: column;
 		justify-content: space-evenly;
 		width: 30vw;
-		
+
 		padding-top: 16vh;
-		
 	}
 	.text {
 		font-family: openSans-light;
@@ -56,9 +95,8 @@
 		font-family: openSans-medium;
 		font-size: 2vw;
 		margin-top: 5vw;
-        width: 25vw;
-        text-align:center;
-
+		width: 25vw;
+		text-align: center;
 	}
 	.st {
 		font-family: openSans-light;
@@ -70,25 +108,25 @@
 		width: 32vw;
 		display: flex;
 		flex-direction: column;
-        align-items:center;
+		align-items: center;
 	}
 	#cloud {
 		position: absolute;
 		right: -2vw;
 		z-index: -1;
 	}
-    #contact-link {
+	#contact-link {
 		color: #9bb0d3;
 		text-decoration: none;
 	}
 
-	@media only screen and (max-width: 775px) {
+	@media only screen and (max-width: 615px) {
 		#consulting-container {
 			flex-direction: column;
-			flex-wrap: wrap;
+			flex-wrap: nowrap;
 			margin-top: 0;
-            height: 75vh;
-            margin-bottom: 0;
+			height: 75vh;
+			margin-bottom: 0;
 			align-items: center;
 			justify-content: flex-start;
 			scroll-snap-align: start;
@@ -106,7 +144,7 @@
 		}
 		.st {
 			font-size: 4.5vw;
-            line-height: 10vw;
+			line-height: 10vw;
 		}
 		#details {
 			width: 92vw;

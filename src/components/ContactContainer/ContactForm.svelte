@@ -89,14 +89,49 @@
 
 	// used in error pages..
 	export let autoSubject;
-	if (autoSubject != undefined) {
+	if (autoSubject != 'none') {
 		subject_value = autoSubject;
 	}
+
+
+	// *** Intersection Observer boilerplate ***
+	// css needed:  transform: translateY(4vh);
+	//				opacity: 0;
+	//				transition: all 1s;
+
+	//				transform: translateY(0);
+	//				opacity: 1;
+
+	import { onMount } from 'svelte';
+
+	let component; // bind:this={component}
+	let intersected; //class:show={intersected}
+
+	onMount(setupObserver);
+
+	// threshold = amount of screen crossing element top
+	let intersectOptions = {
+		threshold: 0.25
+	};
+
+	function setupObserver() {
+		let observer = new IntersectionObserver(intersectCallback, intersectOptions);
+		observer.observe(component);
+	}
+
+	// runs every time the intersection happens
+	function intersectCallback(observerEvent) {
+		if (observerEvent[0].isIntersecting) {
+			intersected ? '' : (intersected = true);
+		}
+	}
+
+	// *** end of intersection observer  ***
 </script>
 
 <!-- <button on:click={changeStatus}> Change Status </button> -->
 
-<div id="outer-container">
+<div id="outer-container" bind:this={component} class:show={intersected}>
 	<div id="filter" class:active={formStatus != 'idle'}>
 		<div class="small-row" id="to-line">
 			<div class="row-label">To:</div>
@@ -132,6 +167,11 @@
 		margin-top: 1vh;
 		padding-top: 1vw;
 		position: relative;
+		opacity: 0;
+		transition: all 1s;
+	}
+	#outer-container.show {
+		opacity: 1;
 	}
 	#filter {
 		position: absolute;
@@ -159,6 +199,7 @@
 		font-family: openSans-medium;
 		font-size: 1.5vw;
 		width: 7vw;
+		margin-right: 1vw;
 	}
 	.small-input {
 		outline: none;
@@ -197,7 +238,7 @@
 		font-size: 1.3vw;
 		resize: none;
 	}
-	@media only screen and (max-width: 775px) {
+	@media only screen and (max-width: 615px) {
 		#outer-container {
 			width: 92vw;
 			height: 60vh;

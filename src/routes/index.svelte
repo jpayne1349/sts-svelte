@@ -6,6 +6,8 @@
 
 <!-- TODO: setup an email trigger off the firebase document creation -->
 
+<!-- TODO: contact form hides bottom of letter on the from/subject lines -->
+
 <script>
 
 import ServicesContainer from '../components/ServicesContainer/ServicesContainer.svelte';

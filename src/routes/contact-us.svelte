@@ -10,7 +10,7 @@
 		questions, proposals, etc. and we will promptly get back to you via your provided contact
 		information.
 	</div>
-	<ContactForm />
+	<ContactForm autoSubject={'none'} />
 	<div class="details">
 		If you haven't already, please review our current <a class="link" href="/services">Services</a>
 		and <a class="link" href="/pricing">Pricing</a>.
@@ -41,7 +41,7 @@
 		width: 70vw;
 		margin: 3vh 0;
 	}
-	@media only screen and (max-width: 775px) {
+	@media only screen and (max-width: 615px) {
 		.details {
 			width: 92vw;
 			font-size: 4vw;
