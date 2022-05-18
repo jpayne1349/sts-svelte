@@ -34,7 +34,7 @@
         justify-content: center;
     }
     #links.row{
-        justify-content: space-around;
+        justify-content: space-evenly;
         margin-bottom: 2vh;
     }
     .link {
@@ -52,6 +52,8 @@
 
     @media only screen and (max-width: 615px) {
         #footer  {
+            width: 92vw;
+            margin-left: 4vw;
             font-size: 1.6vw;
             margin-bottom: 5vh;
         }

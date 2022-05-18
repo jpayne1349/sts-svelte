@@ -22,7 +22,7 @@
 
 	// threshold = amount of screen crossing element top
 	let intersectOptions = {
-		threshold: 0.25
+		threshold: 0.15
 	};
 
 	function setupObserver() {
