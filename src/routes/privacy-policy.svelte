@@ -4,7 +4,7 @@
 //<span class="bold" />
 
 <div id="privacy-container">
-	<div id="title">PRIVACY NOTICE</div>
+	<div id="title">Privacy Policy</div>
 
 	<div id="last-updated">Last updated May 17, 2022</div>
 
@@ -503,14 +503,14 @@
 	}
 	#title {
 		font-family: openSans-bolditalic;
-		font-size: 2vw;
+		font-size: 4vw;
 		text-align: center;
 	}
 	#last-updated {
 		font-family: openSans-regular;
 		font-size: 1vw;
 		text-align: center;
-		margin-bottom: 2vh;
+		margin-bottom: 5vh;
 	}
 	.par,
 	.bullet-points {

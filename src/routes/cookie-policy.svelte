@@ -4,7 +4,7 @@
 
 <div data-custom-class="body" id="wrapper">
 	<div id="title">Cookie Policy</div>
-	<div id="subtitle">
+	<div id="subtitle" style='font-family: openSans-light;'>
 		Last updated {updated_date}
 	</div>
 
@@ -229,68 +229,7 @@
 			>
 		</div>
 		<p style="font-size: 15px; line-height: 1.5;"><span data-custom-class="body_text" /></p>
-		<section
-			data-custom-class="body_text"
-			style="width: 100%; border: 1px solid rgb(230, 230, 230); margin: 0px 0px 10px; border-radius: 3px; text-align: left;"
-		>
-			<div style="padding: 8px 13px; border-bottom: 1px solid #e6e6e6;">
-				<table>
-					<tbody
-						><tr
-							style="font-family: Roboto, Arial; font-size: 12px; line-height: 1.67; margin: 0 0 8px; vertical-align: top;"
-							><td style="text-align: right; color: #19243c; min-width: 80px;">Name:</td><td
-								style="display: inline-block; margin-left: 5px;"
-								><span style="color: #8b93a7; word-break: break-all;">__tlbcpv</span></td
-							></tr
-						><tr
-							style="font-family: Roboto, Arial; font-size: 12px; line-height: 1.67; margin: 0; vertical-align: top;"
-							><td style="text-align: right; color: #19243c; min-width: 80px;">Purpose:</td><td
-								style="display: inline-block; margin-left: 5px;"
-								><span style="color: #8b93a7; word-break: break-all;"
-									>Used to record unique visitor views of the consent banner.</span
-								></td
-							></tr
-						><tr
-							style="font-family: Roboto, Arial; font-size: 12px; line-height: 1.67; margin: 0 0 8px; vertical-align: top;"
-							><td style="text-align: right; color: #19243c; min-width: 80px;">Provider:</td><td
-								style="display: inline-block; margin-left: 5px;"
-								><span style="color: #8b93a7; word-break: break-all;">.termly.io</span></td
-							></tr
-						><tr
-							style="font-family: Roboto, Arial; font-size: 12px; line-height: 1.67; margin: 0 0 8px; vertical-align: top;"
-							><td style="text-align: right; color: #19243c; min-width: 80px;">Service:</td><td
-								style="display: inline-block; margin-left: 5px;"
-								><span style="color: #8b93a7; word-break: break-all;"
-									>Termly <a
-										href="https://termly.io/our-privacy-policy/"
-										style="text-decoration: none; color: #6A91D1 !important;"
-										target="_blank">View Service Privacy Policy</a
-									>
-								</span></td
-							></tr
-						><tr
-							style="font-family: Roboto, Arial; font-size: 12px; line-height: 1.67; margin: 0 0 8px; vertical-align: top;"
-							><td style="text-align: right; color: #19243c; min-width: 80px;">Country:</td><td
-								style="display: inline-block; margin-left: 5px;"
-								><span style="color: #8b93a7; word-break: break-all;">United States</span></td
-							></tr
-						><tr
-							style="font-family: Roboto, Arial; font-size: 12px; line-height: 1.67; margin: 0 0 8px; vertical-align: top;"
-							><td style="text-align: right; color: #19243c; min-width: 80px;">Type:</td><td
-								style="display: inline-block; margin-left: 5px;"
-								><span style="color: #8b93a7; word-break: break-all;">http_cookie</span></td
-							></tr
-						><tr
-							style="font-family: Roboto, Arial; font-size: 12px; line-height: 1.67; margin: 0 0 8px; vertical-align: top;"
-							><td style="text-align: right; color: #19243c; min-width: 80px;">Expires in:</td><td
-								style="display: inline-block; margin-left: 5px;"
-								><span style="color: #8b93a7; word-break: break-all;">1 year</span></td
-							></tr
-						></tbody
-					>
-				</table>
-			</div>
-		</section>
+
 	</div>
 	<div />
 	<div style="line-height: 1.5;"><br /></div>
@@ -562,12 +501,13 @@
 		color: #bbbec5;
 		font-size: 4vw;
 		text-align: center;
+		margin-top: 2vh;
 	}
 	#subtitle {
 		color: #bbbec5;
 		font-family: openSans-semibold;
 		font-size: 1vw;
-		/* margin-top: 2vh; */
+		
 		margin-bottom: 5vh;
         text-align: center;
 	}
@@ -605,14 +545,14 @@
 			margin-left: 4vw;
 		}
 		#title {
-			font-size: 6vw;
+			font-size: 8vw;
 		}
 		#subtitle {
 			font-size: 2vw;
 		}
 		[data-custom-class='heading_1'],
 		[data-custom-class='heading_1'] * {
-			font-size: 5vw !important;
+			font-size: 6vw !important;
 		}
 		[data-custom-class='heading_2'],
 		[data-custom-class='heading_2'] * {
