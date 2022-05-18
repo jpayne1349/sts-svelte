@@ -3,9 +3,9 @@
 </script>
 
 <div id='footer'>
-    <div id='copyright'>&copy; South Texas Software, LLC </div>
+    <div id='copyright'>South Texas Software LLC </div>
     <a class='link' href='/terms-and-conditions'>Terms and Conditions</a>
-    <a class='link' href='/privacy-policy'>Privacy Policy</a>
+    <a class='link' href='/cookie-policy'>Cookie Policy</a>
 </div>
 
 
@@ -27,6 +27,9 @@
 		font-family: openSans-semibold;
 		font-size: 1.1em;
 		text-decoration: none;
+    }
+    #copyright {
+        user-select: none;
     }
 
     @media only screen and (max-width: 615px) {
