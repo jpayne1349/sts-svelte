@@ -5,6 +5,7 @@
 <div id='footer'>
     <div id='copyright'>South Texas Software LLC </div>
     <a class='link' href='/terms-and-conditions'>Terms and Conditions</a>
+    <a class='link' href='/privacy-policy'>Privacy Policy</a>
     <a class='link' href='/cookie-policy'>Cookie Policy</a>
 </div>
 
