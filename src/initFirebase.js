@@ -1,9 +1,14 @@
 import firebaseConfig from './env';
+import { browser, dev } from '$app/env';
 
 export async function initFirebase() {
+
+	console.log('Running in browser: ', browser);
+	console.log('Development Mode: ', dev);
+
 	try {
         // our way of only running this in the browser.
-		if (typeof window != undefined) {
+		if (browser) {
 			
 			let { initializeApp } = await import('firebase/app');
 			let { getAnalytics , isSupported } = await import('firebase/analytics');
@@ -11,16 +16,22 @@ export async function initFirebase() {
 			let {initializeAppCheck, ReCaptchaV3Provider } = await import('firebase/app-check');
 
 			const app = initializeApp(firebaseConfig);
-            const analytics = getAnalytics(app);
+            
+			let analytics = isSupported().then(()=>{
+				console.log('Analytics is supported');
+				return getAnalytics(app);
+			});
+	
 			const db = getFirestore(app);
 
-			// for development only?
-			//self.FIREBASE_APPCHECK_DEBUG_TOKEN = true;
+			if(dev) {
+				self.FIREBASE_APPCHECK_DEBUG_TOKEN = true;
+			}
 			
 			const appCheck = initializeAppCheck(app, {
-				provider: new ReCaptchaV3Provider(firebaseConfig.recaptchaSite),
+				provider: new ReCaptchaV3Provider('6LdXPukfAAAAAFJjgZDYYiMhDMLZKiirlzgp-oho'),
 
-			// 	isTokenAutoRefreshEnabled: true
+			 	isTokenAutoRefreshEnabled: true
 			 });
 
 			return { app , db};
