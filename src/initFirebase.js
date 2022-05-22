@@ -1,6 +1,7 @@
 import firebaseConfig from './env';
 import { browser, dev } from '$app/env';
 
+
 export async function initFirebase() {
 
 	console.log('Running in browser: ', browser);
@@ -8,7 +9,7 @@ export async function initFirebase() {
 
 	try {
         // our way of only running this in the browser.
-		if (browser) {
+		if (typeof window != undefined) {
 			
 			let { initializeApp } = await import('firebase/app');
 			let { getAnalytics , isSupported } = await import('firebase/analytics');
