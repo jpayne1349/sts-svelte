@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="605px" height="724px" viewBox="0 0 605 724" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>512</title>
+    <defs>
+        <linearGradient x1="51.1573337%" y1="20.1181642%" x2="47.4607404%" y2="83.7647745%" id="linearGradient-1">
+            <stop stop-color="#213350" offset="0%"></stop>
+            <stop stop-color="#071328" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="favicon" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="512x512" transform="translate(64.000000, 64.000000)">
+            <g id="512" transform="translate(-64.000000, -64.000000)">
+                <path d="M439,560 C526,556 555.145136,518.648026 576,504 C614.574935,476.905762 608.384613,147.892144 592,136 C571.586153,121.183391 457.729766,172.32682 391.884562,154.703958 C322,136 302,80 208,80 C118,80 79,117 64,128 C35.9181129,148.593384 29.0372895,448.922035 64,480 C91,504 151,480 213,504 C257.609357,521.268138 383.308908,562.56051 439,560 Z" id="Oval" fill="url(#linearGradient-1)"></path>
+                <text id="S" font-family="OpenSans-BoldItalic, Open Sans" font-size="288" font-style="italic" font-weight="bold" fill="#BBBEC5">
+                    <tspan x="103.421875" y="308">S</tspan>
+                </text>
+                <text id="T" font-family="OpenSans-BoldItalic, Open Sans" font-size="288" font-style="italic" font-weight="bold" fill="#BBBEC5">
+                    <tspan x="250.140625" y="436">T</tspan>
+                </text>
+                <text id="S" font-family="OpenSans-BoldItalic, Open Sans" font-size="288" font-style="italic" font-weight="bold" fill="#BBBEC5">
+                    <tspan x="379.421875" y="536">S</tspan>
+                </text>
+            </g>
+        </g>
+    </g>
+</svg>
