@@ -211,7 +211,7 @@
 									></bdt
 								></span
 							></a
-						><a data-custom-class="link" href="#privacypolicy" /></span
+						></span
 					>
 				</div>
 				<div style="line-height: 1.5; text-align: left;">
@@ -233,10 +233,7 @@
 					>
 				</div>
 				<div style="line-height: 1.5; text-align: left;">
-					<a data-custom-class="link" href="#copyright1"><span style="font-size: 15px;" /></a><a
-						data-custom-class="link"
-						href="#terms"
-					/><a data-custom-class="link" href="#terms"
+					<a data-custom-class="link" href="#copyright1"><span style="font-size: 15px;" /></a><a data-custom-class="link" href="#terms"
 						><span style="color: rgb(89, 89, 89);">9. TERM AND TERMINATION</span></a
 					>
 				</div>
@@ -334,7 +331,7 @@ Calibri;color:#595959;mso-themecolor:text1;mso-themetint:166;"><bdt class="block
 				id="agreement"
 				style="line-height: 115%;"
 			>
-				<a name="_a7mwfgcrtsqn" /><strong
+				<strong
 					><span style="line-height: 115%; font-family: Arial; font-size: 19px;"
 						>1. AGREEMENT TO TERMS</span
 					></strong
@@ -443,7 +440,7 @@ mso-themetint:166;"><bdt class="block-component" /></span
 		<div align="center" class="MsoNormal" style="text-align: left; line-height: 150%;">
 			<div class="MsoNormal" style="line-height: 1.5;"><br /></div>
 			<div class="MsoNormal" data-custom-class="heading_1" id="ip" style="line-height: 1.5;">
-				<a name="_4rd71iod99ud" /><strong
+				<strong
 					><span style="line-height: 115%; font-family: Arial; font-size: 19px;"
 						><strong
 							><span style="line-height: 115%; font-family: Arial; font-size: 19px;">2.&nbsp;</span
@@ -494,7 +491,7 @@ mso-themetint:166;"
 		<div align="center" class="MsoNormal" style="text-align: left; line-height: 150%;">
 			<div class="MsoNormal" style="line-height: 1.5;"><br /></div>
 			<div class="MsoNormal" data-custom-class="heading_1" id="userreps" style="line-height: 1.5;">
-				<a name="_vhkegautf00d" /><strong
+				<strong
 					><span style="line-height: 115%; font-family: Arial; font-size: 19px;"
 						><strong
 							><span style="line-height: 115%; font-family: Arial; font-size: 19px;"
@@ -599,7 +596,6 @@ line-height:115%;"
 		<div align="center" class="MsoNormal" style="text-align: left; line-height: 150%;">
 			<div class="MsoNormal" style="line-height: 1.5;"><br /></div>
 			<div class="MsoNormal" style="line-height: 1;">
-				<a name="_esuoutkhaf53" />
 				<bdt data-type="conditional-block"
 					><bdt
 						class="block-component"
@@ -609,7 +605,7 @@ line-height:115%;"
 				>
 			</div>
 			<div class="MsoNormal" style="line-height:115%;">
-				<a name="_1voziltdxegg" />
+				
 				<div
 					class="MsoNormal"
 					data-custom-class="heading_1"
@@ -1106,7 +1102,7 @@ line-height:115%;"
 						</li>
 					</ul>
 					<div class="MsoNormal" style="text-align: left; line-height: 1.5;">
-						<a name="_zbbv9tgty199" />
+					
 					</div>
 				</div>
 				<div class="MsoNormal" style="text-align: justify; line-height: 1.5;"><br /></div>
@@ -1422,7 +1418,7 @@ line-height:115%;"
 				</div>
 			</div>
 			<div class="MsoNormal" style="line-height: 115%;">
-				<span style="font-size: 15px;"><a name="_6nl7u6ag6use" /></span>
+				<span style="font-size: 15px;"></span>
 			</div>
 			<bdt class="block-container if" data-type="if" id="c954892f-02b9-c743-d1e8-faf0d59a4b70"
 				><bdt data-type="conditional-block"
@@ -1480,7 +1476,7 @@ Calibri;color:#595959;mso-themecolor:text1;mso-themetint:166;"
 		<div align="center"><span style="font-size: 15px;"><bdt class="block-component" /></span></div>
 		<div align="center" style="text-align: left; line-height: 1;">
 			<div class="MsoNormal" style="line-height: 115%;">
-				<span style="font-size: 15px;"><a name="_29ce8o9pbtmi" /></span>
+				<span style="font-size: 15px;"></span>
 			</div>
 			<bdt class="block-container if" data-type="if" id="14038561-dad7-be9d-370f-f8aa487b2570"
 				><bdt data-type="conditional-block"
@@ -1496,7 +1492,7 @@ Calibri;color:#595959;mso-themecolor:text1;mso-themetint:166;"
 					id="sitemanage"
 					style="line-height: 115%;"
 				>
-					<a name="_wj13r09u8u3u" /><strong
+					<strong
 						><span style="line-height: 115%; font-family: Arial; font-size: 19px;"
 							><strong
 								><span style="line-height: 115%; font-family: Arial; font-size: 19px;"
@@ -1533,7 +1529,7 @@ Calibri;color:#595959;mso-themecolor:text1;mso-themetint:166;"
 		<div align="center" style="text-align: left; line-height: 1.5;"><br /></div>
 		<div align="center" style="text-align: left; line-height: 1.5;">
 			<div class="MsoNormal" style="line-height: 1.5;"><br /></div>
-			<div class="MsoNormal" style="line-height: 1.5;"><a name="_jugvcvcw0oj9" /></div>
+			<div class="MsoNormal" style="line-height: 1.5;"></div>
 			<bdt class="block-container if" data-type="if" id="bdd90fa9-e664-7d0b-c352-2b8e77dd3bb4"
 				><bdt data-type="conditional-block"
 					><bdt
@@ -1555,17 +1551,17 @@ Calibri;color:#595959;mso-themecolor:text1;mso-themetint:166;"
 					>
 				</div>
 				<div class="MsoNormal" style="line-height: 115%;">
-					<span style="font-size: 15px;"><a name="_n081pott8yce" /></span>
+					<span style="font-size: 15px;"></span>
 				</div>
 				<bdt class="block-component"><bdt class="block-component" /></bdt></bdt
 			>
 			<div class="MsoNormal" style="line-height: 1;">
-				<span style="font-size: 15px;"><a name="_sg28ikxq3swh" /></span>
+				<span style="font-size: 15px;"></span>
 				<bdt class="block-component"><bdt class="block-component" /></bdt>
 			</div>
 			<div align="center" style="text-align: left;">
 				<div class="MsoNormal" data-custom-class="heading_1" id="terms" style="line-height: 115%;">
-					<a name="_k3mndam4w6w1" /><strong
+					<strong
 						><span style="line-height: 115%; font-family: Arial; font-size: 19px;"
 							><strong
 								><span style="line-height: 115%; font-family: Arial; font-size: 19px;"
@@ -1630,7 +1626,7 @@ Calibri;color:#595959;mso-themecolor:text1;mso-themetint:166;"
 					id="modifications"
 					style="line-height: 1.5;"
 				>
-					<a name="_e2dep1hfgltt" /><strong
+					<strong
 						><span style="line-height: 115%; font-family: Arial;"
 							><span style="font-size: 19px;"
 								><strong
@@ -1684,7 +1680,7 @@ Calibri;color:#595959;mso-themecolor:text1;mso-themetint:166;"
 			<div align="center" style="text-align: left;">
 				<div class="MsoNormal" style="line-height: 1.5;"><br /></div>
 				<div class="MsoNormal" data-custom-class="heading_1" id="law" style="line-height: 1.5;">
-					<a name="_p6vbf8atcwhs" /><strong
+					<strong
 						><span style="line-height: 115%; font-family: Arial;"
 							><span style="font-size: 19px;"
 								><strong
@@ -1754,7 +1750,7 @@ Calibri;color:#595959;mso-themecolor:text1;mso-themetint:166;"
 					id="disputes"
 					style="line-height: 1.5;"
 				>
-					<a name="_v5i5tjw62cyw" /><strong
+					<strong
 						><span style="line-height: 115%; font-family: Arial; font-size: 19px;"
 							><strong
 								><span style="line-height: 115%; font-family: Arial; font-size: 19px;"
@@ -1892,7 +1888,7 @@ Calibri;color:#595959;mso-themecolor:text1;mso-themetint:166;"
 								data-custom-class="heading_2"
 								style="line-height: 17.25px; text-align: left;"
 							>
-								<a name="_inlv5c77dhih" /><strong>Restrictions</strong>
+								<strong>Restrictions</strong>
 							</div></bdt
 						></bdt
 					></bdt
@@ -1932,7 +1928,7 @@ Calibri;color:#595959;mso-themecolor:text1;mso-themetint:166;"
 								data-custom-class="heading_2"
 								style="line-height: 17.25px; text-align: left;"
 							>
-								<a name="_mdjlt1af25uq" /><strong>Exceptions to Arbitration</strong>
+								<strong>Exceptions to Arbitration</strong>
 							</div></bdt
 						></bdt
 					></bdt
@@ -1977,7 +1973,7 @@ Calibri;color:#595959;mso-themecolor:text1;mso-themetint:166;"
 				id="corrections"
 				style="line-height: 1.5;"
 			>
-				<a name="_mjgzo07ttzx5" /><strong
+				<strong
 					><span style="line-height: 115%; font-family: Arial; font-size: 19px;"
 						><strong
 							><span style="line-height: 115%; font-family: Arial; font-size: 19px;"
@@ -2013,7 +2009,7 @@ Calibri;color:#595959;mso-themecolor:text1;mso-themetint:166;"
 				id="disclaimer"
 				style="line-height: 1.5;"
 			>
-				<a name="_gvi74blrahf9" /><strong
+				<strong
 					><span style="line-height: 115%; font-family: Arial; font-size: 19px;"
 						><strong
 							><span style="line-height: 115%; font-family: Arial; font-size: 19px;"
@@ -2062,7 +2058,7 @@ Calibri;color:#595959;mso-themecolor:text1;mso-themetint:166;"
 		<div align="center" style="text-align: left;">
 			<div class="MsoNormal" style="line-height: 1.5;"><br /></div>
 			<div class="MsoNormal" data-custom-class="heading_1" id="liability" style="line-height: 1.5;">
-				<a name="_4pjah3d0455q" /><strong
+				<strong
 					><span style="line-height: 115%; font-family: Arial; font-size: 19px;"
 						><strong
 							><span style="line-height: 115%; font-family: Arial; font-size: 19px;"
@@ -2143,7 +2139,7 @@ Calibri;color:#595959;mso-themecolor:text1;mso-themetint:166;"
 				id="indemnification"
 				style="line-height: 1.5;"
 			>
-				<a name="_k5ap68aj1dd4" /><strong
+				<strong
 					><span style="line-height: 115%; font-family: Arial; font-size: 19px;"
 						><strong
 							><span style="line-height: 115%; font-family: Arial; font-size: 19px;"
@@ -2197,7 +2193,7 @@ Calibri;color:#595959;mso-themecolor:text1;mso-themetint:166;"
 		<div align="center" style="text-align: left;">
 			<div class="MsoNormal" style="line-height: 1.5;"><br /></div>
 			<div class="MsoNormal" data-custom-class="heading_1" id="userdata" style="line-height: 1.5;">
-				<a name="_ftgg17oha0ep" /><strong
+				<strong
 					><span style="line-height: 115%; font-family: Arial; font-size: 19px;"
 						><strong
 							><span style="line-height: 115%; font-family: Arial; font-size: 19px;"
@@ -2241,7 +2237,7 @@ Calibri;color:#595959;mso-themecolor:text1;mso-themetint:166;"
 				id="electronic"
 				style="line-height: 1.5;"
 			>
-				<a name="_dkovrslqodui" /><strong
+				<strong
 					><span style="line-height: 115%; font-family: Arial; font-size: 19px;"
 						><strong
 							><span style="line-height: 115%; font-family: Arial; font-size: 19px;"
@@ -2283,7 +2279,7 @@ Calibri;color:#595959;mso-themecolor:text1;mso-themetint:166;"><bdt class="block
 				>
 			</div>
 			<div class="MsoNormal" data-custom-class="heading_1" id="misc" style="line-height: 115%;">
-				<a name="_d4jvmcnxg0wt" /><strong
+				<strong
 					><span style="line-height: 115%; font-family: Arial; font-size: 19px;"
 						><strong
 							><span style="line-height: 115%; font-family: Arial; font-size: 19px;"
@@ -2330,7 +2326,7 @@ Calibri;color:#595959;mso-themecolor:text1;mso-themetint:166;"><bdt class="block
 			<div align="center" style="text-align: left;">
 				<div class="MsoNormal" style="line-height: 1.5;"><br /></div>
 				<div class="MsoNormal" data-custom-class="heading_1" id="contact" style="line-height: 1.5;">
-					<a name="_t4pq5cwn486q" /><strong
+					<strong
 						><span style="line-height: 115%; font-family: Arial;"
 							><span style="font-size: 19px;"
 								><strong
@@ -2435,14 +2431,6 @@ Calibri;color:#595959;mso-themecolor:text1;mso-themetint:166;"
 		margin-top: 3vh;
         line-height: 4vw;
 
-	}
-	#subtitle {
-		color: #bbbec5;
-		font-family: openSans-semibold;
-		font-size: 1vw;
-		/* margin-top: 2vh; */
-		margin-bottom: 5vh;
-		text-align: center;
 	}
 
 	[data-custom-class='heading_1'],

@@ -529,6 +529,11 @@
 		font-size: 1.8vw;
 		margin: 2vh 0;
 	}
+    .heading {
+        font-family: openSans-semibold;
+        font-size: 1.5vw;
+        margin-bottom: 1vh;
+    }
 	.bold {
 		font-family: openSans-regular;
 	}
@@ -569,6 +574,9 @@
 		.subtitle {
 			font-size: 6vw;
 		}
+        .heading {
+        font-size: 4vw;
+        }
         #link-list {
             font-size: 3vw;
             line-height: 4vh;

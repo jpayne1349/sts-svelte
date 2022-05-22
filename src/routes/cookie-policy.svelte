@@ -512,8 +512,8 @@
         text-align: center;
 	}
 
-	[data-custom-class='heading_1'],
-	[data-custom-class='heading_1'] * {
+	[data-custom-class='heading_1']
+	 {
 		font-family: openSans-semibold !important;
 		font-size: 1.8vw !important;
 		color: #bbbec5 !important;
@@ -550,8 +550,8 @@
 		#subtitle {
 			font-size: 2vw;
 		}
-		[data-custom-class='heading_1'],
-		[data-custom-class='heading_1'] * {
+		[data-custom-class='heading_1']
+		{
 			font-size: 6vw !important;
 		}
 		[data-custom-class='heading_2'],
