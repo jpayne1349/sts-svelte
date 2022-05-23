@@ -17,7 +17,7 @@
 
 	$: formFilled(from_value, body_value);
 
-	// Actual call to firebase for data entry
+	// checks message type and trys db entry
 	async function handleMessage(event) {
 		let type = event.detail.type;
 
@@ -25,22 +25,29 @@
 			clearForm();
 		}
 
+		// document addition to firestore
 		if (type == 'send') {
 			try {
 				// show the sending message
 				formStatus = 'sending';
 
 				// check for undefined subject
-				if(subject_value == undefined) {
-				    subject_value = 'undefined';
+				if (subject_value == undefined) {
+					subject_value = 'undefined';
 				}
 
 				// async db addition
 				const docRef = await addDoc(collection(fbObject.db, 'contact-forms'), {
-					from: from_value,
-					subject: subject_value,
-					body: body_value,
-                    timestamp: Timestamp.fromDate(new Date())
+					to: 'james@southtexas.software',
+					template: {
+						name: 'contact-form-submission',
+						data: {
+							from: from_value,
+							subject: subject_value,
+							body: body_value,
+							timestamp: Timestamp.fromDate(new Date())
+						}
+					}
 				});
 
 				// show the sent message, then clear form
@@ -51,7 +58,6 @@
 				setTimeout(() => {
 					formStatus = 'idle';
 				}, 1500);
-
 			} catch (e) {
 				// show the failed message
 				formStatus = 'failed';
@@ -92,7 +98,6 @@
 	if (autoSubject != 'none') {
 		subject_value = autoSubject;
 	}
-
 
 	// *** Intersection Observer boilerplate ***
 	// css needed:  transform: translateY(4vh);

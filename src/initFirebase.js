@@ -13,15 +13,18 @@ export async function initFirebase() {
 			let { getFirestore } = await import('firebase/firestore');
 			let { initializeAppCheck, ReCaptchaV3Provider } = await import('firebase/app-check');
 
-			const app = initializeApp(firebaseConfig);
+			const app = await initializeApp(firebaseConfig);
 
 			let analytics = isSupported()
 				.then(() => {
-					try {
-						getAnalytics(app);
-					} catch (e) {
-						console.log('Error in getAnalytics');
-						console.error(e);
+					// secondary check so this doesn't run in server after promise above returns
+					if (browser) {
+						try {
+							getAnalytics(app);
+						} catch (e) {
+							console.log('Error in getAnalytics');
+							console.error(e);
+						}
 					}
 				})
 				.catch((e) => {
@@ -47,8 +50,8 @@ export async function initFirebase() {
 		// code here to run on server side
 		// not needed at this time?
 	} catch (error) {
-		console.error('Error in Firebase Init');
-
+		console.log('Error in Firebase Init');
+		console.error(error);
 		// TODO: return a trigger to display an error in the contact form.
 	}
 }
