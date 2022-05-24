@@ -38,7 +38,7 @@
 
 				// async db addition
 				const docRef = await addDoc(collection(fbObject.db, 'contact-forms'), {
-					to: 'james@southtexas.software',
+					to: ['james@southtexas.software'],
 					template: {
 						name: 'contact-form-submission',
 						data: {
