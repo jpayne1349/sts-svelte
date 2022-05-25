@@ -8,6 +8,8 @@
 
 <!-- TODO: contact form hides bottom of letter on the from/subject lines -->
 
+<!-- TODO: add COOKIE popup banner for legitimate consent of policy.. -->
+
 <script>
 
 import ServicesContainer from '../components/ServicesContainer/ServicesContainer.svelte';
