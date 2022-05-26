@@ -8,9 +8,9 @@ import LearnMoreButton from "./LearnMoreButton.svelte";
 
 <div id='buttonContainer'>
 
-<GetStartedButton buttonText='GET STARTED'/>
+<GetStartedButton buttonText='CONTACT US'/>
 
-<LearnMoreButton buttonText='LEARN MORE'/>
+<LearnMoreButton buttonText='SERVICES'/>
 
 </div>
 
