@@ -1,8 +1,8 @@
 <svelte:head>
-	<title>Website Development and I.T. Consulting | SouthTexas.Software</title>
+	<title>Software Development and I.T. Consulting | SouthTexas.Software</title>
 	<meta
 		name="description"
-		content="We help small businesses, weddings, bloggers, etc. design, build, and manage custom websites. Real people, real service. We write custom software for task automation, scripting, databases, and more. Contact us today for a free consultation or quote!"
+		content="Helping small businesses, weddings, bloggers, etc. design, build, and manage custom websites. Real people, real service. We write custom software for task automation, scripting, databases, and more. Contact us today for a free consultation or quote!"
 	/>
 </svelte:head>
 
