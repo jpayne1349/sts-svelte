@@ -1,7 +1,15 @@
+<svelte:head>
+	<title>
+		Terms of Use | SouthTexas.Software
+	</title>
+	<meta name='description' 
+	content="Read the terms and agreements made by all parties when accessing and using our products or services. Contact us with your questions!">
+</svelte:head>
+
 <script>
 </script>
 
-<div id="title">Terms and Conditions</div>
+<div id="title">Terms of Use</div>
 <div data-custom-class="body">
 	<div align="center" style="text-align: left; line-height: 1;">
 		<div align="center" class="MsoNormal" style="text-align: left; line-height: 150%;">

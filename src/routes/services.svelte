@@ -1,3 +1,12 @@
+<svelte:head>
+	<title>
+		Our Services | SouthTexas.Software
+	</title>
+	<meta name='description' 
+	content="Services include: Web development such as websites, web apps, and web servers. IT and Software Consulting such as task automation, scripting, local and cloud databases, local networking and security. Contact us for a free consultation or quote!">
+</svelte:head>
+
+
 <script>
 	import ServicesContainer from '../components/ServicesContainer/ServicesContainer.svelte';
 </script>

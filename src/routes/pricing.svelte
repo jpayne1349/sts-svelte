@@ -1,3 +1,12 @@
+<svelte:head>
+	<title>
+		Project Pricing | SouthTexas.Software
+	</title>
+	<meta name='description' 
+	content="How much does a custom website cost? Read about our general pricing and what we base it off of. All pricing is custom fit to your project size and requirements! Contact us for a free quote!">
+</svelte:head>
+
+
 <script>
 
 import PricingContainer from '../components/PricingContainer/PricingContainer.svelte';

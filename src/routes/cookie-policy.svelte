@@ -1,3 +1,11 @@
+<svelte:head>
+	<title>
+		Cookie Policy | SouthTexas.Software
+	</title>
+	<meta name='description' 
+	content="Learn more about cookies, how we use them, and how we don't. Contact us with your questions!">
+</svelte:head>
+
 <script>
 	let updated_date = 'May 17, 2022';
 </script>

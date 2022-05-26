@@ -1,3 +1,11 @@
+<svelte:head>
+	<title>
+		Privacy Policy | SouthTexas.Software
+	</title>
+	<meta name='description' 
+	content="Read about how we might collect, store, use, and/or share information that you provide when you use our products or services. Contact us with your questions!">
+</svelte:head>
+
 <script>
 </script>
 

@@ -1,3 +1,12 @@
+
+<svelte:head>
+	<title>
+		Contact Us | SouthTexas.Software
+	</title>
+	<meta name='description' 
+	content="Interested in a new or updated website? What about local databases and employee portals? Contact us for a free consultation or quote!">
+</svelte:head>
+
 <script>
 	import ContactForm from '../components/ContactContainer/ContactForm.svelte';
 	import ContactTitle from '../components/ContactContainer/ContactTitle.svelte';

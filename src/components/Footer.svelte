@@ -4,7 +4,7 @@
 
 <div id='footer'>
     <div class='row' id='links'>
-    <a class='link' href='/terms-and-conditions'>Terms and Conditions</a>
+    <a class='link' href='/terms-of-us'>Terms of Use</a>
     <a class='link' href='/privacy-policy'>Privacy Policy</a>
     <a class='link' href='/cookie-policy'>Cookie Policy</a>
 </div>

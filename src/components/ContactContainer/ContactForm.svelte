@@ -59,7 +59,7 @@
 					formStatus = 'idle';
 				}, 1500);
 			} catch (e) {
-				// show the failed message
+				// TODO: show the failed message
 				formStatus = 'failed';
 				console.error(e);
 			}
@@ -143,11 +143,11 @@
 			<div id="email">development@southtexas.software</div>
 		</div>
 		<div class="small-row" id="from-line">
-			<div class="row-label">From:</div>
+			<label for="from-input" class="row-label">From:</label>
 			<input bind:value={from_value} id="from-input" class="small-input" type="email" />
 		</div>
 		<div class="small-row" id="from-line">
-			<div class="row-label">Subject:</div>
+			<label for="subject-input" class="row-label">Subject:</label>
 			<input bind:value={subject_value} class="small-input" id="subject-input" type="text" />
 			<div id="button-container">
 				<ButtonContainer on:message={handleMessage} validation={requiredValues} />
@@ -155,6 +155,7 @@
 		</div>
 
 		<div id="form-body">
+			<label for="form-textarea"></label>
 			<textarea bind:value={body_value} id="form-textarea" />
 		</div>
 	</div>

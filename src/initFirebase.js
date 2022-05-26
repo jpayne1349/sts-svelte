@@ -7,7 +7,7 @@ export async function initFirebase() {
 
 	try {
 		// our way of only running this in the browser.
-		if (typeof window != undefined) {
+		if (typeof window != 'undefined') {
 			let { initializeApp } = await import('firebase/app');
 			let { getAnalytics, isSupported } = await import('firebase/analytics');
 			let { getFirestore } = await import('firebase/firestore');

@@ -7,7 +7,7 @@
         let fbObject;
 
         try {
-            fbObject = await initFirebase();
+            //fbObject = await initFirebase();
             
         } catch(e) {
             console.log(e);
@@ -29,15 +29,10 @@
     import Footer from '../components/Footer.svelte';
 
     import { setContext } from 'svelte';
-    import { onMount } from 'svelte';
+
 
     export let fbObject;
     
-    onMount(() => {
-        console.log(fbObject);
-    });
-    
-
     setContext('fbObject', fbObject);
 
 </script>
