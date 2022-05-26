@@ -21,7 +21,7 @@
 			><span style="color: rgb(89, 89, 89); font-size: 1.5vw;"
 				><span data-custom-class="body_text"
 					>This Cookie Policy explains how <bdt class="question" style="text-decoration:underline;"
-						>South Texas Software LLC</bdt
+						>South Texas Software, LLC</bdt
 					><bdt class="block-component" />
 					("<bdt class="block-component" /><strong>Company</strong><bdt
 						class="statement-end-if-in-editor"

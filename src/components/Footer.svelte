@@ -8,7 +8,7 @@
     <a class='link' href='/privacy-policy'>Privacy Policy</a>
     <a class='link' href='/cookie-policy'>Cookie Policy</a>
 </div>
-    <div class='row' id='copyright'>South Texas Software LLC</div>
+    <div class='row' id='copyright'>South Texas Software, LLC</div>
     
 </div>
 

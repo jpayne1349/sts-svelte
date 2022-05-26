@@ -357,7 +357,7 @@ mso-themetint:166;"
 					personally or on behalf of an entity (“you”) and <bdt
 						class="block-container question question-in-editor"
 						data-id="4ab94aa9-19d1-61e0-711e-42c7d186232b"
-						data-type="question">South Texas Software LLC</bdt
+						data-type="question">South Texas Software, LLC</bdt
 					><bdt class="block-component" /> ("<bdt class="block-component" /><strong>Company</strong
 					><bdt class="statement-end-if-in-editor" />," “<strong>we</strong>," “<strong>us</strong
 					>," or “<strong>our</strong>”), concerning your access to and use of the

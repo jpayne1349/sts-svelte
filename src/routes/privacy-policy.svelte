@@ -17,7 +17,7 @@
 	<div id="last-updated">Last updated May 17, 2022</div>
 
 	<div class="par">
-		This privacy notice for <span class="company-name">South Texas Software LLC</span> ("Company", "we",
+		This privacy notice for <span class="company-name">South Texas Software, LLC</span> ("Company", "we",
 		"us", or "our"), describes how and why we might collect, store, use, and/or share ("process") your
 		information when you use our services ("Services"), such as when you:
 	</div>
@@ -101,7 +101,7 @@
 	</div>
 
 	<div class="par">
-		Want to learn more about what South Texas Software LLC does with any information we collect?
+		Want to learn more about what South Texas Software, LLC does with any information we collect?
 		Click <a class="link" href="#table-of-contents">here</a> to review the notice in full.
 	</div>
 
