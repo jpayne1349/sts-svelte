@@ -7,7 +7,7 @@
         let fbObject;
 
         try {
-            //fbObject = await initFirebase();
+            fbObject = await initFirebase();
             
         } catch(e) {
             console.log(e);
@@ -27,6 +27,7 @@
     import '../app.css';
     import Header from '../components/Header.svelte';
     import Footer from '../components/Footer.svelte';
+    import CookiePopup from '../components/CookiePopup.svelte';
 
     import { setContext } from 'svelte';
 
@@ -40,5 +41,5 @@
 <Header />
 <slot></slot>
 <Footer />
-
+<CookiePopup />
 
