@@ -23,7 +23,7 @@ function toggleActive() {
 
     <div class='row'>This website uses cookies to analyze traffic and improve security.</div>
     <div class='row buttons'>
-        <a href='/cookie-policy' class='button policy'>Policy</a>
+        <a on:click={toggleActive} href='/cookie-policy' class='button policy'>Policy</a>
         <div on:click={toggleActive} class='button okay'>Okay</div>
     </div>
 
