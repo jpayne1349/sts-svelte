@@ -8,7 +8,7 @@
 
 
 <script>
-	import ServicesContainer from '../components/ServicesContainer/ServicesContainer.svelte';
+	import ServicesContainer from '../../components/ServicesContainer/ServicesContainer.svelte';
 </script>
 
 <div id="services-page">

@@ -8,8 +8,8 @@
 </svelte:head>
 
 <script>
-	import ContactForm from '../components/ContactContainer/ContactForm.svelte';
-	import ContactTitle from '../components/ContactContainer/ContactTitle.svelte';
+	import ContactForm from '../../components/ContactContainer/ContactForm.svelte';
+	import ContactTitle from '../../components/ContactContainer/ContactTitle.svelte';
 </script>
 
 <div id="contact-page">

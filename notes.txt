@@ -35,3 +35,10 @@ npm install firebase
 # ^^^ this may not be ideal, but it is working well for now.
 
 
+# New notes as of the sveltekit routing update
+# you want to call all your load functions in a .js file, that then passes the information to your .svelte file
+# In my use case, the site connects to firebase right away. For analytics and establishing the information for the
+# form submission. This would be done at initial load and then the data available to every page/route that has
+# the form. Or just all of them since it's not a big deal.
+
+

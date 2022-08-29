@@ -1,12 +1,13 @@
+
 import firebaseConfig from './env';
-import { browser, dev } from '$app/env';
+import { browser, dev } from '$app/environment';
 
 export async function initFirebase() {
 	console.log('Running in browser: ', browser);
 	console.log('Development Mode: ', dev);
 
 	try {
-		// our way of only running this in the browser.
+		// our way of only running this in the browser. we tried checking the browser boolean from svelte and it didnt work...
 		if (typeof window != 'undefined') {
 			let { initializeApp } = await import('firebase/app');
 			let { getAnalytics, isSupported } = await import('firebase/analytics');
@@ -49,6 +50,7 @@ export async function initFirebase() {
 
 		// code here to run on server side
 		// not needed at this time?
+
 	} catch (error) {
 		console.log('Error in Firebase Init');
 		console.error(error);
