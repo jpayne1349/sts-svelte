@@ -39,9 +39,9 @@
 <div id="webdev-container" bind:this={component} class:show={intersected}>
 	<div id="left-section">
 		<div id="shifted-outline">
-			<DesktopOutline />
+			<DesktopOutline text={false}/>
 		</div>
-		<DesktopOutline text="true" />
+		<DesktopOutline text={true} />
 	</div>
 
 	<div id="right-section">

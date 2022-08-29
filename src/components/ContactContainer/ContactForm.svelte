@@ -50,6 +50,7 @@
 					}
 				});
 
+
 				// show the sent message, then clear form
 				formStatus = 'sent';
 				clearForm();
