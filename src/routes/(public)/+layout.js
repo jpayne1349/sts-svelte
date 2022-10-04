@@ -1,6 +1,6 @@
 
 // asynchronous functions that establishes connection with firebase. returns app and db objects
-import { initFirebase } from '../initFirebase';
+import { initFirebase } from '../../initFirebase';
 
 
 

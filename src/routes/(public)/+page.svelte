@@ -9,10 +9,10 @@
 
 <!-- TODO: add COOKIE popup banner for legitimate consent of policy.. -->
 <script>
-	import ServicesContainer from '../components/ServicesContainer/ServicesContainer.svelte';
-	import PricingContainer from '../components/PricingContainer/PricingContainer.svelte';
-	import ContactContainer from '../components/ContactContainer/ContactContainer.svelte';
-	import LandingContainer from '../components/LandingView/LandingContainer.svelte';
+	import ServicesContainer from '../../components/ServicesContainer/ServicesContainer.svelte';
+	import PricingContainer from '../../components/PricingContainer/PricingContainer.svelte';
+	import ContactContainer from '../../components/ContactContainer/ContactContainer.svelte';
+	import LandingContainer from '../../components/LandingView/LandingContainer.svelte';
 </script>
 
 <!-- TODO: if firebase init fails, the contact container should error out. and the node server should contact us to fix.. -->

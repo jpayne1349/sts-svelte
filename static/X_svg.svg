@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group 2</title>
+    <g id="client-portal" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="square">
+        <g id="event-modal" transform="translate(-1241.000000, -324.000000)" stroke="#979797" stroke-width="1.62">
+            <g id="Group-2" transform="translate(1242.227092, 325.227092)">
+                <line x1="8.77290823" y1="-3.13385757" x2="8.77290823" y2="20.679674" id="Line-10" transform="translate(8.772908, 8.772908) rotate(-135.000000) translate(-8.772908, -8.772908) "></line>
+                <line x1="8.77290823" y1="-3.13385757" x2="8.77290823" y2="20.679674" id="Line-10" transform="translate(8.772908, 8.772908) rotate(-45.000000) translate(-8.772908, -8.772908) "></line>
+            </g>
+        </g>
+    </g>
+</svg>
