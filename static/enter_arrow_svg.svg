@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="19px" height="9px" viewBox="0 0 19 9" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Line 2</title>
+    <g id="client-portal" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="login-view-initial" transform="translate(-997.000000, -580.000000)" fill="#878787" fill-rule="nonzero">
+            <g id="client-portal-welcome" transform="translate(422.000000, 218.000000)">
+                <g id="Group" transform="translate(359.000000, 315.000000)">
+                    <path id="Line-2" d="M226,47 L235,51.5 L226,56 L226,52 L216,52 L216,51 L226,51 L226,47 Z"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

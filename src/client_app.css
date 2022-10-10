@@ -1,37 +1,36 @@
-
 @font-face {
 	font-family: openSans-semibold;
-	src: url('../OpenSans/OpenSans-SemiBold.ttf');
+	src: url('./public/OpenSans-SemiBold.ttf');
 }
 @font-face {
 	font-family: openSans-extrabolditalic;
-	src: url('../OpenSans/OpenSans-ExtraBoldItalic.ttf');
+	src: url('./public/OpenSans-ExtraBoldItalic.ttf');
 }
 @font-face {
 	font-family: openSans-lightitalic;
-	src: url('../OpenSans/OpenSans-LightItalic.ttf');
+	src: url('./public/OpenSans-LightItalic.ttf');
 }
 @font-face {
 	font-family: openSans-regular;
-	src: url('../OpenSans/OpenSans-Regular.ttf');
+	src: url('./public/OpenSans-Regular.ttf');
 }
 @font-face {
 	font-family: openSans-medium;
-	src: url('../OpenSans/OpenSans-Medium.ttf');
+	src: url('./public/OpenSans-Medium.ttf');
 }
 @font-face {
 	font-family: openSans-light;
-	src: url('../OpenSans/OpenSans-Light.ttf');
+	src: url('./public/OpenSans-Light.ttf');
 }
 @font-face {
 	font-family: openSans-bolditalic;
-	src: url('../OpenSans/OpenSans-BoldItalic.ttf');
+	src: url('./public/OpenSans-BoldItalic.ttf');
 }
 
 :root {
-
 	--box-color: #ededed;
 	--box-shadow: 0 20px 25px -5px rgb(0 0 0 / .1), 0 8px 10px -6px rgb(0 0 0 / .1);
+	--box-border-radius: 25px;
 }
 
 * {

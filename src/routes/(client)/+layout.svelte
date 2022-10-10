@@ -6,6 +6,7 @@
     import { writable } from 'svelte/store';
     import { setContext } from 'svelte';
     import { onMount } from 'svelte';
+    import ClientWelcome from '../../components/ClientPortal/ClientWelcomeWindow/ClientWelcome.svelte';
 
     // data will be what is passed to this template by layout.js, to run backend services..basically
 	export let data;
@@ -13,20 +14,20 @@
 	let active_view = 'home';
 
     let context_data = setContext('client_object', data);
-    console.log('set context data', context_data);
-    
-    onMount(()=> {
 
-        
-
-    });
-    
+    // placeholder for something updated on login.
+    let logged_in_bool = data.user_login_status;
 
 </script>
 
-<ClientNavigationBar {active_view} />
+<ClientNavigationBar {active_view} {logged_in_bool} />
 
-<slot></slot>
+{#if logged_in_bool}
+    <slot></slot>
+{:else}
+    <ClientWelcome />
+{/if}
+
 
 <style>
 </style>

@@ -85,6 +85,7 @@ export function load() {
 	// eventually should handle the fetching of client_data_object
 
 	return {
-		client_object
+		client_object,
+		user_login_status: false
 	};
 }

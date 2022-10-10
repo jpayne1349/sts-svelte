@@ -66,7 +66,7 @@
 		flex-basis: 75vw;
 		min-height: 35vh;
 		background-color: var(--box-color);
-		border-radius: 15px;
+		border-radius: var(--box-border-radius);
 		margin: 1vh 3vw 5vh 3vw;
 		padding: 0 0 5vh 0;
 		box-shadow: var(--box-shadow);

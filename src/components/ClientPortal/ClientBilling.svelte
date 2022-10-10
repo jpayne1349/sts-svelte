@@ -17,19 +17,39 @@
     }   
     let first_billing_event_index = firstBillingEventIndex();
     
-
-    // fake billing data object
-	let billing_data = {
-		name: 'Juan Ramirez',
-		address: '2134 Fairy Ln',
-		next_due: 'Fri Oct 37 2022'
-	};
-
-
 	// toggle showing all events
 
 	let billing_events_focus = false;
 	let billing_details_focus = false;
+
+	function getNextBillDueDate() {
+		let billing_date = client_object.company_info.billing_info.billing_due_date;
+		
+		let date_output = new Date();
+
+		let today = date_output.getDay();
+		
+		if(today > billing_date) {
+
+			date_output.setMonth(date_output.getMonth() + 1);
+			date_output.setDate(billing_date);
+			
+			let date_string = date_output.toString();
+			date_string = date_string.substring(0, 15);
+
+			return date_string;
+		}
+
+		date_output.setDate(billing_date);
+
+		let date_string = date_output.toString();
+		date_string = date_string.substring(0, 15);
+		
+		return date_string;
+
+	}
+
+
 </script>
 
 <div
@@ -43,19 +63,21 @@
 		<div id="billing-name" class="info-row">
 			<div id="name-label" class="label">Name:</div>
 			<div id="name" class="variable">
-				{billing_data.name}
+				{client_object.company_info.billing_info.billing_name}
 			</div>
 		</div>
 		<div id="billing-address" class="info-row">
 			<div id="address-label" class="label">Address:</div>
 			<div id="address" class="variable">
-				{billing_data.address}
+				{client_object.company_info.billing_info.billing_address}
 			</div>
 		</div>
 		<div id="billing-due-date" class="info-row">
 			<div id="due-date-label" class="label">Next Due:</div>
 			<div id="due-date" class="variable">
-				{billing_data.next_due}
+				{#if client_object.company_info.billing_info.billing_due_date > 0 }
+					{getNextBillDueDate()}
+				{/if}
 			</div>
 		</div>
 	</div>
@@ -89,7 +111,7 @@
 		height: 35vh;
 		flex-grow: 2;
 		background-color: var(--box-color);
-		border-radius: 15px;
+		border-radius: var(--box-border-radius);
 		margin: 1vh 3vw;
 		padding: 0 0 5vh 0;
 		box-shadow: var(--box-shadow);
@@ -121,17 +143,19 @@
 	.label {
 		font-family: openSans-lightitalic;
 		font-size: 0.8vw;
+		width: 4vw;
 	}
 	.info-row {
 		display: flex;
 		flex-direction: row;
 		align-items: baseline;
 		margin-top: 1.5vh;
+		
 	}
 	.variable {
 		font-family: openSans-light;
 		font-size: 1vw;
-		padding-left: 1vw;
+		
 	}
 
 	#billing-events {

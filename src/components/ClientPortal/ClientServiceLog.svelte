@@ -35,7 +35,7 @@
         height: 35vh;
         flex-grow: 1;
 		background-color: var(--box-color);
-		border-radius: 15px;
+		border-radius: var(--box-border-radius);
 		margin: 1vh 3vw;
         padding: 0 0 5vh 0;
 		box-shadow: var(--box-shadow);
