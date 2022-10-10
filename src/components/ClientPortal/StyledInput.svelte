@@ -36,6 +36,7 @@
     }
     input:focus {
         outline: none;
+        box-shadow: 0px 1px 2px rgb(164, 164, 164);
     }
 
 </style>

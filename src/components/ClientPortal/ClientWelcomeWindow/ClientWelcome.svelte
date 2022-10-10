@@ -4,12 +4,14 @@
 	import HowToCreate from './HowToCreate.svelte';
 	import InitialView from './InitialView.svelte';
 	import { fade } from 'svelte/transition';
+import CreateAccount from './CreateAccount.svelte';
 
 	let welcome_view_object = {
-		in_initial_view: true,
+		in_initial_view: false,
 		in_company_questions: false,
 		in_how_to_create: false,
-		in_user_details: false
+		in_user_details: false,
+        in_create_account: true
 	};
 
 	// passed up from the companyQuestions
@@ -44,7 +46,13 @@
 		{:else if welcome_view_object.in_how_to_create}
 			<HowToCreate {company_info} />
 
+        {:else if welcome_view_object.in_create_account}
+
+        <CreateAccount />
+
 		{/if}
+
+
 	</div>
 
 	<div id="form-nav-row">
@@ -103,6 +111,7 @@
 		flex-direction: column;
 		flex-grow: 4;
 		align-items: center;
+        width: 100%;
 	}
 	.view-wrapper {
 		width: 100%;

@@ -6,6 +6,7 @@
     
 	export let company_info;
 
+
 </script>
 
 <div id="title">How would you like to create your user account?</div>
@@ -31,10 +32,12 @@
 	<div class="button-text">Continue with Facebook</div>
 </div>
 
+{#if company_info.company_name_entered }
 <div id='company-line'>
     <div id='company-label'>Company:</div>
     <div id='company-variable'>{company_info.company_name}</div>
 </div>
+{/if}
 
 <style>
 
