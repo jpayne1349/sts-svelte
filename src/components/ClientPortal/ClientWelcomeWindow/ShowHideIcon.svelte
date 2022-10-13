@@ -14,7 +14,7 @@
 	xmlns="http://www.w3.org/2000/svg"
 	xmlns:xlink="http://www.w3.org/1999/xlink"
 >
-	<title>Show Hide Eye</title>
+	<title>Show/Hide Password</title>
 	<g id="client-portal" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
 		<g id="login-view-create" transform="translate(-924.000000, -514.000000)" stroke="rgb(193 193 193)">
 			<g id="Show-Hide-Eye" transform="translate(924.000000, 514.772759)">

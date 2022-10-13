@@ -7,13 +7,12 @@
     import ClientSignIn from './ClientSignIn.svelte';
 
 
-    let context_object = getContext('client_object');
-    let client_object = context_object.client_object;
-
-    export let logged_in_bool;
+    let session_store = getContext('session_store');
+   
+    export let logged_in;
 
     // unused variable passed down from layout..
-    export let active_view;
+    // export let active_view;
 
 
 </script>
@@ -28,8 +27,8 @@
 
     <div id='client_portal'> Client Portal </div>
   
-    {#if logged_in_bool }
-        <ClientNavigation  {client_object} />
+    {#if logged_in }
+        <ClientNavigation  {session_store} />
     {:else}
         <ClientSignIn />
     {/if}
@@ -62,14 +61,14 @@
 
 
 
-#client_links{
+/* #client_links{
     display: flex;
     flex-direction: column;
     flex-basis: 100%;
     justify-content: flex-start;
     text-align: center;
     margin-top: 3vw;
-}
+} */
 
 
 @media only screen and (max-width: 615px) {

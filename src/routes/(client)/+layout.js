@@ -1,6 +1,7 @@
-// example client_object
-let client_object = {
-	company_info: {
+// example session_store
+let fake_profile_data = {
+	company_data: {
+		type: 'seperate',
 		company_name: 'The Test Company',
 		cid: 894321,
 		owner_name: 'Donald Smith',
@@ -22,12 +23,8 @@ let client_object = {
 	},
 	user_list: [
 		{
-			user_name: 'd_smith',
 			uid: 846513,
-			cid: 894321,
-			pwd: 'hashed',
 			email: 'd_smith@email.com',
-			phone: '800-292-3982',
 			role: 'admin'
 		}
 	],
@@ -81,11 +78,25 @@ let client_object = {
 	]
 };
 
-export function load() {
-	// eventually should handle the fetching of client_data_object
+let fake_user_profile = {
+	uid: 'jkanslkjfasdfna',
+	name: 'John Doe', //same as displayName
+	email: 'jdoe@gmail.com',
+	cid: null
+};
+
+
+import { initFirebaseClient } from '../../initFirebaseClient';
+
+
+export async function load() {
+
+	// new plan. we make a writable store to hold the 'session_data' and then subscribe to it where needed..
+	// initialized here with basically a new/no users settings
+
 
 	return {
-		client_object,
-		user_login_status: false
+		
 	};
+
 }

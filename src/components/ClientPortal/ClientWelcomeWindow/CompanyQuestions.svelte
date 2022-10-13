@@ -1,5 +1,7 @@
 
-<!-- TODO: Company ID lookup, verification, etc. -->
+<!-- TODO: Company ID lookup, verification, etc. will have to happen via post request to server.js file.. permissions issue with 
+     client having access to database information
+-->
 
 <script>
 	import StyledInput from '../StyledInput.svelte';
@@ -53,7 +55,7 @@
 			form.company_system_answered = false;
 		}
 	}
-    
+
 </script>
 
 <div class="question-group-col" in:fly={{ delay: 0, duration: 400, x: 0, y: 20, opacity: 0 }}>

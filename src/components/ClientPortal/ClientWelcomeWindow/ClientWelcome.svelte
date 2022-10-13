@@ -4,18 +4,30 @@
 	import HowToCreate from './HowToCreate.svelte';
 	import InitialView from './InitialView.svelte';
 	import { fade } from 'svelte/transition';
-import CreateAccount from './CreateAccount.svelte';
+	import CreateAccount from './CreateAccount.svelte';
+	import { getContext } from 'svelte';
+
+	import { collection, doc, getDoc ,addDoc, updateDoc } from 'firebase/firestore';
+
+	let session_store = getContext('session_store');
+
+    let session_data = {};
+
+    session_store.subscribe((data) => {
+        session_data = data;
+    });
 
 	let welcome_view_object = {
-		in_initial_view: false,
+		in_initial_view: true,
 		in_company_questions: false,
 		in_how_to_create: false,
-		in_user_details: false,
-        in_create_account: true
+		in_create_account: false,
+		in_profile_loading: false
 	};
 
 	// passed up from the companyQuestions
-	let company_info;
+	let company_data;
+
 
 	function handleInitialCreateClick(event) {
 		welcome_view_object.in_initial_view = false;
@@ -24,11 +36,108 @@ import CreateAccount from './CreateAccount.svelte';
 	}
 
 	function handleCompanyForm(event) {
-		company_info = event.detail;
-        console.log(company_info);
+		company_data = event.detail;
 		welcome_view_object.in_company_questions = false;
-        welcome_view_object.in_how_to_create = true;
+		welcome_view_object.in_how_to_create = true;
 	}
+
+	function handleStsAccountShow(event) {
+		if (event.detail == 'username_password') {
+			welcome_view_object.in_how_to_create = false;
+			welcome_view_object.in_create_account = true;
+		}
+	}
+
+	async function handleNewUser(event) {
+		// see new user info commented out below
+		let new_user = event.detail;
+        let new_user_name = new_user.displayName;
+        let new_user_uid = new_user.uid;
+        let new_user_email = new_user.email;
+
+        console.log("NEW USER", new_user);
+
+		welcome_view_object.in_create_account = false;
+		welcome_view_object.in_profile_loading = true;
+
+		// references to our db tables
+		const client_user_collection = collection(session_data.firebaseDb, 'client-user');
+		const client_company_collection = collection(session_data.firebaseDb, 'client-company');
+
+
+        // try to use await to step through this function only after promises resolve
+        // using desctructuring to grab the 'id' key-value out of the return document reference
+        const userDocRef = await addDoc(client_user_collection, { 
+            uid: new_user_uid,
+            name: new_user_name,
+            email: new_user_email,
+
+        });
+        console.log('Created new user, ref = ', userDocRef );
+        
+        let companyDocRef;
+
+        if(company_data.company_name_entered){
+            companyDocRef = await addDoc(client_company_collection, {
+                company_info: {
+                    name: company_data.company_name,
+                    type: 'seperate',
+                    email: '',
+                    phone: '',
+                    plan: '',
+                    plan_description: '',
+                    active_links: '',
+                    repository: '',
+                    billing: {
+                        name: '',
+                        address: '',
+                        due_date: 0,
+                        card: '',
+                        ccv: '',
+                        cycle: '',
+                    }
+                },
+                user_list: [userDocRef.id],
+                event_list: []
+            });
+        } else if(!company_data.company_is_associated) {
+            companyDocRef = await addDoc(client_company_collection,{
+                company_data: {
+                    name: '',
+                    type: 'self',
+                    email: new_user_email,
+                    phone: '',
+                    plan: '',
+                    plan_description: '',
+                    active_links: '',
+                    repository: '',
+                    billing: {
+                        name: '',
+                        address: '',
+                        due_date: 0,
+                        card: '',
+                        ccv: '',
+                        cycle: '',
+                    }
+                },
+                user_list: [userDocRef.id],
+                event_list: []
+            });
+        } 
+        // TODO: company id, if included, should already be verified via the companyQUestions component, do a lookup and link here.
+        console.log('CREATED COMPANY', companyDocRef);
+
+        // update the newly created user to include a company doc id field
+        await updateDoc(userDocRef, { cid: companyDocRef.id});
+
+        // onAuthStateChange might trigger the flip to sign in automatically?
+        
+
+        // rest of page should react    
+
+
+	}
+
 </script>
 
 <div id="client-welcome-container">
@@ -36,23 +145,14 @@ import CreateAccount from './CreateAccount.svelte';
 
 	<div id="welcome-body">
 		{#if welcome_view_object.in_initial_view}
-			
-				<InitialView on:validated_click={handleInitialCreateClick} />
-		
+			<InitialView on:validated_click={handleInitialCreateClick} />
 		{:else if welcome_view_object.in_company_questions}
-	
-				<CompanyQuestions on:completed={handleCompanyForm} />
-	
+			<CompanyQuestions on:completed={handleCompanyForm} />
 		{:else if welcome_view_object.in_how_to_create}
-			<HowToCreate {company_info} />
-
-        {:else if welcome_view_object.in_create_account}
-
-        <CreateAccount />
-
+			<HowToCreate {company_data} on:sts_account={handleStsAccountShow} />
+		{:else if welcome_view_object.in_create_account}
+			<CreateAccount {company_data} on:account_created={handleNewUser} />
 		{/if}
-
-
 	</div>
 
 	<div id="form-nav-row">
@@ -111,9 +211,9 @@ import CreateAccount from './CreateAccount.svelte';
 		flex-direction: column;
 		flex-grow: 4;
 		align-items: center;
-        width: 100%;
+		width: 100%;
 	}
-	.view-wrapper {
+	/* .view-wrapper {
 		width: 100%;
 		height: 100%;
 		display: flex;
@@ -122,7 +222,7 @@ import CreateAccount from './CreateAccount.svelte';
 	}
 	.view-wrapper.center-vert {
 		margin: auto;
-	}
+	} */
 
 	#form-nav-row {
 		display: flex;
@@ -145,9 +245,9 @@ import CreateAccount from './CreateAccount.svelte';
 		position: relative;
 		background-color: #e6e6e6;
 	}
-	.step.active {
+	/* .step.active {
 		background-color: #526889;
-	}
+	} */
 	.button {
 		height: 1.6vw;
 		width: 1.8vw;

@@ -1,39 +1,55 @@
 <script>
 	import ClientEventBanner from './ClientEventBanner.svelte';
-    import { getContext } from 'svelte';
+	import { getContext, onMount } from 'svelte';
 
+	let session_store = getContext('session_store');
 
-    let context_object = getContext('client_object');
-    let client_object = context_object.client_object;
-    let event_list = client_object.event_list;
+	let session_data = {};
+	let event_list = [];
+	let first_billing_event_index = 0;
 
+	let unsubscribe = session_store.subscribe((data) => {
+		
+			session_data = data;
+			event_list = session_data.company_data.event_list;
 
-    function firstBillingEventIndex() {
-        for(let i=0; i<event_list.length; i++) {
-            if(event_list[i].category === 'billing') {
-                return i;
-            }
-        }
-    }   
-    let first_billing_event_index = firstBillingEventIndex();
-    
+			if(event_list) {
+			event_list.forEach((event)=>{
+				if(event.category == 'billing') {
+					first_billing_event_index = firstBillingEventIndex(event_list);
+				}
+			});
+		}
+	});
+
+	function firstBillingEventIndex(event_list) {
+		for (let i = 0; i < event_list.length; i++) {
+			if (event_list[i].category === 'billing') {
+				return i;
+			}
+		}
+	}
+
 	// toggle showing all events
 
 	let billing_events_focus = false;
 	let billing_details_focus = false;
 
 	function getNextBillDueDate() {
-		let billing_date = client_object.company_info.billing_info.billing_due_date;
-		
+		let billing_date = session_data.company_data.company_info.billing.due_date;
+
+		if (!billing_date) {
+			return;
+		}
+
 		let date_output = new Date();
 
 		let today = date_output.getDay();
-		
-		if(today > billing_date) {
 
+		if (today > billing_date) {
 			date_output.setMonth(date_output.getMonth() + 1);
 			date_output.setDate(billing_date);
-			
+
 			let date_string = date_output.toString();
 			date_string = date_string.substring(0, 15);
 
@@ -44,12 +60,9 @@
 
 		let date_string = date_output.toString();
 		date_string = date_string.substring(0, 15);
-		
+
 		return date_string;
-
 	}
-
-
 </script>
 
 <div
@@ -63,39 +76,47 @@
 		<div id="billing-name" class="info-row">
 			<div id="name-label" class="label">Name:</div>
 			<div id="name" class="variable">
-				{client_object.company_info.billing_info.billing_name}
+				{#if session_data.company_data.company_info.billing}
+					{session_data.company_data.company_info.billing.name}
+				{/if}
 			</div>
 		</div>
 		<div id="billing-address" class="info-row">
 			<div id="address-label" class="label">Address:</div>
 			<div id="address" class="variable">
-				{client_object.company_info.billing_info.billing_address}
+				{#if session_data.company_data.company_info.billing}
+					{session_data.company_data.company_info.billing.address}
+				{/if}
 			</div>
 		</div>
 		<div id="billing-due-date" class="info-row">
 			<div id="due-date-label" class="label">Next Due:</div>
 			<div id="due-date" class="variable">
-				{#if client_object.company_info.billing_info.billing_due_date > 0 }
-					{getNextBillDueDate()}
+				{#if session_data.company_data.company_info.billing}
+					{#if session_data.company_data.company_info.billing.due_date > 0}
+						{getNextBillDueDate()}
+					{/if}
 				{/if}
 			</div>
 		</div>
 	</div>
 
-	<div id="event-title-row">
-		Events
-	</div>
+	<div id="event-title-row">Events</div>
 	<div id="billing-events">
-
-            {#if billing_events_focus}
-                {#each event_list as event_object}
-                    {#if event_object.category == 'billing' }
-                        <ClientEventBanner {event_object} on:event_banner_click />
-                    {/if}
-                {/each}
-            {:else}
-                <ClientEventBanner event_object={event_list[first_billing_event_index]} on:event_banner_click/>
-            {/if}
+		{#if session_data.company_data.event_list}
+			{#if billing_events_focus}
+				{#each event_list as event_object}
+					{#if event_object.category == 'billing'}
+						<ClientEventBanner {event_object} on:event_banner_click />
+					{/if}
+				{/each}
+			{:else if session_data.company_data.event_list.length > 0}
+				<ClientEventBanner
+					event_object={event_list[first_billing_event_index]}
+					on:event_banner_click
+				/>
+			{/if}
+		{/if}
 	</div>
 
 	<div
@@ -150,12 +171,10 @@
 		flex-direction: row;
 		align-items: baseline;
 		margin-top: 1.5vh;
-		
 	}
 	.variable {
 		font-family: openSans-light;
 		font-size: 1vw;
-		
 	}
 
 	#billing-events {
@@ -176,13 +195,13 @@
 	#event-title-row {
 		margin-top: auto;
 		margin-bottom: 1vh;
-        font-family: openSans-medium;
+		font-family: openSans-medium;
 		text-decoration: underline;
 		font-size: 1vw;
 		user-select: none;
 		cursor: pointer;
-        text-align: left;
-        width: 80%;
+		text-align: left;
+		width: 80%;
 	}
 
 	#arrow-svg {
