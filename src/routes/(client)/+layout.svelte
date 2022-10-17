@@ -1,3 +1,11 @@
+<svelte:head>
+	<title>
+		Client Portal | SouthTexas.Software
+	</title>
+	<meta name='description' 
+	content="Client access to manage profile, billing, services, and secure messaging.">
+</svelte:head>
+
 <script>
 	// eventually many things will happen here to check user login status, redirect, etc.
 	import '../../client_app.css';
@@ -13,12 +21,15 @@
 	// default session data
 	let session_data = {
 		logged_in: false,
+		creating_new_user: false,
 		firebaseApp: null,
 		firebaseDb: null,
 		company_data: {},
 		user_data: {},
 		auth_data: {}
 	};
+
+    let auto_logging_in = false; // passed to the sign in button to help show animation during auto-login process...
 
 	// default store with data created
 	let session_store = writable(session_data);
@@ -40,12 +51,14 @@
 		session_data.auth_data = auth;
 
 		auth.onAuthStateChanged(async () => {
-			
+
             if (auth.currentUser != null) {
+				auto_logging_in = true;
 				retrieveLoggedInUserInfo();
 			} else {
                 // user logged out
 
+				auto_logging_in = false;
 				session_data.logged_in = false;
 				session_data.company_data = {};
 				session_data.user_data = {};
@@ -56,15 +69,18 @@
 	}
 
 	async function retrieveLoggedInUserInfo() {
-		// TODO: should this trigger a loading animation?
+
+		// check to see if currently creating a new user, if so, try to retreive this data later
+		if(session_data.creating_new_user == true) {
+			return setTimeout(retrieveLoggedInUserInfo, 100);
+		}
+
 		let logged_in_user_data;
 		let logged_in_company_data;
 
 		const user_collection = collection(session_data.firebaseDb, 'client-user');
 		const userQuery = query(user_collection, where('uid', '==', session_data.auth_data.currentUser.uid));
 		const queryResults = await getDocs(userQuery);
-
-        console.log('QUERY RESULTS', queryResults);
 
 		queryResults.forEach((userDoc) => {
 			logged_in_user_data = userDoc.data();
@@ -82,6 +98,10 @@
 		session_data.user_data = logged_in_user_data;
 
 		session_store.set(session_data);
+
+        auto_logging_in = false;
+
+		
 	}
 
 	let context = setContext('session_store', session_store);
@@ -92,7 +112,7 @@
 	let active_view = 'home';
 </script>
 
-<ClientNavigationBar {active_view} logged_in={session_data.logged_in} />
+    <ClientNavigationBar {active_view} {auto_logging_in} />
 
 {#if session_data.logged_in}
 	<slot />

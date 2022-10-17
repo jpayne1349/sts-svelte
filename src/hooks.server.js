@@ -2,15 +2,15 @@
 
 // interjecting a check to see if the /client page is being viewed, if so, we need verify/establish the Admin-SDK
 
-// import { initializeApp, cert, getApp } from 'firebase-admin/app';
-// import {
-// 	FIREBASE_ADMIN_PROJECT_ID,
-// 	FIREBASE_ADMIN_CLIENT_EMAIL,
-// 	FIREBASE_ADMIN_PRIVATE_KEY
-// } from '$env/static/private';
-// import { getAuth, baseAuth } from 'firebase-admin/auth';
+import { initializeApp, cert, getApp } from 'firebase-admin/app';
+import {
+	FIREBASE_ADMIN_PROJECT_ID,
+	FIREBASE_ADMIN_CLIENT_EMAIL,
+	FIREBASE_ADMIN_PRIVATE_KEY
+} from '$env/static/private';
+import { getAuth, baseAuth } from 'firebase-admin/auth';
 
-// let firebase_admin_connected = false;
+let firebase_admin_connected = false;
 
 export async function handle({ event, resolve }) {
 	

@@ -1,11 +1,5 @@
 
-<svelte:head>
-	<title>
-		Client Portal | SouthTexas.Software
-	</title>
-	<meta name='description' 
-	content="Client access to manage profile, billing, services, and secure messaging.">
-</svelte:head>
+
 
 <script>
 
@@ -47,7 +41,7 @@
 <style>
 	#client-page {
 		display: flex;
-		width: 80vw;
+		width: 83vw;
 		flex-wrap: wrap;
 		color: #bbbec5;
 		max-height: 100vh;

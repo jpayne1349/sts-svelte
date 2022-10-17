@@ -18,12 +18,12 @@
 
 <div id="title">How would you like to create your user account?</div>
 
-<div on:click={handleUsernameClick} id="username-method" class="button-container">
+<button on:click={handleUsernameClick} id="username-method" class="button-container">
 	<div class="logo">
 		<StsIcon />
 	</div>
 	<div class="button-text">Username & Password</div>
-</div>
+</button>
 
 <div id="google-method" class="button-container">
 	<div class="logo">
@@ -39,12 +39,16 @@
 	<div class="button-text">Continue with Facebook</div>
 </div>
 
+
+
 {#if company_data.company_name_entered }
 <div id='company-line'>
     <div id='company-label'>Company:</div>
     <div id='company-variable'>{company_data.company_name}</div>
 </div>
 {/if}
+
+
 
 <style>
 

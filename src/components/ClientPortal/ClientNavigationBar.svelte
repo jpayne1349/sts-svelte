@@ -8,8 +8,15 @@
 
 
     let session_store = getContext('session_store');
-   
-    export let logged_in;
+    
+    let session_data = {};
+
+    session_store.subscribe((data)=>{
+        session_data = data;
+    });
+
+
+    export let auto_logging_in;
 
     // unused variable passed down from layout..
     // export let active_view;
@@ -27,10 +34,10 @@
 
     <div id='client_portal'> Client Portal </div>
   
-    {#if logged_in }
+    {#if session_data.logged_in }
         <ClientNavigation  {session_store} />
     {:else}
-        <ClientSignIn />
+        <ClientSignIn {auto_logging_in} />
     {/if}
 
 </div>
@@ -40,8 +47,8 @@
 
 #client_nav_layout {
     background-color: var(--box-color);
-    width: 20vw;
-    margin: 1vh 1vw;
+    width: 15vw;
+    margin: 1vh 0 1vh 1vw;
     border-radius: var(--box-border-radius);
     box-shadow: var(--box-shadow);
     display: flex;

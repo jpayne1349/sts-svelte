@@ -8,8 +8,9 @@
 
 
 <script>
+import PricingContainer from "../../../components/PricingContainer/PricingContainer.svelte";
 
-import PricingContainer from '../../components/PricingContainer/PricingContainer.svelte';
+
 
 </script>
 

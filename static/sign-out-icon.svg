@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="30px" height="20px" viewBox="0 0 30 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>sign-out-icon</title>
+    <g id="client-portal" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="client-portal-desktop" transform="translate(-90.000000, -1105.000000)" stroke="#010C1F">
+            <g id="nav-container" transform="translate(14.000000, 13.000000)">
+                <g id="sign-out-button" transform="translate(77.000000, 1091.000000)">
+                    <g id="sign-out-icon" transform="translate(0.000000, 2.000000)">
+                        <path d="M28,12.375 L28,15.1636364 C28,16.7301167 26.7301167,18 25.1636364,18 L12.169697,18 C10.6032166,18 9.33333333,16.7301167 9.33333333,15.1636364 L9.33333333,2.83636364 C9.33333333,1.26988326 10.6032166,7.31846988e-16 12.169697,0 L25.1636364,0 C26.7301167,-1.67907185e-15 28,1.26988326 28,2.83636364 L28,4.78125 L28,4.78125" id="Path" stroke-width="0.567272727" transform="translate(18.666667, 9.000000) rotate(180.000000) translate(-18.666667, -9.000000) "></path>
+                        <g id="Group" transform="translate(7.897436, 9.000000) rotate(180.000000) translate(-7.897436, -9.000000) translate(0.000000, 4.320000)" stroke-linecap="square" stroke-width="0.72">
+                            <line x1="0.358974359" y1="4.68" x2="14.7179487" y2="4.68" id="Line-10"></line>
+                            <line x1="15.4358974" y1="4.68" x2="9.69230769" y2="0.36" id="Line-11"></line>
+                            <line x1="15.4358974" y1="4.68" x2="9.69230769" y2="9" id="Line-12"></line>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

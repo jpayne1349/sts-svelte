@@ -4,7 +4,7 @@
 	import StyledInput from '../StyledInput.svelte';
 	import ShowHideIcon from './ShowHideIcon.svelte';
     import { fly } from 'svelte/transition';
-    import { createEventDispatcher } from 'svelte';
+    import { createEventDispatcher, getContext } from 'svelte';
     import LoadingEllipse from './LoadingEllipse.svelte';
     import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 
@@ -12,10 +12,14 @@
 
 	export let company_data;
 
-    // for testing
-    // let company_data = {
-    //     company_name_entered: 'false'
-    // }
+	let session_store = getContext('session_store');
+
+    let session_data = {};
+
+    session_store.subscribe((data) => {
+        session_data = data;
+    });
+
 
 	let create_account_form = {
 		name: '',
@@ -55,6 +59,11 @@
         let new_user_password = create_account_form.password;
 
         try {
+
+			// before we do this, we can set a global bool to delay the auth state change listener.
+			session_data.creating_new_user = true;
+			session_store.update((existing_data)=>{existing_data.creating_new_user = true; return existing_data;});
+
             const auth = getAuth();
 		    createUserWithEmailAndPassword(auth, new_user_email, new_user_password)
 			.then((userCredential) => {
@@ -197,9 +206,9 @@
 		<div class="input-row" id="pass-row">
 			<div class="input-label" id="pass">Password:</div>
 			<input on:input={handlePass} type={pass_type} id="pass-input" />
-			<div on:click={showHidePass} class="show-hide">
+			<button on:click={showHidePass} class="show-hide">
 				<ShowHideIcon hidden_bool={hide_password} />
-			</div>
+			</button>
 			<div class="validation-icons">
 				<div id="spinner" class:active={password_typing} />
 				<div id="checkmark" class:active={create_account_form.password_valid} />
@@ -212,9 +221,9 @@
 		<div class="input-row" id="pass-conf-row">
 			<div class="input-label" id="pass-conf">Confirm:</div>
 			<input on:input={handlePassConf} type={pass_conf_type} id="pass-conf-input" />
-			<div on:click={showHidePassConf} class="show-hide">
+			<button on:click={showHidePassConf} class="show-hide">
 				<ShowHideIcon hidden_bool={hide_pass_conf} />
-			</div>
+			</button>
 			<div class="validation-icons">
 				<div id="spinner" class:active={pass_conf_typing} />
 				<div id="checkmark" class:active={create_account_form.password_conf} />
@@ -222,7 +231,7 @@
 		</div>
 
 		<div id="create-acct">
-			<div id="button" on:click={handleCreateAccount}>Create Account</div>
+			<button id="button" on:click={handleCreateAccount}>Create Account</button>
 			<div id="button-loader" class:active={creating_account}><LoadingEllipse /></div>
 			{#if form_error_show}
 				<div id="button-message" transition:fly={{ delay: 0, duration: 200, x: 0, y: 10, opacity: 0 }}>
@@ -444,4 +453,6 @@
 		font-size: 1.4vw;
 		margin-left: 0.5vw;
 	}
+
+
 </style>

@@ -18,16 +18,19 @@
     });
 
 	let welcome_view_object = {
-		in_initial_view: true,
-		in_company_questions: false,
+		in_initial_view: false,
+		in_company_questions: true,
 		in_how_to_create: false,
 		in_create_account: false,
 		in_profile_loading: false
 	};
 
+	let show_back_button = false;
+
 	// passed up from the companyQuestions
 	let company_data;
-
+	let previously_filled_info;
+	$: {previously_filled_info = company_data;}
 
 	function handleInitialCreateClick(event) {
 		welcome_view_object.in_initial_view = false;
@@ -55,8 +58,6 @@
         let new_user_uid = new_user.uid;
         let new_user_email = new_user.email;
 
-        console.log("NEW USER", new_user);
-
 		welcome_view_object.in_create_account = false;
 		welcome_view_object.in_profile_loading = true;
 
@@ -64,16 +65,13 @@
 		const client_user_collection = collection(session_data.firebaseDb, 'client-user');
 		const client_company_collection = collection(session_data.firebaseDb, 'client-company');
 
-
-        // try to use await to step through this function only after promises resolve
-        // using desctructuring to grab the 'id' key-value out of the return document reference
+		// actually db call with appropriate information
         const userDocRef = await addDoc(client_user_collection, { 
             uid: new_user_uid,
             name: new_user_name,
             email: new_user_email,
 
         });
-        console.log('Created new user, ref = ', userDocRef );
         
         let companyDocRef;
 
@@ -102,7 +100,7 @@
             });
         } else if(!company_data.company_is_associated) {
             companyDocRef = await addDoc(client_company_collection,{
-                company_data: {
+                company_info: {
                     name: '',
                     type: 'self',
                     email: new_user_email,
@@ -124,18 +122,31 @@
                 event_list: []
             });
         } 
-        // TODO: company id, if included, should already be verified via the companyQUestions component, do a lookup and link here.
-        console.log('CREATED COMPANY', companyDocRef);
 
         // update the newly created user to include a company doc id field
         await updateDoc(userDocRef, { cid: companyDocRef.id});
 
-        // onAuthStateChange might trigger the flip to sign in automatically?
-        
+        // updating a global state to notify other processes that the new user if finished being created
+		session_store.update((existing_data)=>{existing_data.creating_new_user = false; return existing_data;});
 
         // rest of page should react    
 
 
+	}
+
+	function handleBackButton() {
+		if(welcome_view_object.in_how_to_create) {
+			welcome_view_object.in_how_to_create = false;
+			welcome_view_object.in_company_questions = true;
+		}
+		if(welcome_view_object.in_create_account) {
+			welcome_view_object.in_create_account = false;
+			show_back_button = true;
+			setTimeout(()=> { 
+				welcome_view_object.in_how_to_create = true;
+				show_back_button = false; // this is a weird work-around to make this transition smoother..
+			}, 200);;
+		}
 	}
 
 </script>
@@ -147,27 +158,17 @@
 		{#if welcome_view_object.in_initial_view}
 			<InitialView on:validated_click={handleInitialCreateClick} />
 		{:else if welcome_view_object.in_company_questions}
-			<CompanyQuestions on:completed={handleCompanyForm} />
+			<CompanyQuestions {previously_filled_info} on:completed={handleCompanyForm} />
 		{:else if welcome_view_object.in_how_to_create}
-			<HowToCreate {company_data} on:sts_account={handleStsAccountShow} />
+			<HowToCreate {company_data} on:sts_account={handleStsAccountShow}/>
 		{:else if welcome_view_object.in_create_account}
-			<CreateAccount {company_data} on:account_created={handleNewUser} />
+			<CreateAccount {company_data} on:account_created={handleNewUser}/>
 		{/if}
 	</div>
-
-	<div id="form-nav-row">
-		<div class="button back">
-			<img class="rotate" src="./enter_arrow_svg.svg" alt="Back" />
-		</div>
-		<div id="steps-container">
-			<div class="step" />
-			<div class="step" />
-			<div class="step" />
-		</div>
-		<div class="button fwd">
-			<img src="./enter_arrow_svg.svg" alt="Forward" />
-		</div>
-	</div>
+	
+	{#if welcome_view_object.in_how_to_create || welcome_view_object.in_create_account || show_back_button }
+	<button id='back-button' on:click={handleBackButton} >Back</button>
+	{/if}
 
 	<div id="welcome-footer">
 		<div id="footer-text">
@@ -184,7 +185,7 @@
 
 <style>
 	#client-welcome-container {
-		flex-basis: 75vw;
+		flex-basis: 78vw;
 		min-height: 70vh;
 		background-color: var(--box-color);
 		border-radius: var(--box-border-radius);
@@ -212,60 +213,26 @@
 		flex-grow: 4;
 		align-items: center;
 		width: 100%;
-	}
-	/* .view-wrapper {
-		width: 100%;
-		height: 100%;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-	}
-	.view-wrapper.center-vert {
-		margin: auto;
-	} */
-
-	#form-nav-row {
-		display: flex;
-		/* width: 40%; */
-		justify-content: space-around;
-		margin-bottom: 1vh;
-	}
-	#steps-container {
-		display: flex;
-		width: 4vw;
-		justify-content: space-evenly;
-		align-items: center;
-	}
-	.step {
-		width: 0.6vw;
-		height: 0.6vw;
-		border-radius: 50%;
-		border: 1px solid #878787;
-		content: '';
-		position: relative;
-		background-color: #e6e6e6;
-	}
-	/* .step.active {
-		background-color: #526889;
-	} */
-	.button {
-		height: 1.6vw;
-		width: 1.8vw;
-		vertical-align: top;
-		transition: all 0.5s;
-		cursor: pointer;
 		position: relative;
 	}
-	img {
-		position: absolute;
-		width: 1vw;
-		height: 1vw;
-		left: 0.4vw;
-		top: 0.3vw;
-	}
-	img.rotate {
-		transform: rotate(180deg);
-	}
+#back-button {
+    font-size: 0.8vw;
+    width: 4vw;
+    align-self: flex-start;
+    margin-left: 10vw;
+    margin-bottom: 2vh;
+    text-align: center;
+    font-family: openSans-semiBold;
+    color: white;
+    background-color: #526889;
+    border-radius: 5px;
+    height: 1.8vw;
+    box-shadow: 0px 1px 2px #464d5b;
+    transition: all 0.2s;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+}
 	#welcome-footer {
 		width: 80%;
 		text-align: center;

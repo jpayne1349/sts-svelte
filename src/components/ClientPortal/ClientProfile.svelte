@@ -81,7 +81,7 @@
 
 <style>
 	#client-profile-container {
-		flex-basis: 75vw;
+		flex-basis: 78vw;
 		min-height: 35vh;
 		background-color: var(--box-color);
 		border-radius: var(--box-border-radius);

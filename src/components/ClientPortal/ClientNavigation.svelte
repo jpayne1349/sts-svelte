@@ -1,11 +1,19 @@
 <script>
-	export let session_store;
+    import { signOut } from 'firebase/auth';
+
+export let session_store;
 
     let session_data = {};
 
     session_store.subscribe((data)=>{
         session_data = data;
     });
+
+    function handleSignOut() {
+        // call some firebase function to sign out currentUser and then update the session_store
+        signOut(session_data.auth_data);
+        
+    }
 
 </script>
 
@@ -28,6 +36,11 @@
  -->
 </div>
 
+<div id='sign-out-container' on:click={handleSignOut} >
+    <img src='./sign-out-icon.svg' alt='Sign Out Icon'>
+    <div id='sign-out-text' >Sign Out</div>
+</div>
+
 <style>
 	#company_name {
 		font-family: openSans-medium;
@@ -39,6 +52,18 @@
 		font-family: openSans-light;
 		font-size: 0.8vw;
 	}
+
+    #sign-out-container {
+            display: flex;
+    margin-top: auto;
+    margin-bottom: 4vh;
+    font-family: 'openSans-regular';
+        user-select: none;
+        cursor: pointer;
+    }
+    #sign-out-text {
+        margin-left: 0.5vw;
+    }
 
 	/* .links_group {
 		font-family: openSans-light;
