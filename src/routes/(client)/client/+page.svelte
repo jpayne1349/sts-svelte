@@ -4,15 +4,20 @@
 <script>
 
 	import ClientProfile from '../../../components/ClientPortal/ClientProfile.svelte';
-	import ClientBilling from '../../../components/ClientPortal/ClientBilling.svelte';
+	import ClientBillingSmall from '../../../components/ClientPortal/Client Billing Components/ClientBillingSmall.svelte';
 	import ClientServiceLog from '../../../components/ClientPortal/ClientServiceLog.svelte';
 	import ClientEventModal from '../../../components/ClientPortal/ClientEventModal.svelte';
+	import ClientBillingFull from '../../../components/ClientPortal/Client Billing Components/ClientBillingFull.svelte';
+
 
 	let modal_open_bool = false;
 	let modal_event_id = undefined;
 
 	let open_modal_object;
 
+	// trying out different views 
+	let billing_full = false;
+	let profile_full = false;
 
 	function openModal(event) {
 		// grab the event object here that's been passed up on the event
@@ -28,7 +33,11 @@
 <div id="client-page">
 
 	<ClientProfile />
-	<ClientBilling on:event_banner_click={openModal} />
+	<ClientBillingSmall on:event_banner_click={openModal} on:show={()=>{billing_full = true;}}/>
+	{#if billing_full}
+	<ClientBillingFull on:event_banner_click={openModal} show_full_view={true} on:hide={()=>{billing_full = false;}}/>
+	{/if}
+
 	<ClientServiceLog on:event_banner_click={openModal} />
 
 	{#if modal_open_bool}
@@ -41,7 +50,7 @@
 <style>
 	#client-page {
 		display: flex;
-		width: 83vw;
+		width: 85vw;
 		flex-wrap: wrap;
 		color: #bbbec5;
 		max-height: 100vh;

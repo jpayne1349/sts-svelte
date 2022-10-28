@@ -2,7 +2,7 @@
 <svg viewBox="0 0 10 7" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <title>More</title>
     <g id="client-portal" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="square">
-        <g id="header-and-desktop" transform="translate(-376.000000, -808.000000)" stroke="#000000">
+        <g id="header-and-desktop" transform="translate(-376.000000, -808.000000)" stroke="#394b67">
             <g id="Group" transform="translate(377.000000, 809.000000)">
                 <path d="M0.4375,2.5 L6.5625,2.5 M7.5,2.5 L5.5,0.5 M7.5,2.5 L5.5,4.5" id="Combined-Shape"></path>
             </g>

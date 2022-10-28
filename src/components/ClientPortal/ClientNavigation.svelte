@@ -10,7 +10,7 @@ export let session_store;
     });
 
     function handleSignOut() {
-        // call some firebase function to sign out currentUser and then update the session_store
+        // call firebase function to sign out currentUser and then update the session_store
         signOut(session_data.auth_data);
         
     }
@@ -20,11 +20,11 @@ export let session_store;
 
 
 <div id="company_name">
-	{session_data.company_data.company_info.name}
+	{session_data.company.profile.name}
 </div>
 <div id="user_name">
 	<!-- to be logged in user? not sure how I want to handle this yet.. -->
-	{session_data.user_data.name}
+	{session_data.user.name}
 </div>
 
 <div id="client_links">
@@ -36,10 +36,10 @@ export let session_store;
  -->
 </div>
 
-<div id='sign-out-container' on:click={handleSignOut} >
+<button id='sign-out-container' on:click={handleSignOut} >
     <img src='./sign-out-icon.svg' alt='Sign Out Icon'>
     <div id='sign-out-text' >Sign Out</div>
-</div>
+</button>
 
 <style>
 	#company_name {
@@ -54,17 +54,24 @@ export let session_store;
 	}
 
     #sign-out-container {
-            display: flex;
-    margin-top: auto;
-    margin-bottom: 4vh;
-    font-family: 'openSans-regular';
+		display: flex;
+		margin-top: auto;
+		margin-bottom: 4vh;
+		font-family: 'openSans-regular';
         user-select: none;
         cursor: pointer;
-    }
+		position: relative;
+		align-items: center;
+		transform: translateX(-0.8vw);
+		background-color: var(--box-color);
+	}
     #sign-out-text {
         margin-left: 0.5vw;
+		font-size: 0.8vw;
     }
-
+	img {
+		height: 0.8vw;
+	}
 	/* .links_group {
 		font-family: openSans-light;
 		font-size: 1vw;

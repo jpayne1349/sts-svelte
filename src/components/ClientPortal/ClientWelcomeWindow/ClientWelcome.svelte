@@ -7,22 +7,22 @@
 	import CreateAccount from './CreateAccount.svelte';
 	import { getContext } from 'svelte';
 
-	import { collection, doc, getDoc ,addDoc, updateDoc } from 'firebase/firestore';
+	import { collection, doc, getDoc, addDoc, setDoc, updateDoc, Timestamp, arrayUnion } from 'firebase/firestore';
 
 	let session_store = getContext('session_store');
 
-    let session_data = {};
+	let session_data = {};
 
-    session_store.subscribe((data) => {
-        session_data = data;
-    });
+	session_store.subscribe((data) => {
+		session_data = data;
+	});
 
 	let welcome_view_object = {
-		in_initial_view: false,
-		in_company_questions: true,
+		in_initial_view: true,
+		in_company_questions: false,
 		in_how_to_create: false,
 		in_create_account: false,
-		in_profile_loading: false
+		in_profile_loading: false // this is not used currently, we can revisit this if we think necessary
 	};
 
 	let show_back_button = false;
@@ -30,7 +30,9 @@
 	// passed up from the companyQuestions
 	let company_data;
 	let previously_filled_info;
-	$: {previously_filled_info = company_data;}
+	$: {
+		previously_filled_info = company_data;
+	}
 
 	function handleInitialCreateClick(event) {
 		welcome_view_object.in_initial_view = false;
@@ -54,101 +56,115 @@
 	async function handleNewUser(event) {
 		// see new user info commented out below
 		let new_user = event.detail;
-        let new_user_name = new_user.displayName;
-        let new_user_uid = new_user.uid;
-        let new_user_email = new_user.email;
+		let new_user_name = new_user.displayName;
+		let new_user_uid = new_user.uid;
+		let new_user_email = new_user.email;
 
-		welcome_view_object.in_create_account = false;
-		welcome_view_object.in_profile_loading = true;
-
-		// references to our db tables
-		const client_user_collection = collection(session_data.firebaseDb, 'client-user');
+		// let's do a little test to try subcollections
+		// first we make the company collection
 		const client_company_collection = collection(session_data.firebaseDb, 'client-company');
 
-		// actually db call with appropriate information
-        const userDocRef = await addDoc(client_user_collection, { 
-            uid: new_user_uid,
-            name: new_user_name,
-            email: new_user_email,
+		let json_company_data = {
+			profile: {
+				name: company_data.company_name,
+				type: '',
+				email: '',
+				phone: '',
+				plan: '',
+				plan_description: '',
+				active_links: '',
+				repository: ''
+			},
+			billing: {
+				name: '',
+				address: {
+					street:'',
+					zipcode:'',
+					city:'',
+					state:''
+				},
+				due_date: 0,
+				payment_methods:[],
+				cycle: '',
+				autopay: false,
+				email: '',
+				status:{
+					message: 'Information Required',
+					customer: false,
+					payment_method: false,
+					color: 'yellow'
+				}
+			},
+			user_ids: [new_user_uid]
+			// nest collections for users and for events
+		};
 
-        });
-        
-        let companyDocRef;
+		// setting of new company 'type' based on the the data provided
+		if (company_data.company_name_entered) {
+			json_company_data.profile.type = 'seperate';
+		} else {
+			json_company_data.profile.type = 'self';
+		}
 
-        if(company_data.company_name_entered){
-            companyDocRef = await addDoc(client_company_collection, {
-                company_info: {
-                    name: company_data.company_name,
-                    type: 'seperate',
-                    email: '',
-                    phone: '',
-                    plan: '',
-                    plan_description: '',
-                    active_links: '',
-                    repository: '',
-                    billing: {
-                        name: '',
-                        address: '',
-                        due_date: 0,
-                        card: '',
-                        ccv: '',
-                        cycle: '',
-                    }
-                },
-                user_list: [userDocRef.id],
-                event_list: []
-            });
-        } else if(!company_data.company_is_associated) {
-            companyDocRef = await addDoc(client_company_collection,{
-                company_info: {
-                    name: '',
-                    type: 'self',
-                    email: new_user_email,
-                    phone: '',
-                    plan: '',
-                    plan_description: '',
-                    active_links: '',
-                    repository: '',
-                    billing: {
-                        name: '',
-                        address: '',
-                        due_date: 0,
-                        card: '',
-                        ccv: '',
-                        cycle: '',
-                    }
-                },
-                user_list: [userDocRef.id],
-                event_list: []
-            });
-        } 
+		// add the document to the collection
+		let companyDocRef = await addDoc(client_company_collection, json_company_data);
 
-        // update the newly created user to include a company doc id field
-        await updateDoc(userDocRef, { cid: companyDocRef.id});
+		let json_user_data = {
+			auid: new_user_uid,
+			name: new_user_name,
+			email: new_user_email,
+			phone: '',
+			cuid: companyDocRef.id
+		};
 
-        // updating a global state to notify other processes that the new user if finished being created
-		session_store.update((existing_data)=>{existing_data.creating_new_user = false; return existing_data;});
+		// create reference to new subcollection
+		const company_users_subcollection = collection(companyDocRef, 'users');
 
-        // rest of page should react    
+		// we use setDoc so we can specify that the document uid should == the auth uid
+		const userDoc = doc(company_users_subcollection, new_user_uid);
+		const userDocRef = await setDoc(userDoc, json_user_data);
 
 
+		// first event to populate events subcollection
+		let json_event_data = {
+			category: 'Service',
+			created: Timestamp.now(),
+			cuid: companyDocRef.id,
+			custom_data: [{key: 'Type', value: 'Saved Data'}],
+			status: 'Completed',
+			title: 'Account Creation',
+			description: 'Thank you for creating an account! Events will continue to be generated manually and automatically.',
+			type: 'Automated',
+			updated: null
+		};
+
+		// create reference to new subcollection
+		const company_event_subcollection = collection(companyDocRef, 'events');
+		const eventDocRef = await addDoc(company_event_subcollection, json_event_data);
+
+		// updating a global state to notify other processes that the new user if finished being created
+		session_store.update((existing_data) => {
+			existing_data.creating_new_user = false;
+			return existing_data;
+		});
+
+		// rest of page should react
 	}
 
 	function handleBackButton() {
-		if(welcome_view_object.in_how_to_create) {
+		if (welcome_view_object.in_how_to_create) {
 			welcome_view_object.in_how_to_create = false;
 			welcome_view_object.in_company_questions = true;
 		}
-		if(welcome_view_object.in_create_account) {
+		if (welcome_view_object.in_create_account) {
 			welcome_view_object.in_create_account = false;
 			show_back_button = true;
-			setTimeout(()=> { 
+			setTimeout(() => {
 				welcome_view_object.in_how_to_create = true;
 				show_back_button = false; // this is a weird work-around to make this transition smoother..
-			}, 200);;
+			}, 200);
 		}
 	}
-
 </script>
 
 <div id="client-welcome-container">
@@ -160,14 +176,14 @@
 		{:else if welcome_view_object.in_company_questions}
 			<CompanyQuestions {previously_filled_info} on:completed={handleCompanyForm} />
 		{:else if welcome_view_object.in_how_to_create}
-			<HowToCreate {company_data} on:sts_account={handleStsAccountShow}/>
+			<HowToCreate {company_data} on:sts_account={handleStsAccountShow} />
 		{:else if welcome_view_object.in_create_account}
-			<CreateAccount {company_data} on:account_created={handleNewUser}/>
+			<CreateAccount {company_data} on:account_created={handleNewUser} />
 		{/if}
 	</div>
-	
-	{#if welcome_view_object.in_how_to_create || welcome_view_object.in_create_account || show_back_button }
-	<button id='back-button' on:click={handleBackButton} >Back</button>
+
+	{#if welcome_view_object.in_how_to_create || welcome_view_object.in_create_account || show_back_button}
+		<button id="back-button" on:click={handleBackButton}>Back</button>
 	{/if}
 
 	<div id="welcome-footer">
@@ -215,24 +231,24 @@
 		width: 100%;
 		position: relative;
 	}
-#back-button {
-    font-size: 0.8vw;
-    width: 4vw;
-    align-self: flex-start;
-    margin-left: 10vw;
-    margin-bottom: 2vh;
-    text-align: center;
-    font-family: openSans-semiBold;
-    color: white;
-    background-color: #526889;
-    border-radius: 5px;
-    height: 1.8vw;
-    box-shadow: 0px 1px 2px #464d5b;
-    transition: all 0.2s;
-    cursor: pointer;
-    user-select: none;
-    position: relative;
-}
+	#back-button {
+		font-size: 0.8vw;
+		width: 4vw;
+		align-self: flex-start;
+		margin-left: 10vw;
+		margin-bottom: 2vh;
+		text-align: center;
+		font-family: openSans-semiBold;
+		color: white;
+		background-color: #526889;
+		border-radius: 5px;
+		height: 1.8vw;
+		box-shadow: 0px 1px 2px #464d5b;
+		transition: all 0.2s;
+		cursor: pointer;
+		user-select: none;
+		position: relative;
+	}
 	#welcome-footer {
 		width: 80%;
 		text-align: center;

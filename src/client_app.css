@@ -50,6 +50,10 @@ body {
 	
 }
 
+.no-data {
+	color:#00000073;
+}
+
 #fullpage {
 	height: 100vh;
 	display: flex;
