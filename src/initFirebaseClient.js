@@ -14,9 +14,12 @@ export async function initFirebaseClient() {
 			let { getAnalytics, isSupported } = await import('firebase/analytics');
 			let { getFirestore } = await import('firebase/firestore');
 			let { initializeAppCheck, ReCaptchaV3Provider } = await import('firebase/app-check');
+			let { getAuth } = await import('firebase/auth');
 			
 
-			const app = await initializeApp(firebaseConfig);
+			const app = initializeApp(firebaseConfig);
+			const auth = getAuth(app);
+			const db = getFirestore(app);
 
 			let analytics = isSupported()
 				.then(() => {
@@ -35,7 +38,7 @@ export async function initFirebaseClient() {
 					console.error(e);
 				});
 
-			const db = getFirestore(app);
+			
 
 			if (dev) {
 				self.FIREBASE_APPCHECK_DEBUG_TOKEN = true;
@@ -50,14 +53,26 @@ export async function initFirebaseClient() {
 			}
 
 			console.log('Client Connected to Firebase');
-			return { app, db };
+			let firebase = {
+				app: app,
+				db: db,
+				auth: auth,
+				error: false
+			};
+
+			return firebase;
 		}
 
 		// code here to run on server side
 		// not needed at this time?
 	} catch (error) {
+		let firebase = {
+			error: true,
+			message: error
+		}
 		console.log('Error in Firebase Init');
 		console.error(error);
-		// TODO: return a trigger to display an error in the contact form.
+		
+		return firebase;
 	}
 }

@@ -4,7 +4,6 @@ import { getApp, cert, initializeApp } from 'firebase-admin/app';
 import { STRIPE_TEST_PRIVATE_KEY } from '$env/static/private';
 import Stripe from 'stripe';
 
-// i guess this is kind of silly if we don't send our message encrypted and decrypt with an env variable on the client side.. lol
 
 export async function POST({ request }) {
 	const payload = await request.json();

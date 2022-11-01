@@ -1,3 +1,9 @@
+<svelte:head>
+
+<meta name="theme-color" content="#020d1f">
+
+</svelte:head>
+
 
 <script>
 

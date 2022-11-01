@@ -26,7 +26,7 @@ export let session_store;
 	<!-- to be logged in user? not sure how I want to handle this yet.. -->
 	{session_data.user.name}
 </div>
-
+<div class='btn'>Daisy Button</div>
 <div id="client_links">
 	<!-- 
         <div class:active={active_view=='home'} class='links_group' id='home' > Home </div>

@@ -168,6 +168,7 @@
 </script>
 
 <div id="client-welcome-container">
+	
 	<div id="welcome-title">Welcome to our Client Portal!</div>
 
 	<div id="welcome-body">
