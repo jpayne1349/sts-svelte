@@ -1,13 +1,18 @@
 <script>
 
-    import { scale } from 'svelte/transition';
+    import { fade } from 'svelte/transition';
+    import { loadingStore } from '../client/stores';
+
 
 </script>
 
+{#if $loadingStore.show }
 
-<div class='spinner-bg'>
-    <div class='loading-spinner' transition:scale ></div>
-</div>
+    <div class='spinner-bg' transition:fade>
+        <div class='loading-spinner' transition:fade ></div>
+    </div>
+
+{/if}
 
 <style>
     .loading-spinner {
@@ -17,7 +22,7 @@
 		border-right: 4px solid transparent;
 		width: 5vw;
 		height: 5vw;
-		top: 47.5vh;
+		top: 41vh;
 		left: 47.5vw;
 		animation-name: spinning;
 		animation-duration: 1s;

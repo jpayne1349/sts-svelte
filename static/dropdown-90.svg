@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="11px" height="13px" viewBox="0 0 11 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>dropdown-line</title>
+    <g id="client-portal-v2-mobile" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="square">
+        <g id="subscription" transform="translate(-77.000000, -420.000000)" stroke="#BBBEC5">
+            <g id="subscription-selection" transform="translate(33.000000, 295.000000)">
+                <g id="plans-options-cont" transform="translate(16.000000, 21.798872)">
+                    <g id="automated-email-option" transform="translate(29.000000, 97.659774)">
+                        <path d="M0,6.25134264 L0,13.5037594 C2.705415e-16,15.7128984 1.790861,17.5037594 4,17.5037594 L10,17.5037594 L10,17.5037594" id="dropdown-lin"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

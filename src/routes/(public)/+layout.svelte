@@ -17,8 +17,6 @@
     import CookiePopup from '../../components/CookiePopup.svelte';
 
     import { setContext } from 'svelte';
-    
-    console.log(data);
 
     setContext('fbObject', data);
 

@@ -8,7 +8,7 @@ export async function initFirebaseClient() {
 		
 		// our way of only running this in the browser. we tried checking the browser boolean from svelte and it didnt work...
 		if (typeof window != 'undefined') {
-			console.log('Initializing Firebase Client Connection');
+			//console.log('Initializing Firebase Client Connection');
 
 			let { initializeApp } = await import('firebase/app');
 			let { getAnalytics, isSupported } = await import('firebase/analytics');
@@ -52,7 +52,7 @@ export async function initFirebaseClient() {
 				});
 			}
 
-			console.log('Client Connected to Firebase');
+			//console.log('Client Connected to Firebase');
 			let firebase = {
 				app: app,
 				db: db,

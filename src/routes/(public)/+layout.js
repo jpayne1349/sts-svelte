@@ -12,8 +12,7 @@ export async function load() {
         firebaseObjects = await initFirebaseClient();
         
     } catch(e) {
-        console.log(e);
-        
+              
         // TODO: throw error here? or in initFirebaseClient..
 
     }

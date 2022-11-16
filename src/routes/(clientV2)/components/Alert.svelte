@@ -1,6 +1,6 @@
 <script>
 
-import { alertStore } from '../v2/client/stores.js';
+import { alertStore } from '../client/stores.js';
 import {fly, fade} from 'svelte/transition';
 
 
@@ -8,7 +8,7 @@ import {fly, fade} from 'svelte/transition';
 $: if($alertStore.show == true) {
     setTimeout(()=>{
             $alertStore.show = false;
-        }, 4000);
+        }, 8000);
 }
 
 
@@ -32,19 +32,20 @@ $: if($alertStore.show == true) {
 <style>
 
 .alert {
-    position: absolute;
-    top: 16vh;
+    position: fixed;
+    top: 20vh;
     border-radius: 5px;
-    width: 30vw;
-    height: 5vh;
-    line-height: 3.5vh;
-    padding: 1vh;
+    width: 400px;
+    height: 50px;
+    line-height: 30px;
+    padding: 10px;
     background-color: var(--alert-blue);
-    box-shadow: 0px 1px 2px rgb(185, 185, 185);
+    box-shadow: var(--box-shadow);
     font-family: openSans-bold;
     color: white;
     text-align: center;
-    font-size: 1vw;
+    font-size: 18px;
+    z-index: 100;
 }
 .alert.error {
     background-color: var(--alert-red);
@@ -52,39 +53,28 @@ $: if($alertStore.show == true) {
 .checkmark {
     position: absolute;
     content: '';
-    width: 1vh;
-    height: 2vh;
+    width: 10px;
+    height: 20px;
     border-bottom: 4px solid white;
     border-right: 4px solid white;
-    left: 1vw;
-    top: 1.5vh;
+    left: 20px;
+    top: 13px;
     transform: rotate(35deg);
 }
 .exclamation {
     position: absolute;
     font-family: openSans-extrabold;
-    left: 1.5vw;
-    top: 0.8vh;
+    left: 20px;
+    top: 10px;
     color: white;
-    font-size: 2vh;
+    font-size: 25px;
 }
 
 
 @media only screen and (max-width: 500px) {
     .alert {
-        width: 90vw;
-        top: 10vh;
-        font-size: 4vw;
-        line-height: 3vh;
-    }
-    .checkmark {
-        left: 5vw;
-
-    }
-    .exclamation {
-        font-size: 5vw;
-        left: 4vw;
-        top: 1vh;
+        top: unset;
+        bottom: 15px;
     }
 }
 
