@@ -3,19 +3,18 @@
 	import { createEventDispatcher } from 'svelte';
 	import { fly } from 'svelte/transition';
 	import { updatePassword, EmailAuthProvider, reauthenticateWithCredential } from 'firebase/auth';
-	import { doc, updateDoc } from 'firebase/firestore';
+	import { doc, updateDoc, Timestamp, arrayUnion } from 'firebase/firestore';
 
 	let dispatch = createEventDispatcher();
 	let form_element;
 	let password_confirmed = false;
-    let failed_validation = false;
+	let failed_validation = false;
 
 	let current_password_value = '';
 	let new_password_value = '';
 	let confirm_password_value = '';
 
 	let submitting_form = false;
-
 
 	//@testing only
 	let first_pass = true;
@@ -30,10 +29,10 @@
 			// }
 
 			//validate new password
-            if(!checkPassword(new_password_value)) {
-                failed_validation = true;
-                throw {code: 'Requirements not met'}
-            }
+			if (!checkPassword(new_password_value)) {
+				failed_validation = true;
+				throw { code: 'Requirements not met' };
+			}
 
 			let credential = EmailAuthProvider.credential($sessionStore.email, current_password_value);
 
@@ -41,27 +40,47 @@
 
 			let update_password = await updatePassword($fbStore.auth.currentUser, new_password_value);
 
+			let serviceUpdateEvent = {
+				time: Timestamp.now(),
+				description: $sessionStore.email + ' updated account password.',
+				type: 'service'
+			};
+			let userDocReference = doc($fbStore.db, 'client-portal-user', $sessionStore.uid);
+			let updatedUserDoc = await updateDoc(userDocReference, {
+				'service_log.events': arrayUnion(serviceUpdateEvent)
+			});
+
 			submitting_form = false;
 			// everything will update dynamically, just close the modal
-            alertStore.set({
-                show: true,
-                error: false,
-                message: 'Password Change Successful!'
-            });
+			alertStore.set({
+				show: true,
+				error: false,
+				message: 'Password Change Successful!'
+			});
 
 			dispatch('close', 'clicked');
-
 		} catch (e) {
-
 			alertStore.set({
 				show: true,
 				error: true,
 				message: e.code
 			});
 
-            current_password_value = '';
-            new_password_value = '';
-            confirm_password_value = '';
+			let sendEmail = fetch('/client/api/generateErrorEmail', {
+				method: 'POST',
+				body: JSON.stringify({
+					title: 'Error during Password Change',
+					account: $sessionStore.email,
+					details: e
+				}),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+
+			current_password_value = '';
+			new_password_value = '';
+			confirm_password_value = '';
 
 			submitting_form = false;
 		}
@@ -77,7 +96,7 @@
 		}
 	}
 
-    // used in checkPassword to perform the regex check
+	// used in checkPassword to perform the regex check
 	function validate_password_string(str) {
 		var pattern = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[-+_!@#$%^&*.,?]).+$');
 
@@ -88,13 +107,12 @@
 		return false;
 	}
 
-    function checkPassword(password) {
-        if(password.length < 8) {
-            return false
-        }   
-        return validate_password_string(password);
-    }
-
+	function checkPassword(password) {
+		if (password.length < 8) {
+			return false;
+		}
+		return validate_password_string(password);
+	}
 </script>
 
 <div class="modal" in:fly={{ y: -50 }}>
@@ -145,7 +163,9 @@
 				on:input={compareInputs}
 			/>
 		</div>
-		<div class="password-reqs" class:red={failed_validation}>min: 1 uppercase | 1 number | 1 special character | length > 7</div>
+		<div class="password-reqs" class:red={failed_validation}>
+			min: 1 uppercase | 1 number | 1 special character | length > 7
+		</div>
 
 		<button type="submit" class="save" class:active={password_confirmed}>
 			<div id="spinner" class:active={submitting_form} />
@@ -284,11 +304,10 @@
 		color: var(--grey-text);
 		margin-bottom: 1.8vh;
 		text-align: center;
-
 	}
-    .password-reqs.red {
-        color: var(--alert-red);
-    }
+	.password-reqs.red {
+		color: var(--alert-red);
+	}
 	@keyframes spinning {
 		0% {
 			transform: rotate(0deg);
@@ -304,6 +323,5 @@
 		input {
 			font-size: 16px;
 		}
-
 	}
 </style>

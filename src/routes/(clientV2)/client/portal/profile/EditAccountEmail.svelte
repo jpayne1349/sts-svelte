@@ -3,7 +3,7 @@
 	import { createEventDispatcher } from 'svelte';
 	import { fly } from 'svelte/transition';
 	import { updateEmail } from 'firebase/auth';
-	import { doc, updateDoc } from 'firebase/firestore';
+	import { arrayUnion, doc, updateDoc, Timestamp } from 'firebase/firestore';
 
 	let dispatch = createEventDispatcher();
 	let form_element;
@@ -49,7 +49,12 @@
 				// update both emails on file
 				let updatedDoc = await updateDoc(userDocReference, {
 					email: new_email_value,
-					'billing.email': new_email_value
+					'billing.email': new_email_value,
+					'service_log.events': arrayUnion({
+						time: Timestamp.now(),
+						description: $sessionStore.email+' updated account email.',
+						type: 'service'
+					})
 				});
 
 				let stripe_payload = {
@@ -67,14 +72,24 @@
 
 				let jsonResponse = await server_response.json();
 
-				
-
 				if (jsonResponse.error) {
 					// handle error by setting alert
 					alertStore.set({
 						message: jsonResponse.code,
 						show: true,
 						error: true
+					});
+
+					let sendEmail = fetch('/client/api/generateErrorEmail', {
+						method: 'POST',
+						body: JSON.stringify({
+							title: 'Error Updating Stripe Email',
+							account: $sessionStore.email,
+							details: responseJson.code
+						}),
+						headers: {
+							'Content-Type': 'application/json'
+						}
 					});
 
 					submitting_form = false;
@@ -85,7 +100,12 @@
 				// just update the users email in firestore and carry on
 				let updatedDoc = await updateDoc(userDocReference, {
 					email: new_email_value,
-					email_verified: false
+					email_verified: false,
+					'service_log.events': arrayUnion({
+						time: Timestamp.now(),
+						description: $sessionStore.email+' updated account email.',
+						type: 'service'
+					})
 				});
 			}
 			// send new verification email to this new email address..
@@ -101,7 +121,6 @@
 			// everything will update dynamically, just close the modal
 			dispatch('close', 'clicked');
 		} catch (e) {
-			
 			if (e.code == 'auth/requires-recent-login') {
 				//@testing
 				// first_pass = false;
@@ -117,6 +136,19 @@
 				error: true,
 				message: e.code
 			});
+
+			let sendEmail = fetch('/client/api/generateErrorEmail', {
+				method: 'POST',
+				body: JSON.stringify({
+					title: 'Error Updating Account Email',
+					account: $sessionStore.email,
+					details: e
+				}),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+
 			submitting_form = false;
 		}
 

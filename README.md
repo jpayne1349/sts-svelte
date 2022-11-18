@@ -1,4 +1,13 @@
+# [South Texas Software, LLC](https://southtexas.software)
 
-Re-building my company website with svelte.
+This is the codebase for my web application linked above. Please feel free to read through, use, and suggest improvement to the code. 
 
-Current path trying out is - vercel + sveltekit + firebase
+Open a new issue on Github with your feedback, or drop us a message on via our [contact](https://southtexas.software/contact-us) form. Thanks for looking.
+
+**Tools/technologies:**
+- Sveltekit/Svelte
+- Vercel
+- Firebase
+- Stripe
+
+Written almost 100% in **Javascript**

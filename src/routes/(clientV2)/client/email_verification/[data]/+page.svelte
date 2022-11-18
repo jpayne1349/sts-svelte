@@ -73,11 +73,22 @@
 				let redirect = goto('/client/portal/profile');
 			}
 		} catch (e) {
-			
 			alertStore.set({
 				show: true,
 				error: true,
 				message: 'Something went wrong'
+			});
+
+			let sendEmail = fetch('/client/api/generateErrorEmail', {
+				method: 'POST',
+				body: JSON.stringify({
+					title: 'Error in Email Verification',
+					account: $sessionStore.email,
+					details: e
+				}),
+				headers: {
+					'Content-Type': 'application/json'
+				}
 			});
 		}
 	}

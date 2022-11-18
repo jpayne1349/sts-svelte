@@ -6,7 +6,7 @@
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { fade } from 'svelte/transition';
-	import { updateDoc, doc, arrayUnion } from 'firebase/firestore';
+	import { updateDoc, doc, arrayUnion, Timestamp } from 'firebase/firestore';
 
 	let setting_up_intent = false;
 	let submitting_form = false;
@@ -44,6 +44,19 @@
 				show: true,
 				error: true
 			});
+
+			let sendEmail = fetch('/client/api/generateErrorEmail', {
+				method: 'POST',
+				body: JSON.stringify({
+					title: 'Error in Stripe Setup Intent',
+					account: $sessionStore.email,
+					details: responseJson.code
+				}),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+
 			setting_up_intent = false;
 			return;
 		}
@@ -69,7 +82,6 @@
 
 			let jsonResponse = await server_response.json();
 
-
 			if (jsonResponse.error) {
 				// handle error by setting alert
 				alertStore.set({
@@ -77,6 +89,19 @@
 					show: true,
 					error: true
 				});
+
+				let sendEmail = fetch('/client/api/generateErrorEmail', {
+					method: 'POST',
+					body: JSON.stringify({
+						title: 'Error in Stripe Cancel Intent',
+						account: $sessionStore.email,
+						details: responseJson.code
+					}),
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				});
+
 				return;
 			}
 		}
@@ -124,6 +149,7 @@
 					error: true,
 					message: 'Something went wrong'
 				});
+
 				let refresh = await goto('/client/setup/billing_method');
 				break;
 			}
@@ -146,7 +172,7 @@
 
 		let responseJson = await server_response.json();
 
-        // contains the properties: type, last_four, pm_id, and default
+		// contains the properties: type, last_four, pm_id, and default
 
 		if (responseJson.error) {
 			alertStore.set({
@@ -154,30 +180,51 @@
 				show: true,
 				error: true
 			});
+
+			let sendEmail = fetch('/client/api/generateErrorEmail', {
+				method: 'POST',
+				body: JSON.stringify({
+					title: 'Error in Stripe addPaymentMethod',
+					account: $sessionStore.email,
+					details: responseJson.code
+				}),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+
 			return;
 		}
 
-        let new_default_card = {
-            type: responseJson.type,
-            last_four: responseJson.last_four,
-            id: responseJson.pm_id
-        };
+		let new_default_card = {
+			type: responseJson.type,
+			last_four: responseJson.last_four,
+			id: responseJson.pm_id
+		};
+
+		let billingUpdateEvent = {
+			time: Timestamp.now(),
+			description: $sessionStore.email + ' updated default payment method.',
+			type: 'billing'
+		}
 
 		let userDocReference = doc($fbStore.db, 'client-portal-user', $sessionStore.uid);
-		if($sessionStore.default_payment_method.id == '') {
+		if ($sessionStore.default_payment_method.id == '') {
 			// used if this is the first time a payment method has been added.
 			let updatedUserDoc = await updateDoc(userDocReference, {
 				'account_setup.billing_method.seen': true,
 				'account_setup.billing_method.completed': true,
-				'billing.status':'Not Active',
-				default_payment_method: new_default_card
+				'billing.status': 'Not Active',
+				default_payment_method: new_default_card,
+				'service_log.events': arrayUnion(billingUpdateEvent)
 			});
 		} else {
 			// updates to the method don't alter the billing status, as to not interrupt the billing cycle
 			let updatedUserDoc = await updateDoc(userDocReference, {
 				default_payment_method: new_default_card,
-				'navigation.returnBack':true,
-				'navigation.returnTo': '/client/portal/billing'
+				'navigation.returnBack': true,
+				'navigation.returnTo': '/client/portal/billing',
+				'service_log.events': arrayUnion(billingUpdateEvent)
 			});
 
 			let nextpage = await goto($sessionStore.navigation.returnTo);
@@ -186,17 +233,15 @@
 		}
 
 		let nextpage = await goto('/client/setup/subscription_service');
-
-		
 	}
 
 	async function setUpLater() {
 		let cancelingIntent = await cancelIntent();
 
 		let userDocReference = doc($fbStore.db, 'client-portal-user', $sessionStore.uid);
-		
+
 		let updatedUserDoc = await updateDoc(userDocReference, {
-			'account_setup.billing_method.seen': true,
+			'account_setup.billing_method.seen': true
 		});
 
 		let nextPage = await goto('/client/setup/subscription_service');
@@ -207,7 +252,8 @@
 	<h2 class="container-title">Billing Info</h2>
 	<h3 class="container-subtitle">Add a payment method</h3>
 	<p>
-		You may securely save your default payment method below. Any existing information on file will be overwritten.
+		You may securely save your default payment method below. Any existing information on file will
+		be overwritten.
 	</p>
 
 	<form
@@ -228,7 +274,7 @@
 					colorDanger: '#d39b9b',
 					fontFamily: 'Open Sans, system-ui',
 					borderRadius: '5px',
-                    fontWeightNormal: '600'
+					fontWeightNormal: '600'
 				}}
 			>
 				<PaymentElement />
@@ -253,7 +299,8 @@
 	</form>
 
 	<p>
-		No charges will ever be applied without a quote accepted by you, followed by an invoice and settlement period of 3 days.
+		No charges will ever be applied without a quote accepted by you, followed by an invoice and
+		settlement period of 3 days.
 	</p>
 
 	<div class="double-button-container">
@@ -282,7 +329,6 @@
 		font-size: 14px;
 		color: var(--dark-blue);
 		margin-bottom: 2vh;
-        
 	}
 	.stripe-element-container {
 		width: 100%;
@@ -316,15 +362,14 @@
 		transition: all 0.2s;
 	}
 
-    @media only screen and (max-width: 500px) {
-        .stripe-element-container {
-            
-            padding: 0;
-        }
-        #submit-billing_method {
-		height: 35px;
+	@media only screen and (max-width: 500px) {
+		.stripe-element-container {
+			padding: 0;
+		}
+		#submit-billing_method {
+			height: 35px;
+		}
 	}
-    }
 
 	@keyframes spinning {
 		0% {

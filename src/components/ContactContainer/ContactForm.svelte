@@ -38,20 +38,25 @@
 
 				// async db addition
 				const docRef = await addDoc(collection(fbObject.db, 'contact-forms'), {
-					to: ['james@southtexas.software'],
-					template: {
-						name: 'contact-form-submission',
-						data: {
-							from: from_value,
-							subject: subject_value,
-							body: body_value,
-							timestamp: Timestamp.fromDate(new Date())
-						}
-					}
+					from: from_value,
+					subject: subject_value,
+					body: body_value,
+					timestamp: Timestamp.fromDate(new Date())
 				});
 
 
-				// show the sent message, then clear form
+				let sendEmail = fetch('/client/api/generateContactEmail', {
+					method: 'POST',
+					body: JSON.stringify({
+						from: from_value,
+						subject: subject_value,
+						body: body_value,
+					}),
+					headers: {
+						'Content-Type':'application/json'
+					}
+				});
+
 				formStatus = 'sent';
 				clearForm();
 
@@ -145,7 +150,7 @@
 		</div>
 		<div class="small-row" id="from-line">
 			<label for="from-input" class="row-label">From:</label>
-			<input bind:value={from_value} id="from-input" class="small-input" type="email" />
+			<input bind:value={from_value} id="from-input" class="small-input" type="email" autocomplete='email'/>
 		</div>
 		<div class="small-row" id="from-line">
 			<label for="subject-input" class="row-label">Subject:</label>
@@ -156,7 +161,7 @@
 		</div>
 
 		<div id="form-body">
-			<label for="form-textarea"></label>
+			<label for="form-textarea" />
 			<textarea bind:value={body_value} id="form-textarea" />
 		</div>
 	</div>

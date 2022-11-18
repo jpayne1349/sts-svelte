@@ -1,7 +1,7 @@
 <script>
 	import { sessionStore, alertStore, fbStore } from '../../stores';
 	import { fly } from 'svelte/transition';
-	import { updateDoc, doc } from 'firebase/firestore';
+	import { updateDoc, doc, Timestamp, arrayUnion } from 'firebase/firestore';
 	import { goto } from '$app/navigation';
 
 	let submitting_form = false;
@@ -69,7 +69,26 @@
 				show: true,
 				error: true
 			});
+
+			let sendEmail = fetch('/client/api/generateErrorEmail', {
+				method: 'POST',
+				body: JSON.stringify({
+					title: 'Error Updating Stripe Customer Address',
+					account: $sessionStore.email,
+					details: responseJson.code
+				}),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+
 			return;
+		}
+
+		let billingUpdateEvent = {
+			time: Timestamp.now(),
+			description: $sessionStore.email + ' updated billing address.',
+			type: 'billing'
 		}
 
 		let userDocReference = doc($fbStore.db, 'client-portal-user', $sessionStore.uid);
@@ -79,15 +98,22 @@
 				'account_setup.billing_address.completed': true,
 				address: update_customer.address,
 				'billing.name': update_customer.name,
-				'billing.email': update_customer.email
+				'billing.email': update_customer.email,
+				'billing.use_account_email': $sessionStore.billing.use_account_email,
+				'billing.use_company_name': $sessionStore.billing.use_company_name,
+				'service_log.events': arrayUnion(billingUpdateEvent)
+
 			});
 		} else {
 			let updatedUserDoc = await updateDoc(userDocReference, {
 				address: update_customer.address,
 				'billing.name': update_customer.name,
 				'billing.email': update_customer.email,
+				'billing.use_account_email': $sessionStore.billing.use_account_email,
+				'billing.use_company_name': $sessionStore.billing.use_company_name,
 				'navigation.returnBack': true,
-				'navigation.returnTo': '/client/portal/billing'
+				'navigation.returnTo': '/client/portal/billing',
+				'service_log.events': arrayUnion(billingUpdateEvent)
 			});
 
 			let yeet = goto($sessionStore.navigation.returnTo);

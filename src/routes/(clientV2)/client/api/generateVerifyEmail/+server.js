@@ -13,10 +13,13 @@ export async function POST({ request }) {
 
 	let verification_url = 'http://192.168.1.25:5173/client/email_verification/p=' + uniqueVerificationString;
 
+	let report_url = 'http://192.168.1.25:5173/report_email/' + uniqueVerificationString;
+
 	try {
 		let sending = await sendEmail('verify-email', {
 			recipient: payload.email,
-			link: verification_url
+			link: verification_url,
+			report_link: report_url,
 		});
 		
 	} catch (e) {

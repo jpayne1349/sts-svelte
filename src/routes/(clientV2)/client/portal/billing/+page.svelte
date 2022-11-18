@@ -1,7 +1,8 @@
 <script>
 	import { sessionStore, alertStore, fbStore } from '../../stores';
 	import { goto } from '$app/navigation';
-	import { updateDoc, doc } from 'firebase/firestore';
+	import { updateDoc, doc, Timestamp, arrayUnion } from 'firebase/firestore';
+	import Event from '../Event.svelte';
 
 	let cancelling_subscription = false;
 	let removing_payment_method = false;
@@ -58,20 +59,51 @@
 
 			let responseJson = await server_response.json();
 
-
 			if (responseJson.error) {
 				alertStore.set({
 					message: responseJson.code,
 					show: true,
 					error: true
 				});
-                cancelling_subscription = false;
+
+				let sendEmail = fetch('/client/api/generateErrorEmail', {
+					method: 'POST',
+					body: JSON.stringify({
+						title: 'Error Cancelling Subscription',
+						account: $sessionStore.email,
+						details: responseJson.code
+					}),
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				});
+
+				cancelling_subscription = false;
+
 				return;
 			}
 
 			let userDocReference = doc($fbStore.db, 'client-portal-user', $sessionStore.uid);
 			let updatedUserDoc = await updateDoc(userDocReference, {
-				'subscription.status': 'Cancelling'
+				'subscription.status': 'Cancelling',
+				'service_log.events': arrayUnion({
+					time: Timestamp.now(),
+					description: $sessionStore.email + ' cancelled services.',
+					type: 'billing'
+				})
+			});
+
+			let sendEmail = fetch('/client/api/generateErrorEmail', {
+				method: 'POST',
+				body: JSON.stringify({
+					title: 'Cancel Services/Subscription',
+					account: $sessionStore.email,
+					details:
+						'Not an error, informational only. The account is request cancellation of services.'
+				}),
+				headers: {
+					'Content-Type': 'application/json'
+				}
 			});
 		}
 
@@ -99,24 +131,61 @@
 				show: true,
 				error: true
 			});
-            removing_payment_method = false;
+
+			let sendEmail = fetch('/client/api/generateErrorEmail', {
+				method: 'POST',
+				body: JSON.stringify({
+					title: 'Error Removing Payment Method',
+					account: $sessionStore.email,
+					details: responseJson.code
+				}),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+
+			removing_payment_method = false;
 			return;
 		}
 
-        let empty_payment_method = {
-            id: '',
-            type: '',
-            last_four: ''
-        };
+		let empty_payment_method = {
+			id: '',
+			type: '',
+			last_four: ''
+		};
 
 		let userDocReference = doc($fbStore.db, 'client-portal-user', $sessionStore.uid);
 		let updatedUserDoc = await updateDoc(userDocReference, {
 			default_payment_method: empty_payment_method,
-            'account_setup.billing_method.completed': false
+			'account_setup.billing_method.completed': false,
+			'service_log.events': arrayUnion({
+				time: Timestamp.now(),
+				description: $sessionStore.email + ' removed payment method.',
+				type: 'billing'
+			})
 		});
 
 		removing_payment_method = false;
 	}
+
+	let latest_event = {
+		time: '',
+		description: '',
+		type: 'billing',
+		exists: false
+	};
+
+	let unsubCallback = sessionStore.subscribe((storeData) => {
+		for (let i = 0; i < storeData.service_log.events.length; i++) {
+			if (storeData.service_log.events[i].type == 'billing') {
+				latest_event = storeData.service_log.events[i];
+				latest_event.exists = true;
+				return;
+			}
+		}
+		// none found, set false
+		latest_event.exists = false;
+	});
 </script>
 
 <div class="container">
@@ -171,6 +240,20 @@
 			{/if}
 		</div>
 
+		<div class="information-row latest-event">
+			<p class="label latest-event">Latest Event</p>
+
+			{#if latest_event.exists}
+				<Event
+					time={latest_event.time}
+					description={latest_event.description}
+					type={latest_event.type}
+				/>
+			{:else}
+				<p class="empty-placeholder" />
+			{/if}
+		</div>
+
 		<div class="information-row subscription">
 			<p class="label subscription">
 				Services&nbsp;
@@ -212,22 +295,18 @@
 			{/if}
 		</div>
 
-        <div class="information-row documents">
+		<div class="information-row documents">
 			<p class="label documents">Documents</p>
 
-            
 			{#if $sessionStore.billing.documents.length == 0}
-                <p class='info-text'>Billing documents will be uploaded here for viewing/download.</p>
-            {:else}
-            
-            {#each $sessionStore.billing.documents as document}
-            <!-- TODO: build this out once we have a test document generated -->
-                {document.title}
-            {/each}
-            {/if}
-        
-        </div>
-
+				<p class="info-text">Billing documents will be uploaded here for viewing/download.</p>
+			{:else}
+				{#each $sessionStore.billing.documents as document}
+					<!-- TODO: build this out once we have a test document generated -->
+					{document.title}
+				{/each}
+			{/if}
+		</div>
 
 		<button
 			class="text-link"
@@ -322,9 +401,14 @@
 	.information-row.address {
 		align-items: flex-start;
 	}
-	.information-row.subscription, .information-row.documents {
+	.information-row.subscription,
+	.information-row.documents {
 		flex-direction: column;
 		align-items: flex-start;
+	}
+	.information-row.latest-event {
+		flex-direction: column;
+		align-items: center;
 	}
 	.information-row.payment {
 		justify-content: space-between;
@@ -355,10 +439,17 @@
 		font-size: 16px;
 		position: relative;
 	}
-	.label.subscription, .label.documents {
+	.label.subscription,
+	.label.documents {
 		font-family: openSans-regular;
 		display: flex;
 		align-items: center;
+	}
+	.label.latest-event {
+		align-self: flex-start;
+	}
+	.empty-placeholder {
+		height: 40px;
 	}
 	.info-text {
 		font-family: openSans-medium;

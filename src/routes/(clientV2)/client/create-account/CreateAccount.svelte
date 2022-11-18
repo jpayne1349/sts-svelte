@@ -3,7 +3,7 @@
 	import { enhance } from '$app/forms';
 	import { createUserWithEmailAndPassword } from 'firebase/auth';
 	import { fade } from 'svelte/transition';
-	import { doc, collection, setDoc } from 'firebase/firestore';
+	import { doc, collection, setDoc, Timestamp } from 'firebase/firestore';
 	import { goto } from '$app/navigation';
 
 	let password_validating = false;
@@ -87,7 +87,7 @@
 			let newUser = await createUserWithEmailAndPassword($fbStore.auth, email, password);
 
 			let newUserData = {
-				creatingNewUser: false,
+				creatingNewUser: true,
 				logged_in: true,
 				uid: newUser.user.uid,
 				email: email,
@@ -110,7 +110,14 @@
 					preview_links: [],
 					code_repo: '',
 					latest_event: '',
-					events: []
+					events: [
+						{
+							time: Timestamp.now(),
+							description: email + ' created an account.',
+							type: 'service',
+
+						}
+					]
 				},
 				subscription: {
 					plan: '',
@@ -159,7 +166,7 @@
 				}
 			};
 
-			//let send_verifiction_email = await verificationEmail(email, newUser.user.id);
+			let send_verifiction_email = await verificationEmail(email, newUser.user.id);
 
 			let users_collection = collection($fbStore.db, 'client-portal-user');
 
@@ -167,18 +174,29 @@
 
 			let createdUserDoc = await setDoc(newUserDocRef, newUserData);
 
-			sessionStore.update((data) => {
-				data.creatingNewUser = false;
-
-				return data;
-			});
-		} catch (e) {
+			let finishedCreatingDoc = await updateDoc(newUserDocRef, {
+				creatingNewUser: false
+			})
 			
+		} catch (e) {
 			alertStore.set({
 				message: e.code,
 				error: true,
 				show: true
 			});
+
+			let sendEmail = fetch('/client/api/generateErrorEmail', {
+				method: 'POST',
+				body: JSON.stringify({
+					title: 'Error in Create Account',
+					account: 'unknown',
+					details: e
+				}),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+
 			// reset fields in the form
 			form_element.reset();
 

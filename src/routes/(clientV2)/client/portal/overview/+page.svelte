@@ -33,8 +33,6 @@
     }
 
 
-
-
 </script>
 
 <section class="container"  >
@@ -51,10 +49,10 @@
 	</div>
 
 	<div class="overview-section">
-		<h3 class="section-title">
+		<h3 class="section-title billing">
 			Billing
 			{#if $sessionStore.billing.status != ''}
-				<span class="billing-status"> - {$sessionStore.billing.status}</span>
+				<span class="billing-status" class:active={$sessionStore.billing.status == 'active'}>{$sessionStore.billing.status}</span>
 			{/if}
 		</h3>
 
@@ -66,7 +64,7 @@
 					<div class="card-type">{shortenCardType()}</div>
 				</div>
 			{:else}
-				<a href="/client/setup/billing_method" class="add-one-link"><div /></a>
+				Not Added
 			{/if}
 		</p>
 
@@ -117,6 +115,9 @@
 		font-size: 18px;
 		margin-bottom: 5px;
 	}
+	.section-title.billing {
+		display: flex;
+	}
 	.section-info {
 		font-family: openSans-medium;
 		font-size: 16px;
@@ -132,37 +133,7 @@
 		margin-right: 5px;
         text-align: end;
 	}
-	.add-one-link {
-		position: relative;
-		content: '';
-		display: flex;
-		align-items: center;
-		margin-left: 5px;
-	}
-	.add-one-link div {
-		content: '';
-		border-radius: 50%;
-		background-color: var(--global-green);
-		color: white;
-		font-family: openSans-bold;
-		width: 20px;
-		height: 20px;
-		position: relative;
-		box-shadow: var(--box-shadow);
-	}
-	.add-one-link div::before,
-	.add-one-link div::after {
-		content: '';
-		background-color: white;
-		width: 10px;
-		height: 2px;
-		position: absolute;
-		left: 5px;
-		top: 9px;
-	}
-	.add-one-link div::after {
-		transform: rotate(90deg);
-	}
+
 	.card-icon {
 		background-color: rgb(245, 245, 245);
 		width: 50px;
@@ -187,7 +158,19 @@
 	}
 	.billing-status {
 		font-family: openSans-light;
-		font-size: 12px;
+		font-size: 8px;
+		margin-left: 5px;
+		padding: 2px 4px;
+		border-radius: 5px;
+		border: 1px solid var(--alert-orange);
+		color: var(--alert-orange);
+		background-color: #d3ba9b1c;
+		align-self: flex-start;
+	}
+	.billing-status.active {
+		border: 1px solid var(--global-green);
+		color: var(--global-green);
+		background-color: #7aa66f19;
 	}
 
 	@media only screen and (max-width: 500px) {
@@ -195,7 +178,7 @@
 			padding-bottom: 25px;
 		}
         .billing-status {
-            font-size: 10px;
+            font-size: 8px;
             
         }
 	}

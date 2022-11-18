@@ -1,7 +1,7 @@
 <script>
 	import { fade, fly } from 'svelte/transition';
 	import { alertStore, sessionStore, fbStore, loadingStore } from '../../stores';
-	import { updateDoc, doc } from 'firebase/firestore';
+	import { updateDoc, doc, Timestamp, arrayUnion } from 'firebase/firestore';
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
 
@@ -57,12 +57,27 @@
 					show: true,
 					error: true
 				});
+
+				let sendEmail = fetch('/client/api/generateErrorEmail', {
+					method: 'POST',
+					body: JSON.stringify({
+						title: 'Error Creating Stripe Customer',
+						account: $sessionStore.email,
+						details: responseJson.code
+					}),
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				});
+
 				return;
 			}
 
-			// else, grab the customer id from the response and do some firebase stuff? like add that CUID to this users document for future reference
+			// else, response was valid and customer was created, use this to add to/create firebase documents
 			let new_customer_id = responseJson.cuid;
-
+			// create customer doc
+			
+			// update user doc
 			let userDocReference = doc($fbStore.db, 'client-portal-user', $sessionStore.uid);
 			let updatedUserDoc = await updateDoc(userDocReference, {
 				cuid: new_customer_id,
@@ -71,19 +86,24 @@
 				phone: phone,
 				company_is_seperate: $sessionStore.company_is_seperate,
 				company_in_system: company_in_system,
-				company_name: company_name
+				company_name: company_name,
+				'service_log.events': arrayUnion({
+					time: Timestamp.now(),
+					description: $sessionStore.email + ' updated account info.',
+					type: 'service'
+				})
 			});
 		} else {
 			// this runs if if we're updating an existing customers profile
 			// we don't touch the billing name or anything with stripe, as that is only affected in billing_address and billing_method
-			if(company_name != $sessionStore.company_name) {
+			if (company_name != $sessionStore.company_name) {
 				alertStore.set({
 					show: true,
 					error: false,
 					message: 'Company Name Changed!'
 				});
-			}	
-			
+			}
+
 			let userDocReference = doc($fbStore.db, 'client-portal-user', $sessionStore.uid);
 			let updatedUserDoc = await updateDoc(userDocReference, {
 				fullname: fullname,
@@ -91,8 +111,13 @@
 				company_is_seperate: $sessionStore.company_is_seperate,
 				company_in_system: company_in_system,
 				company_name: company_name,
-				'navigation.returnBack':true,
-				'navigation.returnTo':'/client/portal/profile'
+				'navigation.returnBack': true,
+				'navigation.returnTo': '/client/portal/profile',
+				'service_log.events': arrayUnion({
+					time: Timestamp.now(),
+					description: $sessionStore.email + ' changed company name.',
+					type: 'service'
+				})
 			});
 
 			let previousPage = $sessionStore.navigation.returnTo;
@@ -103,9 +128,7 @@
 			return;
 		}
 
-
 		let nextpage = await goto('/client/setup/billing_address');
-		
 
 		submitting_form = false;
 	}

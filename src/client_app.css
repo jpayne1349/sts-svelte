@@ -60,10 +60,7 @@ a {
 	text-decoration: none;
 	color: black;
 }
-html,
-body {
-	overflow-x: hidden;
-}
+
 body {
 	position: relative;
 }
@@ -73,7 +70,6 @@ body {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	overflow-x: hidden;
 	background: url('/../../background-rect.jpg') no-repeat center center fixed;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;

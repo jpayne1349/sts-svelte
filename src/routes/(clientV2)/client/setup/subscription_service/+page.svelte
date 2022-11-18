@@ -4,7 +4,7 @@
 	import { subscriptionSetupStore, sessionStore, alertStore, fbStore } from '../../stores';
 	import { fly } from 'svelte/transition';
 	import { PaymentElement } from 'svelte-stripe';
-	import { updateDoc, doc, arrayUnion } from 'firebase/firestore';
+	import { updateDoc, doc, arrayUnion, Timestamp } from 'firebase/firestore';
 	import { goto } from '$app/navigation';
 
 	// this is the structure, and holds the dynamic values, this will get submitted for interpretation to the database
@@ -97,16 +97,34 @@
 
 		let responseJson = await server_response.json();
 
-
 		if (responseJson.error) {
 			alertStore.set({
 				message: responseJson.code,
 				show: true,
 				error: true
 			});
+
+			let sendEmail = fetch('/client/api/generateErrorEmail', {
+				method: 'POST',
+				body: JSON.stringify({
+					title: 'Error in Stripe createQuote',
+					account: $sessionStore.email,
+					details: responseJson.code
+				}),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+
 			submitting_form = false;
 			return;
 		}
+
+		let serviceUpdateEvent = {
+			time: Timestamp.now(),
+			description: $sessionStore.email + ' submitted services form.',
+			type: 'service'
+		};
 
 		// update firebase account setup stuff, also we want to write to firebase the subscriptionSetupStore..
 		let userDocReference = doc($fbStore.db, 'client-portal-user', $sessionStore.uid);
@@ -119,16 +137,30 @@
 				'subscription.status': status_message,
 				service_forms: arrayUnion(responseJson.payload),
 				'navigation.returnBack': true,
-				'navigation.returnTo': '/client/portal/billing'
+				'navigation.returnTo': '/client/portal/billing',
+				'service_log.events': arrayUnion(serviceUpdateEvent)
 			});
 		} else {
 			let updatedUserDoc = await updateDoc(userDocReference, {
 				'account_setup.subscription_service.seen': true,
 				'account_setup.subscription_service.completed': true,
 				'subscription.status': status_message,
-				service_forms: arrayUnion(responseJson.payload)
+				service_forms: arrayUnion(responseJson.payload),
+				'service_log.events': arrayUnion(serviceUpdateEvent)
 			});
 		}
+
+		let sendEmail = fetch('/client/api/generateErrorEmail', {
+			method: 'POST',
+			body: JSON.stringify({
+				title: 'Submitted Services Form',
+				account: $sessionStore.email,
+				details: JSON.stringify(responseJson.payload)
+			}),
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		});
 
 		let nextpage = await goto('/client/portal/overview');
 

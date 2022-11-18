@@ -1,6 +1,6 @@
 <script>
 	import '../../../client_app.css';
-	import MenuIcon from '../components/MenuIcon.svelte';
+	import MobileNav from '../components/MobileNav.svelte';
 	import PageLoading from '../components/PageLoading.svelte';
 	import Alert from '../components/Alert.svelte';
 	import { writable } from 'svelte/store';
@@ -90,13 +90,18 @@
 		});
 	}
 
+
 	async function authStateChangeCallback() {
 		console.log('auth state change callback called');
+		
 		// check if a new user is being created
 		if ($sessionStore.creatingNewUser) {
+
 			setTimeout(authStateChangeCallback, 1000);
+
 			return;
 		}
+
 
 		if ($fbStore.auth.currentUser != null) {
 			try {
@@ -109,8 +114,9 @@
 
 					dev_loggedInUser = updated_firebase_data.email;
 
-					sessionStore.set(updated_firebase_data);
+					updated_firebase_data.service_log.events.reverse();
 
+					sessionStore.set(updated_firebase_data);
 
 					// handle a user who just logged in to verify their email address
 					if ($email_verification.url != '') {
@@ -171,7 +177,6 @@
 							initial_auth_updated = true;
 							loadingStore.set({ show: false });
 						}
-						
 					}
 
 					// render the requested page for the authorized user.
@@ -179,8 +184,6 @@
 						initial_auth_updated = true;
 						loadingStore.set({ show: false });
 					}
-
-
 				});
 			} catch (e) {
 				console.warn('ERROR LOADING AUTH.CURRENTUSER', e);
@@ -189,6 +192,18 @@
 					error: true,
 					show: true,
 					message: 'Error in automatic sign in'
+				});
+
+				let sendEmail = fetch('/client/api/generateErrorEmail', {
+					method: 'POST',
+					body: JSON.stringify({
+						title: 'Error in automatic sign in',
+						account: 'unknown',
+						details: e
+					}),
+					headers: {
+						'Content-Type': 'application/json'
+					}
 				});
 
 				console.log('CALLING SIGN OUT USER TO RESET');
@@ -250,35 +265,47 @@
 		console.log('SIGNED USER OUT');
 	}
 
-	// used for filling the footer
-	let page_width;
+	// bound to match the with of the navbar element, which reflects the window width basically.
+	let window_width;
+
 </script>
 
 <svelte:head>
 	<meta name="theme-color" content="#FFFFFF" />
 </svelte:head>
 
-<div class="navbar">
-	<div class="logo-wrapper">
-		<a href="https://southtexas.software" alt="South Texas Sofware Homepage"
-			><img src="/../../sts-logo-regular.svg" alt="STS Logo" /></a
-		>
-	</div>
+<svelte:window bind:innerWidth={window_width} />
 
-	<MenuIcon />
+{#if window_width > 500}
+<div class="navbar" >
+	
+		<a href="/services" alt="Services">Services</a>
+		<a href="/pricing" alt="Services">Pricing</a>
+
+		<div class="logo-wrapper">
+			<a href="https://southtexas.software" alt="South Texas Sofware Homepage"
+				><img class="logo-img" src="/../../sts-logo-regular.svg" alt="STS Logo" /></a
+			>
+		</div>
+
+		<a href="/contact-us" alt="Services">Contact</a>
+		<a href="/client" alt="Services">Client Portal</a>
 </div>
+{:else}
+		<MobileNav />
+{/if}
 
 <header class="client-portal-header">
 	<h1 class="client-portal-title">
-		{#if $sessionStore.logged_in }
+		{#if $sessionStore.logged_in}
 			<a href="/client/portal/overview">Client Portal</a>
 		{:else}
 			<a href="/client">Client Portal</a>
 		{/if}
-		
 	</h1>
 
-	<p class="dev">test-user: {dev_loggedInUser}</p>
+	<!-- DEV ONLY -->
+	<!-- <p class="dev">test-user: {dev_loggedInUser}</p> -->
 
 	<button class="log-out" on:click={signOutUser} class:available={$sessionStore.logged_in}>
 		<img src="/sign-out-icon.svg" alt="Log Out" />
@@ -292,7 +319,7 @@
 	{/if}
 </div>
 
-<footer class="footer" bind:clientWidth={page_width}>
+<footer class="footer" >
 	<a href="https://southtexas.software/terms-of-us" class="footer-link ">Terms of Use</a>
 	<a href="https://southtexas.software/privacy-policy" class="footer-link" transition:fade
 		>Privacy Policy</a
@@ -310,8 +337,15 @@
 		height: 15vh;
 		justify-content: center;
 		width: 100%;
+		align-items: center;
+		
 	}
-	.logo-wrapper img {
+	.navbar a {
+		font-family: openSans-medium;
+		padding: 0 15px;
+		margin-top: 60px;
+	}
+	.logo-img {
 		height: 15vh;
 	}
 
@@ -361,6 +395,7 @@
 		opacity: 0;
 		transition: all 0.5s;
 		margin-bottom: 0;
+		margin-left: 15px;
 	}
 	.log-out.available {
 		pointer-events: all;
@@ -396,8 +431,15 @@
 			font-family: openSans-semibold;
 		}
 		.client-portal-header {
-			width: 95vw;
-			margin-top: 1vh;
+			width: 85vw;
+			margin-top: 10px;
+			position: sticky;
+			position: -webkit-sticky;
+			top: 0;
+			align-self: flex-start;
+			margin-left: 3vw;
+			z-index: 15;
+			
 		}
 		.client-portal-title {
 			font-family: openSans-extrabold;

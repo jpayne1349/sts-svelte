@@ -18,8 +18,8 @@
 	<a href="./overview" class:active={$page.url.pathname == '/client/portal/overview'}>Overview</a>
 	<a href="./profile" class:active={$page.url.pathname == '/client/portal/profile'}>Profile</a>
 	<a href="./billing" class:active={$page.url.pathname == '/client/portal/billing'}>Billing</a>
-	<a href="./service-log" class:active={$page.url.pathname == '/client/portal/service-log'}
-		>Service Log</a
+	<a href="./development" class:active={$page.url.pathname == '/client/portal/development'}
+		>Development</a
 	>
 </nav>
 

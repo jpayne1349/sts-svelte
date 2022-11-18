@@ -1,6 +1,6 @@
 <script>
 	import { page } from '$app/stores';
-	import { sessionStore, fbStore, alertStore } from '../stores';
+	import { sessionStore, fbStore } from '../stores';
 	import { beforeUpdate } from 'svelte';
 	import { goto } from '$app/navigation';
 
@@ -151,7 +151,7 @@
 		.step-icon.previous:after {
 			width: 15.4vw;
 		}
-		.step-icon.previous.completed:after {
+		.step-icon.previous.completed:after, .step-icon.previous.seen:after {
 			width: 15.4vw;
 			background-color: var(--dark-blue);
 		}

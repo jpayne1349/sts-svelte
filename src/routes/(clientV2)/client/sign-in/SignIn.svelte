@@ -108,8 +108,8 @@
 		border-radius: 50%;
 		border-top: 2px solid white;
 		border-right: 2px solid transparent;
-		width: 1vh;
-		height: 1vh;
+		width: 20px;
+		height: 20px;
 		animation-name: spinning;
 		animation-duration: 1s;
 		animation-iteration-count: infinite;

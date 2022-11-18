@@ -1,8 +1,6 @@
 import { json } from '@sveltejs/kit';
 import { EMAIL_VERIFICATION_PRIVATE_KEY } from '$env/static/private';
 import * as crypto from 'crypto';
-import { getAuth } from 'firebase-admin/auth';
-import { getApp } from 'firebase-admin/app';
 
 
 export async function POST({ request }) {
