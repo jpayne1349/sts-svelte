@@ -1,11 +1,11 @@
 import { json, error } from '@sveltejs/kit';
-import { STRIPE_TEST_PRIVATE_KEY } from '$env/static/private';
 import Stripe from 'stripe';
 import { dev } from '$app/environment';
 import { sendEmail } from '../../../emailing';
 import { getStorage } from 'firebase-admin/storage';
 import { getFirestore, FieldValue, Timestamp } from 'firebase-admin/firestore';
 import { got } from 'got';
+import { stripeConfig } from '../../../../../config';
 
 
 export async function POST({ request }) {
@@ -14,7 +14,7 @@ export async function POST({ request }) {
 	const _rawBody = await request.arrayBuffer();
 	const payload = toBuffer(_rawBody);
 
-	const stripe = Stripe(STRIPE_TEST_PRIVATE_KEY);
+	const stripe = Stripe(stripeConfig.privateKey);
 	const firestoreCollection = getFirestore().collection('/client-portal-user');
 	const storageBucket = getStorage().bucket();
 
@@ -23,7 +23,7 @@ export async function POST({ request }) {
 	let event;
 
 	try {
-		event = stripe.webhooks.constructEvent(payload, sig, endpointSecret);
+		event = stripe.webhooks.constructEvent(payload, sig, stripeConfig.webhookSecret);
 	} catch (err) {
 		let error_reponse = new Response('Webhook Error: ' + err.message, { status: 400 });
 		return error_reponse;

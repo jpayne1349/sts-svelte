@@ -1,6 +1,7 @@
-import { SENDGRID_API_KEY } from '$env/static/private';
+
 import sgMail from '@sendgrid/mail';
 import { dev } from '$app/environment';
+import { sendgridConfig } from '../../config';
 
 const fromObj = {
 	name: 'South Texas Software',
@@ -97,7 +98,7 @@ export async function sendEmail(type, payload) {
 		console.log('****************** SIMULATING EMAIL PAYLOAD *********************');
 		console.error(msg);
 	} else {
-		sgMail.setApiKey(SENDGRID_API_KEY);
+		sgMail.setApiKey(sendgridConfig.apiKey);
 
 		sgMail
 			.send(msg)

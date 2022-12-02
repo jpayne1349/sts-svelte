@@ -1,7 +1,6 @@
 import { json } from '@sveltejs/kit';
-import { EMAIL_VERIFICATION_PRIVATE_KEY } from '$env/static/private';
 import * as crypto from 'crypto';
-
+import { encryptionConfig } from '../../../../config';
 
 export async function POST({ request }) {
 	let payload = await request.json();
@@ -18,7 +17,7 @@ export async function POST({ request }) {
 
 
 function decrypt(text) {
-	var decipher = crypto.createDecipher('aes-256-cbc', EMAIL_VERIFICATION_PRIVATE_KEY);
+	var decipher = crypto.createDecipher('aes-256-cbc', encryptionConfig.privateKey);
 	var dec = decipher.update(text, 'hex', 'utf8');
 	dec += decipher.final('utf8');
 	return dec;

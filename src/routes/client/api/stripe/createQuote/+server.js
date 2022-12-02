@@ -1,6 +1,7 @@
 import { json, error } from '@sveltejs/kit';
-import { STRIPE_TEST_PRIVATE_KEY } from '$env/static/private';
 import Stripe from 'stripe';
+import { stripeConfig } from '../../../../../config';
+
 
 const pricing_table = {
 	basic_fixed: {
@@ -81,7 +82,7 @@ export async function POST({ request }) {
 
 	let responseJson = { error: false };
 
-	const stripe = new Stripe(STRIPE_TEST_PRIVATE_KEY);
+	const stripe = new Stripe(stripeConfig.privateKey);
 	try {
 		const setupQuote = await stripe.quotes.create({
 			customer: payload.cuid,

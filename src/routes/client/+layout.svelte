@@ -15,11 +15,11 @@
 	import { browser } from '$app/environment';
 	import { initFirebaseClient } from '../../initFirebaseClient';
 	import { loadStripe } from '@stripe/stripe-js';
-	import { PUBLIC_STRIPE_TEST_KEY } from '$env/static/public';
 	import { onAuthStateChanged, signOut } from 'firebase/auth';
 	import { doc, getDoc, onSnapshot } from 'firebase/firestore';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
+	import { stripeConfig } from '../../config';
 
 	let connecting = true;
 	let connected = false;
@@ -77,7 +77,7 @@
 
 			fbStore.set(firebase);
 
-			let stripe = loadStripe(PUBLIC_STRIPE_TEST_KEY);
+			let stripe = loadStripe(stripeConfig.publicKey);
 
 			stripeStore.set(stripe);
 
@@ -91,10 +91,8 @@
 
 	/**
 	 * Manages access to routes if auth state changes, initial state change after login should redirect dynamically.
-	**/
+	 **/
 	async function authStateChangeCallback() {
-
-
 		// if a new user is being created, we should wait to do the lookup of their new database information
 		if ($sessionStore.creatingNewUser) {
 			//console.log('creatingNewUser - retry in 1000');
@@ -104,7 +102,6 @@
 		}
 
 		if ($fbStore.auth.currentUser != null) {
-			
 			try {
 				//setup the document listener for this user to update the sessionStore
 				let userDocRef = doc($fbStore.db, 'client-portal-user', $fbStore.auth.currentUser.uid);

@@ -1,7 +1,6 @@
 import { json } from '@sveltejs/kit';
-import { STRIPE_TEST_PRIVATE_KEY } from '$env/static/private';
 import Stripe from 'stripe';
-
+import { stripeConfig } from '../../../../../config';
 
 
 export async function POST({ request }) {
@@ -10,7 +9,7 @@ export async function POST({ request }) {
 
 	let responseJson = {error: false};
 
-	const stripe = new Stripe(STRIPE_TEST_PRIVATE_KEY);
+	const stripe = new Stripe(stripeConfig.privateKey);
 	try {
 		const setupIntent = await stripe.setupIntents.create({
 			customer: payload.cuid,

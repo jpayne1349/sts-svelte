@@ -4,16 +4,9 @@
 // if error occurs, data should be passed to client in order to show error, as well as send out an email to development team.
 
 import { initializeApp, cert, getApp } from 'firebase-admin/app';
-import {
-	FIREBASE_ADMIN_PROJECT_ID,
-	FIREBASE_ADMIN_CLIENT_EMAIL,
-	FIREBASE_ADMIN_PRIVATE_KEY,
-	STRIPE_TEST_PRIVATE_KEY
-} from '$env/static/private';
-
-
 import Stripe from 'stripe';
 import { getAuth, baseAuth } from 'firebase-admin/auth';
+import { firebaseAdminConfig, stripeConfig } from '../../config';
 
 
 export async function load() {
@@ -45,7 +38,7 @@ export async function load() {
 
     let stripe;
 
-    stripe = Stripe(STRIPE_TEST_PRIVATE_KEY);
+    stripe = Stripe(stripeConfig.privateKey);
 
    //console.log('stripe instance created on server');
 
@@ -56,9 +49,9 @@ export async function load() {
 function firebaseAdminConnect() {
 	return new Promise((resolve, reject) => {
 		const adminCert = cert({
-			projectId: FIREBASE_ADMIN_PROJECT_ID,
-			clientEmail: FIREBASE_ADMIN_CLIENT_EMAIL,
-			privateKey: FIREBASE_ADMIN_PRIVATE_KEY
+			projectId: firebaseAdminConfig.projectId,
+			clientEmail: firebaseAdminConfig.clientEmail,
+			privateKey: firebaseAdminConfig.privateKey
 		});
 
 		const adminApp = initializeApp({

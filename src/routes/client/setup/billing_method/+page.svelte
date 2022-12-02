@@ -2,11 +2,11 @@
 	import { sessionStore, alertStore, fbStore } from '../../stores';
 	import { loadStripe } from '@stripe/stripe-js';
 	import { Elements, PaymentElement } from 'svelte-stripe';
-	import { PUBLIC_STRIPE_TEST_KEY } from '$env/static/public';
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { fade } from 'svelte/transition';
 	import { updateDoc, doc, arrayUnion, Timestamp } from 'firebase/firestore';
+	import { stripeConfig } from '../../../../config';
 
 	let setting_up_intent = false;
 	let submitting_form = false;
@@ -17,7 +17,7 @@
 	let intent_code;
 
 	onMount(async () => {
-		stripe = await loadStripe(PUBLIC_STRIPE_TEST_KEY);
+		stripe = await loadStripe(stripeConfig.publicKey);
 	});
 
 	async function setupIntent() {

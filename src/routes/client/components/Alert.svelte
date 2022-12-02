@@ -2,22 +2,15 @@
 	import { alertStore } from '../stores.js';
 	import { fly, fade } from 'svelte/transition';
 
-	let closingTimer = null;
 
 	const unsubFromAlert = alertStore.subscribe((data) => {
 		if (data.show == true) {
 			// set to automatically close after 5 seconds
-			closingTimer = setTimeout(() => {
-                closingTimer = null;
+			setTimeout(() => {
+            if($alertStore.show) {
 				$alertStore.show = false;
+                }
 			}, 5000);
-		}
-		if (data.show == false) {
-			// if autoTimer was active? 
-            if (closingTimer) {
-                clearTimeout(closingTimer);
-                closingTimer = null;
-            }
 		}
         
 	});

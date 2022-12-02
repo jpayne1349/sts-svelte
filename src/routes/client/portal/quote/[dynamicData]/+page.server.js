@@ -1,13 +1,15 @@
-import { STRIPE_TEST_PRIVATE_KEY } from '$env/static/private';
 import Stripe from 'stripe';
 import { redirect } from '@sveltejs/kit';
+import { stripeConfig } from '../../../../../config';
+
+
 
 /** @type {import('./$types').PageLoad} */
 export async function load({ params }) {
 	let quoteId = params.dynamicData;
 	let responseObject;
 
-	const stripe = Stripe(STRIPE_TEST_PRIVATE_KEY);
+	const stripe = Stripe(stripeConfig.privateKey);
 
 	try {
 		responseObject = await stripe.quotes.retrieve(quoteId);

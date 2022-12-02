@@ -1,14 +1,14 @@
 import { json, error } from '@sveltejs/kit';
-import { STRIPE_TEST_PRIVATE_KEY } from '$env/static/private';
 import Stripe from 'stripe';
 import { getStorage } from 'firebase-admin/storage';
+import { stripeConfig } from '../../../../../config';
 
 const quoteId = 'qt_1M85FgLLMTpPeabJdt1mSw5z';
 
 export async function POST({ request }) {
 	//console.log('attempting file transfer');
 
-	const stripe = Stripe(STRIPE_TEST_PRIVATE_KEY);
+	const stripe = Stripe(stripeConfig.privateKey);
 
 	const bucket = getStorage().bucket();
 

@@ -1,7 +1,8 @@
 
-import firebaseConfig from './env';
+import { firebaseClientConfig } from './config';
 import { browser, dev } from '$app/environment';
 
+console.log(firebaseClientConfig);
 
 export async function initFirebaseClient() {
 
@@ -19,7 +20,7 @@ export async function initFirebaseClient() {
 			let { getAuth } = await import('firebase/auth');
 			
 
-			const app = initializeApp(firebaseConfig);
+			const app = initializeApp(firebaseClientConfig);
 			const auth = getAuth(app);
 			const db = getFirestore(app);
 			const storage = getStorage(app);
