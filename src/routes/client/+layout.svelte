@@ -29,10 +29,12 @@
 	// used for the load in process
 	let initial_auth_updated = false;
 
-	initializeClientConnections();
+	let initializeAttempt = 1;
+
+	initializeClientConnections(initializeAttempt);
 
 	// calls connect, and sets up auth state change listener, will call loginAuthorizedUser if state is correct
-	function initializeClientConnections() {
+	function initializeClientConnections(attemptsMade) {
 		if (browser) {
 			connect()
 				.then((fb) => {
@@ -46,7 +48,7 @@
 					alertStore.set({
 						error: true,
 						show: true,
-						message: 'Database Connection Error: Attempt Reconnect'
+						message: 'Database Connection Error'
 					});
 
 					// wait 4 seconds, display message, then retry
@@ -54,12 +56,21 @@
 						alertStore.set({
 							error: false,
 							show: true,
-							message: 'Attempting to Reconnect to Database'
+							message: 'Attempting to Reconnect x' + initializeAttempt
 						});
-					}, 4000);
-					setTimeout(() => {
-						initializeClientConnections();
-					}, 8000);
+						setTimeout(() => {
+							if (initializeAttempt > 2) {
+								alertStore.set({
+									show: true,
+									error: true,
+									message: 'Please try again later.'
+								});
+								let newPage = goto('/');
+								return;
+							}
+							initializeClientConnections((initializeAttempt += 1));
+						}, 5500);
+					}, 5500);
 				});
 		}
 	}

@@ -2,7 +2,6 @@
 import { firebaseClientConfig } from './config';
 import { browser, dev } from '$app/environment';
 
-console.log(firebaseClientConfig);
 
 export async function initFirebaseClient() {
 
