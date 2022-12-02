@@ -10,7 +10,8 @@ export default {
     messagingSenderId: "985602602846",
     appId: "1:985602602846:web:0a11238d845dbd95d981cf",
     measurementId: "G-KTH41WJDQ0",
-    recaptchaPublic: "6LdXPukfAAAAAFJjgZDYYiMhDMLZKiirlzgp-oho"
+    recaptchaPublic: "6LdXPukfAAAAAFJjgZDYYiMhDMLZKiirlzgp-oho",
+    storageBucket: "gs://fir-test-a3541.appspot.com"
   };
 
 

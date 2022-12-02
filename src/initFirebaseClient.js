@@ -14,6 +14,7 @@ export async function initFirebaseClient() {
 			let { initializeApp } = await import('firebase/app');
 			let { getAnalytics, isSupported } = await import('firebase/analytics');
 			let { getFirestore } = await import('firebase/firestore');
+			let { getStorage } = await import('firebase/storage');
 			let { initializeAppCheck, ReCaptchaV3Provider } = await import('firebase/app-check');
 			let { getAuth } = await import('firebase/auth');
 			
@@ -21,6 +22,7 @@ export async function initFirebaseClient() {
 			const app = initializeApp(firebaseConfig);
 			const auth = getAuth(app);
 			const db = getFirestore(app);
+			const storage = getStorage(app);
 
 			let analytics = isSupported()
 				.then(() => {
@@ -29,13 +31,13 @@ export async function initFirebaseClient() {
 						try {
 							getAnalytics(app);
 						} catch (e) {
-							console.log('Error in getAnalytics');
+							//console.log('Error in getAnalytics');
 							console.error(e);
 						}
 					}
 				})
 				.catch((e) => {
-					console.log('Error in isSupported()');
+					//console.log('Error in isSupported()');
 					console.error(e);
 				});
 
@@ -58,6 +60,7 @@ export async function initFirebaseClient() {
 				app: app,
 				db: db,
 				auth: auth,
+				storage: storage,
 				error: false
 			};
 
@@ -71,7 +74,7 @@ export async function initFirebaseClient() {
 			error: true,
 			message: error
 		}
-		console.log('Error in Firebase Init');
+		//console.log('Error in Firebase Init');
 		console.error(error);
 		
 		return firebase;

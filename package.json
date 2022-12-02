@@ -24,6 +24,7 @@
 		"cookie": "^0.4.1",
 		"firebase": "^9.8.0",
 		"firebase-admin": "^11.1.0",
+		"got": "^12.5.3",
 		"jose": "^4.11.0",
 		"jsonwebtoken": "^8.5.1",
 		"stripe": "^10.14.0",

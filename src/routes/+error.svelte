@@ -1,9 +1,9 @@
 
   
   <script>
-    import '../app.css';
+    import '../global.css';
 
-    import ErrorPage from '../components/ErrorPage.svelte'; 
+    import ErrorPage from './components/ErrorPage.svelte'; 
 
     import { page } from '$app/stores';
   </script>
