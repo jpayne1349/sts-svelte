@@ -1,9 +1,8 @@
 <script>
 	import ButtonContainer from './ButtonContainer.svelte';
 	import ContactPopup from './ContactPopup.svelte';
-
-	import { getContext } from 'svelte';
-	import { addDoc, collection, Timestamp } from 'firebase/firestore';
+	import { addDoc, collection, Timestamp, getFirestore } from 'firebase/firestore';
+	import { initFirebaseClient } from '/src/initFirebaseClient';
 
 	let from_value, subject_value, body_value;
 	$: requiredValues = false;
@@ -13,7 +12,7 @@
 	let statusList = ['idle', 'sending', 'sent', 'failed'];
 	let pos = 0;
 
-	const fbObject = getContext('fbObject');
+
 
 	$: formFilled(from_value, body_value);
 
@@ -36,8 +35,10 @@
 					subject_value = 'undefined';
 				}
 
+				let firebase = await initFirebaseClient();
+
 				// async db addition
-				const docRef = await addDoc(collection(fbObject.db, 'contact-forms'), {
+				const docRef = await addDoc(collection(firebase.db, 'contact-forms'), {
 					from: from_value,
 					subject: subject_value,
 					body: body_value,
