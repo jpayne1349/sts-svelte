@@ -116,7 +116,7 @@
 		const saveAttempt = await stripe.confirmSetup({
 			elements,
 			confirmParams: {
-				return_url: 'http://192.168.1.25:5173/client/setup/subscription_service'
+				return_url: 'https://southtexas.software/client/setup/subscription_service'
 			},
 			redirect: 'if_required'
 		});

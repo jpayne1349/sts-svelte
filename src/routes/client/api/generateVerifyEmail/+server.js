@@ -12,9 +12,9 @@ export async function POST({ request }) {
 
 	let uniqueVerificationString = encrypt(JSON.stringify(payload));
 
-	let verification_url = 'http://192.168.1.25:5173/client/email_verification/p=' + uniqueVerificationString;
+	let verification_url = 'https://southtexas.software/client/email_verification/p=' + uniqueVerificationString;
 
-	let report_url = 'http://192.168.1.25:5173/report_email/' + uniqueVerificationString;
+	let report_url = 'https://southtexas.software/report_email/' + uniqueVerificationString;
 
 	try {
 		let sending = await sendEmail('verify-email', {

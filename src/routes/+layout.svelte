@@ -99,12 +99,12 @@
 <CookiePopup />
 
 <footer class="footer">
-	<a href="https://southtexas.software/terms-of-use" class="footer-link ">Terms of Use</a>
-	<a href="https://southtexas.software/privacy-policy" class="footer-link">Privacy Policy</a>
+	<a href="/terms-of-use" class="footer-link ">Terms of Use</a>
+	<a href="/privacy-policy" class="footer-link">Privacy Policy</a>
 
-	<a href="https://southtexas.software/cookie-policy" class="footer-link optional">Cookie Policy</a>
+	<a href="/cookie-policy" class="footer-link optional">Cookie Policy</a>
 
-	<a href="https://southtexas.software/contact-us" class="footer-link ">Contact</a>
+	<a href="/contact-us" class="footer-link ">Contact</a>
 </footer>
 
 <style>
