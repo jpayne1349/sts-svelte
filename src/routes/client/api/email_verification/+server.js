@@ -1,5 +1,5 @@
 import { json } from '@sveltejs/kit';
-import * as crypto from 'crypto';
+import crypto from 'crypto';
 import { encryptionConfig } from '../../../../config';
 
 export async function POST({ request }) {
@@ -16,10 +16,21 @@ export async function POST({ request }) {
 }
 
 
-function decrypt(text) {
-	var decipher = crypto.createDecipher('aes-256-cbc', encryptionConfig.privateKey);
-	var dec = decipher.update(text, 'hex', 'utf8');
-	dec += decipher.final('utf8');
-	return dec;
-}
+function decrypt(string) {
+	
+	const peices = string.split('=');
+	
+	const hash = {
+		iv: peices[0],
+		content: peices[1]
+	}
 
+	const decipher = crypto.createDecipheriv('aes-256-ctr', encryptionConfig.privateKey, Buffer.from(hash.iv, 'hex'));
+
+	const decrpyted = Buffer.concat([
+		decipher.update(Buffer.from(hash.content, 'hex')),
+		decipher.final()
+	]);
+
+	return decrpyted.toString();
+};

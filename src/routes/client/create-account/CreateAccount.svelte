@@ -5,6 +5,7 @@
 	import { fade } from 'svelte/transition';
 	import { doc, collection, setDoc, Timestamp } from 'firebase/firestore';
 	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
 
 	let password_validating = false;
 	let password_validated = false;
@@ -223,7 +224,11 @@
 	async function verificationEmail(email, uid) {
 		let server_response = await fetch('/client/api/generateVerifyEmail', {
 			method: 'POST',
-			body: JSON.stringify({ email: email, uid: uid }),
+			body: JSON.stringify({
+				 email: email, 
+				 uid: uid,
+				 origin: $page.url.origin 
+				}),
 			headers: {
 				'Content-Type': 'application/json'
 			}
@@ -239,12 +244,6 @@
 			});
 			return;
 		}
-
-		alertStore.set({
-			message: 'Verification Email Sent',
-			show: true,
-			error: false
-		});
 	}
 </script>
 
@@ -396,15 +395,15 @@
 		border-radius: 50%;
 		border-top: 2px solid white;
 		border-right: 2px solid transparent;
-		width: 1vh;
-		height: 1vh;
+		width: 15px;
+		height: 15px;
 		animation-name: spinning;
 		animation-duration: 1s;
 		animation-iteration-count: infinite;
 		animation-timing-function: linear;
 		opacity: 1;
 		transition: all 0.2s;
-		margin-left: 10px;
+		margin-left: 0px;
 	}
 
 	@media only screen and (max-width: 500px) {
@@ -428,6 +427,10 @@
 			height: 1.5vh;
 			border-bottom: 3px solid var(--global-green);
 			border-right: 3px solid var(--global-green);
+		}
+		.button-spinner {
+			width: 20px;
+			height: 20px;
 		}
 	}
 

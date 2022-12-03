@@ -2,6 +2,7 @@
 	import { sessionStore, fbStore } from '../../stores';
 	import PaymentCard from '../PaymentCard.svelte';
 	import Event from '../Event.svelte';
+	
 
 	let latest_event = {
 		time: '',

@@ -1,6 +1,6 @@
 import { sendEmail } from '../../emailing';
 import { json } from '@sveltejs/kit';
-import * as crypto from 'crypto';
+import crypto from 'crypto';
 import { encryptionConfig } from '../../../../config';
 
 
@@ -9,12 +9,11 @@ export async function POST({ request }) {
 
 	let responseJson = { error: false };
 
-
 	let uniqueVerificationString = encrypt(JSON.stringify(payload));
 
-	let verification_url = 'https://southtexas.software/client/email_verification/p=' + uniqueVerificationString;
+	let verification_url = payload.origin + '/client/email_verification/d=' + uniqueVerificationString;
 
-	let report_url = 'https://southtexas.software/report_email/' + uniqueVerificationString;
+	let report_url = payload.origin + '/report_email/' + uniqueVerificationString;
 
 	try {
 		let sending = await sendEmail('verify-email', {
@@ -33,8 +32,15 @@ export async function POST({ request }) {
 
 
 function encrypt(text) {
-	var cipher = crypto.createCipher('aes-256-cbc', encryptionConfig.privateKey);
-	var crypted = cipher.update(text, 'utf8', 'hex');
-	crypted += cipher.final('hex');
-	return crypted;
-}
+	const iv = crypto.randomBytes(16);
+
+	const cipher = crypto.createCipheriv('aes-256-ctr', encryptionConfig.privateKey, iv);
+
+	const encrypted = Buffer.concat([cipher.update(text), cipher.final()]);
+
+	const string = iv.toString('hex') + '=' + encrypted.toString('hex');
+
+	console.log('url extension encrypted', string)
+
+	return string;
+};

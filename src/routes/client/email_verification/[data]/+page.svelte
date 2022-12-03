@@ -41,7 +41,9 @@
 		}
 
 		let split_url = $email_verification.url.split('=');
-		let token = split_url[1];
+		
+		let token = split_url[1] + '=' + split_url[2];
+
 		try {
 			let server_response = await fetch('/client/api/email_verification', {
 				method: 'POST',
