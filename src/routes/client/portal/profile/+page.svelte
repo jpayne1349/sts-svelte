@@ -1,8 +1,9 @@
 <script>
-	import { alertStore, sessionStore } from '../../stores';
+	import { alertStore, sessionStore, fbStore } from '../../stores';
 	import { fly } from 'svelte/transition';
-	import EditAccountEmail from './EditAccountEmail.svelte';
+	import { deleteUser } from 'firebase/auth';
 	import ReauthenticateModal from '../ReauthenticateModal.svelte';
+	import EditAccountEmail from './EditAccountEmail.svelte';
 	import ChangePassword from './ChangePassword.svelte';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
@@ -16,8 +17,8 @@
 	let sending_email = false;
 
 	async function sendVerificationEmail() {
-		if(sending_email == true) {
-			return
+		if (sending_email == true) {
+			return;
 		}
 		sending_email = true;
 
@@ -31,14 +32,14 @@
 
 		let json = await server_response.json();
 
-		if(json.error) {
+		if (json.error) {
 			alertStore.set({
 				show: true,
 				error: true,
 				message: 'Error Sending Email'
 			});
 			sending_email = false;
-		return;
+			return;
 		}
 
 		alertStore.set({
@@ -48,33 +49,73 @@
 		});
 
 		sending_email = false;
-
 	}
 
 	function formatPhoneNumber(number) {
 		let formattedString = number;
-		if(number.length == 10) {
-			let areaCode = number.slice(0,3);
-			let firstChunk = number.slice(3,6);
-			let secondChunk = number.slice(6,10);
+		if (number.length == 10) {
+			let areaCode = number.slice(0, 3);
+			let firstChunk = number.slice(3, 6);
+			let secondChunk = number.slice(6, 10);
 			formattedString = '(' + areaCode + ') ' + firstChunk + '-' + secondChunk;
 		}
-		if(number.length == 11) {
-			let countryCode = number.slice(0,1);
-			let areaCode = number.slice(1,4);
-			let firstChunk = number.slice(4,7);
-			let secondChunk = number.slice(7,11);
+		if (number.length == 11) {
+			let countryCode = number.slice(0, 1);
+			let areaCode = number.slice(1, 4);
+			let firstChunk = number.slice(4, 7);
+			let secondChunk = number.slice(7, 11);
 			formattedString = '+' + countryCode + ' (' + areaCode + ') ' + firstChunk + '-' + secondChunk;
 		}
-		if(number.length == 7) {
-			let firstChunk = number.slice(0,3);
-			let secondChunk = number.slice(3,7);
+		if (number.length == 7) {
+			let firstChunk = number.slice(0, 3);
+			let secondChunk = number.slice(3, 7);
 			formattedString = firstChunk + '-' + secondChunk;
 		}
 
-		return formattedString
+		return formattedString;
 	}
-	
+
+	let deleteAccountRequested = false;
+	let deletingAccount = false;
+	let deleteAccountReauthRequired = false;
+	let first_pass = true;
+
+	async function deleteUserAccount() {
+		deletingAccount = true;
+
+		try {
+			if (first_pass) {
+				throw { code: 'auth/requires-recent-login' };
+			}
+			// need to delete the user auth and the firestore reference
+
+			let sendEmail = fetch('/client/api/generateErrorEmail', {
+				method: 'POST',
+				body: JSON.stringify({
+					title: 'User Account Deleted',
+					account: $sessionStore.email,
+					details: ''
+				}),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+
+			let deletingUser = await deleteUser($fbStore.auth.currentUser);
+
+			alertStore.set({
+				show: true,
+				error: false,
+				message: 'Account Deleted'
+			});
+		} catch (err) {
+			if (err.code == 'auth/requires-recent-login') {
+				deleteAccountReauthRequired = true;
+				first_pass = false;
+				return;
+			}
+		}
+	}
 </script>
 
 <div class="container">
@@ -135,14 +176,42 @@
 		>
 
 		{#if $sessionStore.email_verified == false}
-		<button
-			class="text-link"
-			on:click={sendVerificationEmail}>Resend Email Verification Link
-			{#if sending_email}
-				<span class="text-link-spinner" />
-			{/if}
+			<button class="text-link" on:click={sendVerificationEmail}
+				>Resend Email Verification Link
+				{#if sending_email}
+					<span class="text-link-spinner" />
+				{/if}
 			</button>
 		{/if}
+
+		<div class="overview-section last">
+			<button
+				class="delete-account text-link"
+				on:click={() => {
+					deleteAccountRequested = true;
+				}}>Delete Account</button
+			>
+			{#if deleteAccountRequested}
+				<div class="confirm-delete-container" in:fly={{ y: -50 }}>
+					<p>Are you sure you want to delete your account?</p>
+					<div class="confirm-delete-buttons">
+						<button
+							on:click={() => {
+								deleteAccountRequested = false;
+							}}
+							class="cancel-delete">Cancel</button
+						>
+						<button on:click={deleteUserAccount} class="confirm-delete">
+							{#if deletingAccount}
+								<div class="spinner" />
+							{:else}
+								Confirm
+							{/if}
+						</button>
+					</div>
+				</div>
+			{/if}
+		</div>
 	</section>
 </div>
 
@@ -174,6 +243,15 @@
 		on:success={() => {
 			reauth_required = false;
 			trigger_retry = true;
+		}}
+	/>
+{/if}
+
+{#if deleteAccountReauthRequired}
+	<ReauthenticateModal
+		on:success={() => {
+			deleteAccountReauthRequired = false;
+			deleteUserAccount();
 		}}
 	/>
 {/if}
@@ -247,6 +325,57 @@
 		opacity: 1;
 		transition: all 0.2s;
 		margin-left: 15px;
+	}
+
+	.delete-account {
+		margin-top: 20px;
+		position: relative;
+	}
+
+	.confirm-delete-container {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		justify-content: space-around;
+		position: absolute;
+		height: 150px;
+		background: white;
+		box-shadow: 0px 1px 3px #a2a2a2;
+		border-radius: 5px;
+		align-items: center;
+		bottom: 0px;
+		left: 0;
+	}
+	.confirm-delete-container p {
+		font-family: openSans-bold;
+		color: var(--alert-red);
+		text-align: center;
+	}
+	.confirm-delete-buttons {
+		display: flex;
+		justify-content: space-around;
+		width: 100%;
+	}
+	.confirm-delete-buttons button {
+		margin: 0;
+		width: 140px;
+	}
+	button.confirm-delete {
+		background-color: var(--button-light-blue);
+	}
+	.spinner {
+		content: '';
+		border-radius: 50%;
+		border-top: 2px solid white;
+		border-right: 2px solid transparent;
+		width: 15px;
+		height: 15px;
+		animation-name: spinning;
+		animation-duration: 1s;
+		animation-iteration-count: infinite;
+		animation-timing-function: linear;
+		opacity: 1;
+		transition: all 0.2s;
 	}
 
 	@media only screen and (max-width: 500px) {

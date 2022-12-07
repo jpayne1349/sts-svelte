@@ -2,9 +2,7 @@
 	import { sessionStore, fbStore } from '../../stores';
 	import PaymentCard from '../PaymentCard.svelte';
 	import Event from '../Event.svelte';
-	import { fly } from 'svelte/transition';
-	import { deleteUser } from 'firebase/auth';
-	import ReauthenticateModal from '../ReauthenticateModal.svelte';
+	
 
 	let latest_event = {
 		time: '',
@@ -21,47 +19,7 @@
 		return;
 	});
 
-	let deleteAccountRequested = false;
-	let deletingAccount = false;
-	let reauthRequired = false;
-	let first_pass = true;
 
-	async function deleteUserAccount() {
-		deletingAccount = true;
-
-		try {
-			if (first_pass) {
-				throw { code: 'auth/requires-recent-login' };
-			}
-			// need to delete the user auth and the firestore reference
-
-			let sendEmail = fetch('/client/api/generateErrorEmail', {
-				method: 'POST',
-				body: JSON.stringify({
-					title: 'User Account Deleted',
-					account: $sessionStore.email,
-					details: ''
-				}),
-				headers: {
-					'Content-Type': 'application/json'
-				}
-			});
-
-			let deletingUser = await deleteUser($fbStore.auth.currentUser);
-
-			alertStore.set({
-				show: true,
-				error: false,
-				message: 'Account Deleted'
-			});
-		} catch (err) {
-			if (err.code == 'auth/requires-recent-login') {
-				reauthRequired = true;
-				first_pass = false;
-				return;
-			}
-		}
-	}
 	
 </script>
 
@@ -110,7 +68,7 @@
 		</p>
 	</div>
 
-	<div class="overview-section">
+	<div class="overview-section last">
 		<h3 class="section-title">Service Log</h3>
 
 		<p class="section-info">
@@ -133,44 +91,9 @@
 			{/if}
 		</p>
 	</div>
-	<div class="overview-section last">
-		<button
-			class="delete-account"
-			on:click={() => {
-				deleteAccountRequested = true;
-			}}>Delete Account</button
-		>
-		{#if deleteAccountRequested}
-			<div class="confirm-delete-container" in:fly={{ y: -50 }}>
-				<p>Are you sure you want to delete your account?</p>
-				<div class="confirm-delete-buttons">
-					<button
-						on:click={() => {
-							deleteAccountRequested = false;
-						}}
-						class="cancel-delete">Cancel</button
-					>
-					<button on:click={deleteUserAccount} class="confirm-delete">
-						{#if deletingAccount}
-							<div class="spinner" />
-						{:else}
-							Confirm
-						{/if}
-					</button>
-				</div>
-			</div>
-		{/if}
-	</div>
+	
 </section>
 
-{#if reauthRequired}
-	<ReauthenticateModal
-		on:success={() => {
-			reauthRequired = false;
-			deleteUserAccount();
-		}}
-	/>
-{/if}
 
 <style>
 	.container {

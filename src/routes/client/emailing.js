@@ -93,7 +93,7 @@ export async function sendEmail(type, payload) {
 			break;
 	}
 
-	// TODO: change to dev if testing other features
+	// d: change to dev if testing other features
 	if (false) {
 		console.log('****************** SIMULATING EMAIL PAYLOAD *********************');
 		console.error(msg);
