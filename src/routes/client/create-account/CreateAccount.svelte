@@ -316,7 +316,7 @@
 
 <style>
 	.container {
-		min-height: 40vh;
+		min-height: 400px;
 		user-select: none;
 	}
 	form {
@@ -328,7 +328,7 @@
 	.label-container {
 		display: flex;
 		align-items: center;
-		margin-bottom: 1vh;
+		margin-bottom: 10px;
 	}
 	.label {
 		font-family: openSans-semibold;
@@ -336,10 +336,10 @@
 		position: relative;
 	}
 	.label#email-label {
-		margin-bottom: 1vh;
+		margin-bottom: 10px;
 	}
 	input {
-		margin-bottom: 2vh;
+		margin-bottom: 20px;
 	}
 	input#password-input {
 		margin-bottom: 0;
@@ -348,14 +348,14 @@
 		font-family: openSans-semibold;
 		font-size: 10px;
 		color: var(--text);
-		margin-bottom: 1.8vh;
+		margin-bottom: 15px;
 	}
 
 	.grey-question {
-		margin-top: 5vh;
+		margin-top: 30px;
 	}
 	button {
-		margin-top: 3vh;
+		margin-top: 40px;
 		filter: opacity(0.5);
 		pointer-events: none;
 		user-select: none;
@@ -371,8 +371,8 @@
 		border-radius: 50%;
 		border-top: 2px solid var(--bg);
 		border-right: 2px solid transparent;
-		width: 1vh;
-		height: 1vh;
+		width: 15px;
+		height: 15px;
 		animation-name: spinning;
 		animation-duration: 1s;
 		animation-iteration-count: infinite;
@@ -383,8 +383,8 @@
 	}
 	.validation-passed {
 		content: '';
-		width: 0.6vh;
-		height: 1.1vh;
+		width: 6px;
+		height: 11px;
 		border-bottom: 3px solid var(--global-green);
 		border-right: 3px solid var(--global-green);
 		transform: rotate(35deg);
@@ -408,23 +408,22 @@
 
 	@media only screen and (max-width: 500px) {
 		input {
-			margin-bottom: 4vh;
+			margin-bottom: 20px;
 		}
 		.password-reqs {
 			font-size: 2.5vw;
 		}
 		button {
-			margin-top: 2vh;
+			margin-top: 20px;
 		}
 		.validation-spinner {
-			width: 1.5vh;
-			height: 1.5vh;
+			width: 15px;
+			height: 15px;
 			border-top: 1px solid var(--link);
 			border-right: 1px solid transparent;
 		}
 		.validation-passed {
-			width: 0.8vh;
-			height: 1.5vh;
+			
 			border-bottom: 3px solid var(--global-green);
 			border-right: 3px solid var(--global-green);
 		}
