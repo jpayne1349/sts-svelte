@@ -226,7 +226,7 @@
 
 <style>
 	.container {
-		min-height: 40vh;
+		min-height: 400px;
 	}
 	form {
 		display: flex;
@@ -237,17 +237,17 @@
 	}
 	.label {
 		font-family: openSans-semibold;
-		margin-bottom: 1vh;
+		margin-bottom: 10px;
 	}
 	input {
-		margin-bottom: 2vh;
+		margin-bottom: 20px;
 	}
 	.checkbox-container {
 		display: flex;
 		align-items: center;
 		font-family: openSans-semibold;
 		color: var(--main);
-		margin-bottom: 2vh;
+		margin-bottom: 20px;
 		user-select: none;
 	}
 	.checkbox-label {
@@ -256,28 +256,28 @@
 	button {
 		cursor: pointer;
 		user-select: none;
-		margin-top: 2vh;
+		margin-top: 20px;
 	}
 	.button-spinner {
 		content: '';
 		border-radius: 50%;
 		border-top: 2px solid white;
 		border-right: 2px solid transparent;
-		width: 1vh;
-		height: 1vh;
+		width: 15px;
+		height: 15px;
 		animation-name: spinning;
 		animation-duration: 1s;
 		animation-iteration-count: infinite;
 		animation-timing-function: linear;
 		opacity: 1;
 		transition: all 0.2s;
-		margin-left: 10px;
+		margin-left: 0px;
 	}
 
 	@media only screen and (max-width: 500px) {
 		input,
 		.checkbox-container {
-			margin-bottom: 4vh;
+			margin-bottom: 30px;
 		}
 	}
 

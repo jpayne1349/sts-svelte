@@ -102,7 +102,7 @@
 		</p>
 		<p class="section-info address">
 			<span class="info-label">Address:</span>
-			{#if $sessionStore.address.line != ''}
+			{#if $sessionStore.address.line1 != ''}
 				{$sessionStore.address.line1} <br />
 				{$sessionStore.address.city}, {$sessionStore.address.state}
 				{$sessionStore.address.postal_code}

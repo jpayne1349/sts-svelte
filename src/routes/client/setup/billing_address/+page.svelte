@@ -331,10 +331,10 @@
 	}
 	.label {
 		font-family: openSans-semibold;
-		margin-bottom: 1vh;
+		margin-bottom: 10px;
 	}
 	input {
-		margin-bottom: 2vh;
+		margin-bottom: 20px;
 	}
 	input.required {
 		border-color: var(--alert-red);
@@ -344,7 +344,7 @@
 		align-items: center;
 		font-family: openSans-semibold;
 		color: var(--main);
-		margin-bottom: 2vh;
+		margin-bottom: 20px;
 		user-select: none;
 	}
 	.checkbox-label {
@@ -353,7 +353,7 @@
 	button {
 		cursor: pointer;
 		user-select: none;
-		margin-top: 2vh;
+		margin-top: 20px;
 	}
 	.button-spinner {
 		content: '';
@@ -388,7 +388,7 @@
 	@media only screen and (max-width: 500px) {
 		input,
 		.checkbox-container {
-			margin-bottom: 2vh;
+			margin-bottom: 20px;
 		}
 		.double-input input {
 			width: 35vw;

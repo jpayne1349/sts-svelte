@@ -291,11 +291,8 @@
 				{/if}
 			</p>
 
-			{#if $sessionStore.subscription.message != ''}
-				<p class="info-text">
-					{$sessionStore.subscription.message}
-				</p>
-			{:else}
+			
+			{#if $sessionStore.subscription.status == 'Active'}
 				<div class="subscription-row">
 					<p class="label">Plan:</p>
 					<p class='variable' >{$sessionStore.subscription.plan}</p>
@@ -312,6 +309,12 @@
 					<p class="label">Renewal:</p>
 					<p class='variable' >{parseRenewalDate($sessionStore.subscription.renewal)}</p>
 				</div>
+			{/if}
+
+			{#if $sessionStore.subscription.message != ''}
+				<p class="info-text">
+					{$sessionStore.subscription.message}
+				</p>
 			{/if}
 		</div>
 

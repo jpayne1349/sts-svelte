@@ -337,14 +337,14 @@
 		font-family: openSans-semibold;
 		font-size: 14px;
 		color: var(--main);
-		margin-bottom: 2vh;
+		margin-bottom: 15px;
 	}
 	.stripe-element-container {
 		width: 100%;
 		min-height: 430px;
 
 		border-radius: 5px;
-		margin-bottom: 2vh;
+		margin-bottom: 20px;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;

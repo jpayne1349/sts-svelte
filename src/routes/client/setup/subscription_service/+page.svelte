@@ -443,7 +443,7 @@
 		font-family: openSans-semibold;
 		font-size: 14px;
 		color: var(--main);
-		margin-bottom: 2vh;
+		margin-bottom: 20px;
 	}
 	.service-container {
 		padding: 25px 50px;
