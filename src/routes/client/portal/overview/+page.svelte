@@ -2,7 +2,9 @@
 	import { sessionStore, fbStore } from '../../stores';
 	import PaymentCard from '../PaymentCard.svelte';
 	import Event from '../Event.svelte';
-	
+	import { fly } from 'svelte/transition';
+	import { deleteUser } from 'firebase/auth';
+	import ReauthenticateModal from '../ReauthenticateModal.svelte';
 
 	let latest_event = {
 		time: '',
@@ -18,6 +20,49 @@
 		}
 		return;
 	});
+
+	let deleteAccountRequested = false;
+	let deletingAccount = false;
+	let reauthRequired = false;
+	let first_pass = true;
+
+	async function deleteUserAccount() {
+		deletingAccount = true;
+
+		try {
+			if (first_pass) {
+				throw { code: 'auth/requires-recent-login' };
+			}
+			// need to delete the user auth and the firestore reference
+
+			let sendEmail = fetch('/client/api/generateErrorEmail', {
+				method: 'POST',
+				body: JSON.stringify({
+					title: 'User Account Deleted',
+					account: $sessionStore.email,
+					details: ''
+				}),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+
+			let deletingUser = await deleteUser($fbStore.auth.currentUser);
+
+			alertStore.set({
+				show: true,
+				error: false,
+				message: 'Account Deleted'
+			});
+		} catch (err) {
+			if (err.code == 'auth/requires-recent-login') {
+				reauthRequired = true;
+				first_pass = false;
+				return;
+			}
+		}
+	}
+	
 </script>
 
 <section class="container">
@@ -65,7 +110,7 @@
 		</p>
 	</div>
 
-	<div class="overview-section last">
+	<div class="overview-section">
 		<h3 class="section-title">Service Log</h3>
 
 		<p class="section-info">
@@ -88,7 +133,44 @@
 			{/if}
 		</p>
 	</div>
+	<div class="overview-section last">
+		<button
+			class="delete-account"
+			on:click={() => {
+				deleteAccountRequested = true;
+			}}>Delete Account</button
+		>
+		{#if deleteAccountRequested}
+			<div class="confirm-delete-container" in:fly={{ y: -50 }}>
+				<p>Are you sure you want to delete your account?</p>
+				<div class="confirm-delete-buttons">
+					<button
+						on:click={() => {
+							deleteAccountRequested = false;
+						}}
+						class="cancel-delete">Cancel</button
+					>
+					<button on:click={deleteUserAccount} class="confirm-delete">
+						{#if deletingAccount}
+							<div class="spinner" />
+						{:else}
+							Confirm
+						{/if}
+					</button>
+				</div>
+			</div>
+		{/if}
+	</div>
 </section>
+
+{#if reauthRequired}
+	<ReauthenticateModal
+		on:success={() => {
+			reauthRequired = false;
+			deleteUserAccount();
+		}}
+	/>
+{/if}
 
 <style>
 	.container {
@@ -101,6 +183,7 @@
 	}
 	.overview-section.last {
 		border: none;
+		position: relative;
 	}
 	.section-title {
 		font-family: openSans-semibold;
@@ -150,6 +233,43 @@
 		color: var(--global-green);
 		background-color: #7aa66f19;
 	}
+	.delete-account {
+		width: 100%;
+		margin-top: 20px;
+		background-color: #d25f5799;
+		position: relative;
+	}
+
+	.confirm-delete-container {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		justify-content: space-around;
+		position: absolute;
+		height: 150px;
+		background: white;
+		box-shadow: 0px 1px 3px #a2a2a2;
+		border-radius: 5px;
+		align-items: center;
+		bottom: 0px;
+	}
+	.confirm-delete-container p {
+		font-family: openSans-bold;
+		color: var(--alert-red);
+		text-align: center;
+	}
+	.confirm-delete-buttons {
+		display: flex;
+		justify-content: space-around;
+		width: 100%;
+	}
+	.confirm-delete-buttons button {
+		margin: 0;
+		width: 140px;
+	}
+	button.confirm-delete {
+		background-color: var(--button-light-blue);
+	}
 
 	@media only screen and (max-width: 500px) {
 		.container {
@@ -157,6 +277,31 @@
 		}
 		.billing-status {
 			font-size: 8px;
+		}
+	}
+
+	.spinner {
+		content: '';
+		border-radius: 50%;
+		border-top: 2px solid white;
+		border-right: 2px solid transparent;
+		width: 15px;
+		height: 15px;
+		animation-name: spinning;
+		animation-duration: 1s;
+		animation-iteration-count: infinite;
+		animation-timing-function: linear;
+		opacity: 1;
+		transition: all 0.2s;
+	}
+
+	@keyframes spinning {
+		0% {
+			transform: rotate(0deg);
+		}
+
+		100% {
+			transform: rotate(360deg);
 		}
 	}
 </style>

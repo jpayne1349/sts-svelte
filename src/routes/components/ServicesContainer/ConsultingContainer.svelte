@@ -1,8 +1,6 @@
 <script>
 	import ConsultingCloud from './ConsultingCloud.svelte';
 
-	
-
 	// *** Intersection Observer boilerplate ***
 	// css needed: transform: translateY(4vh);
 	//				opacity: 0;
@@ -55,7 +53,8 @@
 		<p class="text">Organize and store your data with a custom interface for management.</p>
 		<p class="text">
 			Setup your home or business with modern infrastructure and security.
-			<a id="contact-link" href="/contact-us">Contact Us</a> for a free quote.
+			<a id="contact-link" href="/contact-us">Contact us</a> or
+			<a id="contact-link" href="/client">create an account</a> for a free quote.
 		</p>
 	</div>
 </div>
@@ -85,7 +84,7 @@
 		justify-content: space-evenly;
 		width: 30vw;
 
-		padding-top: 16vh;
+		padding-top: 6vh;
 	}
 	.text {
 		font-family: openSans-light;
@@ -125,7 +124,7 @@
 			flex-direction: column;
 			flex-wrap: nowrap;
 			margin-top: 0;
-			height: 75vh;
+			height: 600px;
 			margin-bottom: 0;
 			align-items: center;
 			justify-content: flex-start;
@@ -148,11 +147,11 @@
 		}
 		#details {
 			width: 92vw;
-			padding-top: 5vh;
+			padding-top: 40px;
 		}
 		.text {
 			font-size: 4.2vw;
-			margin-bottom: 5vh;
+			margin-bottom: 40px;
 		}
 		#cloud {
 			width: 92vw;

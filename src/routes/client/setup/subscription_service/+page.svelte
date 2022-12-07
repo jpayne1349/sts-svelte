@@ -82,6 +82,8 @@
 	});
 
 	let submitting_form = false;
+	let settingUpLater = false;
+	
 
 	// we will pass the whole object to the server to make a stripe quote, and notify the dev team, etc.
 	async function setupSubscription() {
@@ -152,6 +154,9 @@
 	}
 
 	async function setUpLater() {
+		settingUpLater = true;
+
+
 		let userDocReference = doc($fbStore.db, 'client-portal-user', $sessionStore.uid);
 
 		let updatedUserDoc = await updateDoc(userDocReference, {
@@ -403,7 +408,13 @@
 		<div class="seperating-line" />
 
 		<div class="double-button-container">
-			<button id="set-up-later" on:click|preventDefault={setUpLater}>Set Up Later</button>
+			<button id="set-up-later" on:click|preventDefault={setUpLater}>
+			{#if !settingUpLater}
+					Set Up Later
+				{:else}
+					<span class="button-spinner" />
+				{/if}
+			</button>
 
 			<button
 				id="submit-sign-in"

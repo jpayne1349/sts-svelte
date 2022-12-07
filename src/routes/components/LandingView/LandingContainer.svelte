@@ -17,7 +17,7 @@ import UnderButtonPhrase from './UnderButtonPhrase.svelte';
 
 <style>
     #landing-container {
-        height: 100vh;
+        height: 800px;
         position: relative;
         width: 100vw;
     }

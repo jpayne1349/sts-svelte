@@ -2,7 +2,7 @@
 	import { getContext } from 'svelte';
 	import { enhance } from '$app/forms';
 	import { alertStore, fbStore, loadingStore, sessionStore } from '../stores.js';
-	import { signInWithEmailAndPassword } from 'firebase/auth';
+	import { signInWithEmailAndPassword, setPersistence, browserSessionPersistence } from 'firebase/auth';
 	import { fade } from 'svelte/transition';
 
 	let submitting_form = false;
@@ -15,9 +15,15 @@
 
 		let email = data.get('email');
 		let password = data.get('password');
+		
+		// either 'on' or null
 		let remember = data.get('remember');
-
+		
 		try {
+			if(remember != 'on') {
+				setPersistence($fbStore.auth,browserSessionPersistence); 
+			}
+			
 			let attempt = await signInWithEmailAndPassword($fbStore.auth, email, password);
 
 			// this should trigger an authstatechange , which would trigger our callbacks in layout..
@@ -58,7 +64,7 @@
 		/>
 
 		<div class="checkbox-container">
-			<input name="remember" type="checkbox" id="remember-check" class="checkbox" checked />
+			<input name="remember" type="checkbox" id="remember-check" class="checkbox" />
 			<label id="remember-label" for="remember-check" class="checkbox-label">Remember me</label>
 		</div>
 		<button id="submit-sign-in" type="submit" for="sign-in-form">

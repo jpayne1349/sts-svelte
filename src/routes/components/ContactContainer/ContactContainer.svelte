@@ -33,9 +33,9 @@ import ContactTitle from "./ContactTitle.svelte";
         width: 100vw;
         padding: 0 5vw;
         
-        height: 75vh;
+        height: 550px;
         scroll-snap-align: start;
-        margin-bottom: 10vh;
+        margin-bottom: 40px;
         justify-content: flex-start;
     }
     }

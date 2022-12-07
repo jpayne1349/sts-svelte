@@ -204,7 +204,7 @@
 				}
 			}
 		} else {
-			// user is null, not authenticated
+			// **** user is null, not authenticated
 
 			// if requesting a public route, pass through
 			if (
@@ -290,9 +290,10 @@
 	}
 
 	async function signOutUser() {
-		let response = await signOut($fbStore.auth);
 
 		let next_page = await goto('/client/sign-in');
+
+		let response = await signOut($fbStore.auth);
 
 		sessionStore.set({});
 

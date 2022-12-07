@@ -12,6 +12,7 @@
     let password_value;
 
 	async function reauthAttempt() {
+		submitting_form = true;
 		try {
             let credential = EmailAuthProvider.credential($sessionStore.email, password_value);
 
@@ -20,6 +21,7 @@
             // will catch error if password incorrect,
 
             dispatch('success', 'reauthenticated');
+			submitting_form = false;
 
         } catch(e) {
             let alertMessage = 'Unable to Reauthenticate';
@@ -32,6 +34,7 @@
                 error: true,
                 message: alertMessage
             });
+			submitting_form = false;
 
         }
 

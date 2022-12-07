@@ -45,7 +45,7 @@
     }
 	.details {
 		font-family: openSans-light;
-		font-size: 1.1vw;
+		font-size: 20px;
 		text-align: center;
 		width: 70vw;
 		margin: 3vh 0;

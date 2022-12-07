@@ -14,19 +14,18 @@
 	cookiePopupStore.set(data);
 
 	let blurringBg = false;
-    let inClientPortal = false;
+	let inClientPortal = false;
 
-
+	// changing the body class to go from different background styles
 	page.subscribe((data) => {
 		if (browser) {
-			
-				if (data.url.pathname.includes('client')) {
-					document.body.classList.add('client');
-                    inClientPortal = true;
-				} else {
-					document.body.classList.remove('client');
-                    inClientPortal = false;
-				}
+			if (data.url.pathname.includes('client')) {
+				document.body.classList.add('client');
+				inClientPortal = true;
+			} else {
+				document.body.classList.remove('client');
+				inClientPortal = false;
+			}
 		}
 	});
 
@@ -60,19 +59,25 @@
 		currentScroll = scrollY;
 	}
 
-	$: if($sessionStore.logged_in) {
+	$: if ($sessionStore.logged_in) {
 		clientPortalLink = '/client/portal/overview';
 	} else {
 		clientPortalLink = '/client';
 	}
+
+	let mobileNavOpen = false;
+
+	function setNavbarVisibility(event) {
+		mobileNavOpen = event.detail;
+	}
 </script>
 
 <svelte:head>
-    {#if inClientPortal}
-        <meta name="theme-color" content="#FFFFFF" />
-    {:else}
-	<meta name="theme-color" content="#020d1f" />
-    {/if}
+	{#if inClientPortal}
+		<meta name="theme-color" content="#FFFFFF" />
+	{:else}
+		<meta name="theme-color" content="#020d1f" />
+	{/if}
 </svelte:head>
 
 <svelte:window bind:scrollY />
@@ -81,7 +86,12 @@
 	<a href="/" alt="South Texas Sofware Homepage"> <LogoIconOnly /> </a>
 </div>
 
-<nav class="navbar" class:show={scrollingUp} class:hide={scrollingDown}>
+<nav
+	class="navbar"
+	class:show={scrollingUp}
+	class:mobileShow={mobileNavOpen}
+	class:hide={scrollingDown}
+>
 	<a class="desktop-link" href="/services" alt="Services">Services</a>
 	<a class="desktop-link" href="/pricing" alt="Services">Pricing</a>
 
@@ -91,7 +101,7 @@
 
 	<a class="desktop-link" href="/contact-us" alt="Services">Contact</a>
 	<a class="desktop-link" href={clientPortalLink} alt="Services">Client Portal</a>
-	<MobileNav />
+	<MobileNav on:clicked={setNavbarVisibility} />
 </nav>
 
 <slot />
@@ -112,18 +122,21 @@
 		display: flex;
 		height: 50px;
 		justify-content: center;
-		width: 100%;
+		/* width: 100%; */
 		align-items: center;
 		transition: transform 0.3s ease-in-out;
 		z-index: 30;
 		position: sticky;
 		margin-top: 110px;
+		border-bottom-left-radius: 10px;
+		border-bottom-right-radius: 10px;
 	}
-	.navbar.show {
+	.navbar.show,
+	.navbar.mobileShow,
+	.navbar.hide.mobileShow {
 		top: 0;
 		left: 0;
 		transform: translateY(0);
-		
 	}
 	.navbar.hide {
 		transform: translateY(-100%);
@@ -166,7 +179,6 @@
 			justify-content: center;
 			width: 100%;
 			margin-top: 0px;
-			
 		}
 
 		.desktop-link,

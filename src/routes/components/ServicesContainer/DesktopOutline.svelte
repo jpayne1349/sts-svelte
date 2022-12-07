@@ -133,7 +133,7 @@
 		}
         #text-container {
             width: 100%;
-			padding-top: 5vh;
+			padding-top: 45px;
 			padding-left: 0;
         }
         #title {

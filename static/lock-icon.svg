@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="37px" height="54px" viewBox="0 0 37 54" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group 2</title>
+    <g id="client-portal-v2-mobile" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="portal-payment" transform="translate(-176.000000, -737.000000)" stroke="#E0E1E2">
+            <g id="Group-2" transform="translate(176.000000, 739.000000)">
+                <path d="M8.05555556,-3.01010101 C10.53367,-3.01010101 13.0117845,-3.01010101 15.489899,-3.01010101 C22.9206393,-3.01010101 28.9444444,3.01370417 28.9444444,10.4444444 C28.9444444,17.8751847 22.9206393,23.8989899 15.489899,23.8989899 C13.0117845,23.8989899 10.53367,23.8989899 8.05555556,23.8989899" id="Rectangle" stroke-width="3.32323232" transform="translate(18.500000, 10.444444) rotate(-90.000000) translate(-18.500000, -10.444444) "></path>
+                <rect id="Rectangle" stroke-width="3.32323232" fill="#FFFFFF" x="1.66161616" y="20.8097643" width="33.6767677" height="28.6767677" rx="3.32323241"></rect>
+                <circle id="Oval" fill="#E0E1E2" cx="18.5" cy="27.5" r="2"></circle>
+                <path d="M19.5,29.5 L19.5,32.5 C19.5,32.7761424 19.3880712,33.0261424 19.2071068,33.2071068 C19.0261424,33.3880712 18.7761424,33.5 18.5,33.5 C18.2238576,33.5 17.9738576,33.3880712 17.7928932,33.2071068 C17.6119288,33.0261424 17.5,32.7761424 17.5,32.5 L17.5,29.5 L19.5,29.5 Z" id="Rectangle" fill="#E0E1E2"></path>
+            </g>
+        </g>
+    </g>
+</svg>

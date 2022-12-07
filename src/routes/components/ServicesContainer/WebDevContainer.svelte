@@ -91,12 +91,11 @@
 
 	@media only screen and (max-width: 615px) {
 		#webdev-container {
-			height: 75vh;
+			height: 650px;
 			margin-top: 10vw;
 			flex-direction: column;
 			justify-content: flex-start;
 			scroll-snap-align: start;
-			scroll-margin-top: 17vh;
 			flex-wrap: nowrap;
 		}
 
@@ -110,7 +109,7 @@
 		#right-section {
 			width: 100%;
 			font-size: 4.2vw;
-			height: 40vh;
+			height: 300px;
 		}
 	}
 </style>

@@ -133,6 +133,7 @@
 		let stringArray = string.split(':');
 		return stringArray[0] + '<br>' + stringArray[1];
 	}
+	
 </script>
 
 <section class="container">
@@ -200,6 +201,7 @@
 				{:else}
 					Pay Invoice
 				{/if}
+				<img class='lock-icon' src="../../../lock-icon.svg" alt='Secure Transaction' />
 			</button>
 		{:else}
 			<div class="not-allowed">Looks like this invoice has been {invoiceStatus}</div>
@@ -276,6 +278,7 @@
 		width: 100%;
 		margin-bottom: 15px;
 		background-color: var(--main);
+		position: relative;
 	}
 	.not-allowed {
 		width: 100%;
@@ -308,6 +311,13 @@
 		transition: all 0.2s;
 		margin-right: 10px;
 	}
+	.lock-icon {
+	font-size: 10px;
+	position: absolute;
+	right: 15px;
+	user-select: none;
+	width: 10px;
+}
 
 	@keyframes spinning {
 		0% {

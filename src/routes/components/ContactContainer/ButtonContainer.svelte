@@ -22,26 +22,28 @@ function validateAndSend() {
 </script>
 
 
+
 <button on:click={()=>dispatchClick('clear')} id='clear-button' class='button' >Clear</button>
 
 <button class:active={validation} on:click={validateAndSend} id='send-button' class='button' >Send</button>
 
 
 <style>
-    .button {
-        width: 5vw;
-        font-family: openSans-light;
-        box-shadow: 0 1px 2px 0 rgba(0,0,0,0.50);
-        color: white;
-        border-radius: 11px;
-        margin: 0 1vw;
-        text-align: center;
-        height: 2vw;
-        line-height: 2vw;
-        cursor: pointer;
-        font-size: 1vw;
-        user-select: none;
-    }
+
+.button {
+	width: 85px;
+	font-family: openSans-light;
+	box-shadow: 0 1px 2px 0 rgba(0,0,0,0.50);
+	color: white;
+	border-radius: 8px;
+	margin: 0 10px;
+	text-align: center;
+	height: 24px;
+	line-height: 24px;
+	cursor: pointer;
+	font-size: 16px;
+	user-select: none;
+}
     #clear-button {
         background: #5F6878;
     }
@@ -52,7 +54,7 @@ function validateAndSend() {
         background: #93a5c2;
         color: grey;
         transition: all 0.5s;
-        cursor: none;
+        cursor: default;
     }
     #send-button.active {
         background: #6A91D1;

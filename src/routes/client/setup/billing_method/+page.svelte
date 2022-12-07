@@ -10,6 +10,7 @@
 
 	let setting_up_intent = false;
 	let submitting_form = false;
+	let settingUpLater = false;
 	let form_element;
 	let elements;
 	let stripe;
@@ -236,6 +237,9 @@
 	}
 
 	async function setUpLater() {
+		settingUpLater = true;
+
+
 		let cancelingIntent = await cancelIntent();
 
 		let userDocReference = doc($fbStore.db, 'client-portal-user', $sessionStore.uid);
@@ -293,6 +297,7 @@
 				{:else}
 					Add Card
 				{/if}
+				<img class='lock-icon' src='../../../lock-icon.svg' alt='Secure' />
 			</button>
 		{/if}
 	</form>
@@ -302,7 +307,13 @@
 	</p>
 
 	<div class="double-button-container">
-		<button id="set-up-later" on:click|preventDefault={setUpLater}>Set Up Later</button>
+		<button id="set-up-later" on:click|preventDefault={setUpLater}>
+		{#if !settingUpLater}
+					Set Up Later
+				{:else}
+					<span class="button-spinner" />
+				{/if}
+			</button>
 	</div>
 </section>
 
@@ -344,6 +355,7 @@
 		width: 200px;
 		margin: 0;
 		background-color: var(--global-green);
+		position: relative;
 	}
 	.button-spinner {
 		content: '';
@@ -359,6 +371,12 @@
 		opacity: 1;
 		transition: all 0.2s;
 	}
+	.lock-icon {
+	position: absolute;
+	right: 15px;
+	width: 10px;
+	user-select: none;
+}
 
 	@media only screen and (max-width: 500px) {
 		.stripe-element-container {

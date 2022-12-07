@@ -107,28 +107,28 @@ body.client .navbar.show {
 	border-radius: 5px;
 	box-shadow: var(--box-shadow);
 	padding: 25px 50px;
-	margin-top: 2vh;
+	margin-top: 20px;
 }
 .container-title {
 	font-family: openSans-Bold;
 	color: var(--bg-2);
 	font-size: 24px;
-	margin-bottom: 3vh;
+	margin-bottom: 25px;
 }
 .container-subtitle {
 	font-family: openSans-Bold;
 	color: var(--main);
 	font-size: 16px;
-	margin-bottom: 1vh;
-	margin-top: -2vh;
+	margin-bottom: 15px;
+	margin-top: -20px;
 }
 
 input {
 	outline: none;
 	border: 1px solid rgb(177, 177, 177);
 	border-radius: 5px;
-	height: 3vh;
-	font-size: 1.5vh;
+	height: 30px;
+	font-size: 18px;
 	padding: 0 5px;
 	font-family: openSans-regular;
 	box-shadow: 0px 1px 2px rgb(187, 187, 187);
@@ -143,14 +143,14 @@ button {
 	font-family: openSans-bold;
 	font-size: 16px;
 	color: white;
-	height: 3vh;
+	height: 30px;
 	border: none;
 	background-color: var(--button-blue);
 	border-radius: 5px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin-bottom: 3vh;
+	margin-bottom: 30px;
 	cursor: pointer;
 	box-shadow: var(--box-shadow);
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -221,14 +221,14 @@ a {
 		border-radius: 5px;
 		box-shadow: 0px 1px 2px rgb(177, 177, 177);
 		padding: 4vw;
-		margin-top: 2vh;
+		margin-top: 20px;
 	}
 	.container-title {
 		font-size: 5vw;
 	}
 	input {
-		height: 5vh;
-		font-size: 2.2vh;
+		height: 40px;
+		font-size: 18px;
 		border: none;
 		caret-color: var(--bar-color);
 		box-shadow: 0 1px 2px rgb(199, 199, 199);
@@ -241,24 +241,24 @@ a {
 		box-shadow: 0px 1px 2px rgb(118, 118, 118);
 	}
 	button {
-		height: 5vh;
-		font-size: 2.2vh;
+		height: 40px;
+		font-size: 18px;
 	}
 	.grey-question {
 		font-size: 12px;
 	}
 	.checkbox {
-		height: 2.5vh;
-		width: 2.5vh;
+		height: 20px;
+		width: 20px;
 		margin-right: 10px;
 	}
 	.checkbox:checked:after {
-		width: 0.3vh;
-		height: 1.1vh;
-		left: 0.9vh;
-		top: 0.4vh;
+		width: 3px;
+		height: 10px;
+		left: 7px;
+		top: 3px;
 		transform: rotate(35deg);
-		border-bottom: 0.4vh solid white;
-		border-right: 0.4vh solid white;
+		border-bottom: 3px solid white;
+		border-right: 3px solid white;
 	}
 }

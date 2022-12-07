@@ -5,6 +5,7 @@
 	import { goto } from '$app/navigation';
 
 	let submitting_form = false;
+	let settingUpLater = false;
 	let form_element;
 	let use_account_email = true;
 	let use_company_name = true;
@@ -151,6 +152,8 @@
 	}
 
 	async function setUpLater() {
+		settingUpLater = true;
+
 		let userDocReference = doc($fbStore.db, 'client-portal-user', $sessionStore.uid);
 
 		let updatedUserDoc = await updateDoc(userDocReference, {
@@ -283,7 +286,14 @@
 		{/if}
 
 		<div class="double-button-container">
-			<button id="set-up-later" on:click|preventDefault={setUpLater}>Set Up Later</button>
+			<button id="set-up-later" on:click|preventDefault={setUpLater}>
+				{#if settingUpLater}
+					<div class='button-spinner'></div>
+				{:else}
+					Set Up Later
+				{/if}
+				
+			</button>
 
 			<button
 				id="submit-sign-in"
