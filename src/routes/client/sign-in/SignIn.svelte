@@ -87,7 +87,7 @@
 
 <style>
 	.container {
-		min-height: 40vh;
+		min-height: 400px;
 	}
 	form {
 		display: flex;
@@ -96,18 +96,18 @@
 	}
 	.label {
 		font-family: openSans-semibold;
-		margin-bottom: 1vh;
+		margin-bottom: 10px;
 	}
 	input,
 	.checkbox-container {
-		margin-bottom: 2vh;
+		margin-bottom: 20px;
 	}
 	.checkbox-container {
 		display: flex;
 		align-items: center;
 		font-family: openSans-semibold;
 		color: var(--bg);
-		margin-bottom: 2vh;
+		margin-bottom: 20px;
 		user-select: none;
 	}
 	p.center-link {
@@ -122,7 +122,7 @@
 		align-self: center;
 	}
 	.grey-question {
-		margin-top: 5vh;
+		margin-top: 30px;
 		
 	}
 	button {
@@ -148,7 +148,7 @@
 	@media only screen and (max-width: 500px) {
 		input,
 		.checkbox-container {
-			margin-bottom: 4vh;
+			margin-bottom: 30px;
 		}
 	}
 
