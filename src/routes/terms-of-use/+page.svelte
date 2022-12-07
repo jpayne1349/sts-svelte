@@ -2424,7 +2424,6 @@ Calibri;color:#595959;mso-themecolor:text1;mso-themetint:166;"
 	}
 	[data-custom-class='body'] {
 		width: 70vw;
-		margin-left: 15vw;
 		display: flex;
 		flex-direction: column;
 		margin-bottom: 10vh;

@@ -498,7 +498,7 @@
 <style>
 	#wrapper {
 		width: 70vw;
-		margin-left: 15vw;
+		
 		display: flex;
 		flex-direction: column;
 		margin-bottom: 10vh;

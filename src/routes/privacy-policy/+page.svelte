@@ -503,7 +503,7 @@
 <style>
 	#privacy-container {
 		width: 70vw;
-		margin-left: 15vw;
+		
 		color: #bbbec5;
 		display: flex;
 		flex-direction: column;
