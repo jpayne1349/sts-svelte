@@ -46,7 +46,7 @@
 			alertStore.set({
 				show: true,
 				error: false,
-				message: 'No Active Services/Subscriptions'
+				message: 'No Active Services'
 			});
 			cancelling_subscription = false;
 			return;
@@ -74,7 +74,7 @@
 				let sendEmail = fetch('/client/api/generateErrorEmail', {
 					method: 'POST',
 					body: JSON.stringify({
-						title: 'Error Cancelling Subscription',
+						title: 'Error Cancelling Services',
 						account: $sessionStore.email,
 						details: responseJson.code
 					}),
@@ -101,7 +101,7 @@
 			let sendEmail = fetch('/client/api/generateErrorEmail', {
 				method: 'POST',
 				body: JSON.stringify({
-					title: 'Cancel Services/Subscription',
+					title: 'Cancel Services',
 					account: $sessionStore.email,
 					details:
 						'Not an error, informational only. The account is requesting cancellation of services.'
@@ -382,7 +382,7 @@
 					returnTo: '/client/portal/billing'
 				};
 				// go to /client/setup/billing_method
-				let getThere = goto('/client/setup/subscription_service');
+				let getThere = goto('/client/setup/services');
 			}}
 		>
 			{#if $sessionStore.subscription.status == ''}
@@ -390,14 +390,14 @@
 			{:else}
 				Change
 			{/if}
-			Service/Subscription</button
+			Services</button
 		>
 
 		<button
 			class="text-link cancel"
 			class:active={$sessionStore.subscription.status == 'Active'}
 			on:click={cancelSubscription}
-			>Cancel Service/Subscription
+			>Cancel Services
 
 			{#if cancelling_subscription}
 				<span class="text-link-spinner" />

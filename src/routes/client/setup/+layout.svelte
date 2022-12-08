@@ -73,11 +73,11 @@
 		<div
 			class="step-icon"
 			id="subscription-step"
-			class:viewing={$page.url.pathname == '/client/setup/subscription_service'}
+			class:viewing={$page.url.pathname == '/client/setup/services'}
             class:seen={$sessionStore.account_setup.subscription_service.seen}
 			class:completed={$sessionStore.account_setup.subscription_service.completed}
 		/>
-		<label for="subscription-step" class="step-label">Subscription/Service</label>
+		<label for="subscription-step" class="step-label">Services</label>
 	</div>
 </section>
 

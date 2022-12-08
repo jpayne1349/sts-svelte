@@ -156,43 +156,7 @@
 		color: var(--global-green);
 		background-color: #7aa66f19;
 	}
-	.delete-account {
-		width: 100%;
-		margin-top: 20px;
-		background-color: #d25f5799;
-		position: relative;
-	}
-
-	.confirm-delete-container {
-		display: flex;
-		flex-direction: column;
-		width: 100%;
-		justify-content: space-around;
-		position: absolute;
-		height: 150px;
-		background: white;
-		box-shadow: 0px 1px 3px #a2a2a2;
-		border-radius: 5px;
-		align-items: center;
-		bottom: 0px;
-	}
-	.confirm-delete-container p {
-		font-family: openSans-bold;
-		color: var(--alert-red);
-		text-align: center;
-	}
-	.confirm-delete-buttons {
-		display: flex;
-		justify-content: space-around;
-		width: 100%;
-	}
-	.confirm-delete-buttons button {
-		margin: 0;
-		width: 140px;
-	}
-	button.confirm-delete {
-		background-color: var(--button-light-blue);
-	}
+	
 
 	@media only screen and (max-width: 500px) {
 		.container {
@@ -203,20 +167,7 @@
 		}
 	}
 
-	.spinner {
-		content: '';
-		border-radius: 50%;
-		border-top: 2px solid white;
-		border-right: 2px solid transparent;
-		width: 15px;
-		height: 15px;
-		animation-name: spinning;
-		animation-duration: 1s;
-		animation-iteration-count: infinite;
-		animation-timing-function: linear;
-		opacity: 1;
-		transition: all 0.2s;
-	}
+
 
 	@keyframes spinning {
 		0% {

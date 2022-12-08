@@ -170,7 +170,7 @@
 
 <div class="service-wrapper">
 	<section class="container" id="subscription_service">
-		<h2 class="container-title">Subscription / Service</h2>
+		<h2 class="container-title">Services</h2>
 		<p>
 			Let's get started! Use the form below to select the services you are interested in.
 			Monthly and build fees are *estimated based on the plans and features selected. Expect your

@@ -117,7 +117,7 @@
 		const saveAttempt = await stripe.confirmSetup({
 			elements,
 			confirmParams: {
-				return_url: 'https://southtexas.software/client/setup/subscription_service'
+				return_url: 'https://southtexas.software/client/setup/services'
 			},
 			redirect: 'if_required'
 		});
@@ -233,7 +233,7 @@
 			return;
 		}
 
-		let nextpage = await goto('/client/setup/subscription_service');
+		let nextpage = await goto('/client/setup/services');
 	}
 
 	async function setUpLater() {
@@ -248,7 +248,7 @@
 			'account_setup.billing_method.seen': true
 		});
 
-		let nextPage = await goto('/client/setup/subscription_service');
+		let nextPage = await goto('/client/setup/services');
 	}
 </script>
 

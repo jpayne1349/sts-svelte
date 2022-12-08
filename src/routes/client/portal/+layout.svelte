@@ -53,7 +53,7 @@
 			<p class="setup-link-label">Payment Method</p>
 		</a>
 
-		<a href="/client/setup/subscription_service" class="setup-link right">
+		<a href="/client/setup/services" class="setup-link right">
 			<div
 				class="setup-icon"
 				class:completed={$sessionStore.account_setup.subscription_service.completed}

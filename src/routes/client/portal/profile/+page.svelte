@@ -1,7 +1,7 @@
 <script>
 	import { alertStore, sessionStore, fbStore } from '../../stores';
 	import { fly } from 'svelte/transition';
-	import { deleteUser } from 'firebase/auth';
+	import { deleteUser, signOut } from 'firebase/auth';
 	import ReauthenticateModal from '../ReauthenticateModal.svelte';
 	import EditAccountEmail from './EditAccountEmail.svelte';
 	import ChangePassword from './ChangePassword.svelte';
@@ -116,6 +116,17 @@
 			}
 		}
 	}
+
+	async function signOutUser() {
+
+		let next_page = await goto('/client/sign-in');
+
+		let response = await signOut($fbStore.auth);
+
+		sessionStore.set({});
+
+		//console.log('SIGNED USER OUT');
+	}
 </script>
 
 <div class="container">
@@ -183,6 +194,8 @@
 				{/if}
 			</button>
 		{/if}
+
+		<button class="text-link" on:click={signOutUser}>Sign Out </button>
 
 		<div class="overview-section last">
 			<button

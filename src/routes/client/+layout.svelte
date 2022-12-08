@@ -276,7 +276,7 @@
 			return true;
 		}
 		if (retrievedData.account_setup.subscription_service.seen == false) {
-			let next_page = await goto('/client/setup/subscription_service');
+			let next_page = await goto('/client/setup/services');
 
 			if (!initial_auth_updated) {
 				initial_auth_updated = true;
@@ -289,16 +289,7 @@
 		return false;
 	}
 
-	async function signOutUser() {
-
-		let next_page = await goto('/client/sign-in');
-
-		let response = await signOut($fbStore.auth);
-
-		sessionStore.set({});
-
-		//console.log('SIGNED USER OUT');
-	}
+	
 
 	// bound to match the with of the navbar element, which reflects the window width basically.
 	let window_width;
@@ -316,9 +307,9 @@
 	<!-- DEV ONLY -->
 	<!-- <p class="dev">test-user: {dev_loggedInUser}</p> -->
 
-	<button class="log-out" on:click={signOutUser} class:available={$sessionStore.logged_in}>
+	<!-- <button class="log-out" on:click={signOutUser} class:available={$sessionStore.logged_in}>
 		<img src="/sign-out-icon.svg" alt="Log Out" />
-	</button>
+	</button> -->
 </header>
 
 <div class="content">
