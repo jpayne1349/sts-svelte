@@ -59,6 +59,7 @@
 	let show_software_sol_description = false;
 
 	let buildFees = subscriptionSetupStore.subscribe((store) => {
+		console.log(store);
 		store.web_dev.build = store.web_dev.monthly * 10;
 
 		// manages that outer boolean for the web dev group

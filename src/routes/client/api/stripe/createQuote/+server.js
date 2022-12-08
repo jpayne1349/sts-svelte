@@ -6,35 +6,35 @@ import { stripeConfig } from '../../../../../config';
 const pricing_table = {
 	basic_fixed: {
 		no_features: {
-			monthly: 'price_1M210ZLLMTpPeabJAdkPejBY',
-			build: 'price_1M2HJtLLMTpPeabJ239hGRFR'
+			monthly: 'price_1MClerLLMTpPeabJSdHKdFBC',
+			build: 'price_1MCleALLMTpPeabJEtH3IcFL'
 		},
 		auto_email: {
-			monthly: 'price_1M2H60LLMTpPeabJYmsR6SOe',
-			build: 'price_1M2HMBLLMTpPeabJkwQp2ML7'
+			monthly: 'price_1MClejLLMTpPeabJL8pQrJB6',
+			build: 'price_1MCldzLLMTpPeabJfBCXwYzx'
 		},
 		custom_email: {
-			monthly: 'price_1M2H7ZLLMTpPeabJAMjiV3uc',
-			build: 'price_1M2HMqLLMTpPeabJvaDj0j3X'
+			monthly: 'price_1MClfSLLMTpPeabJDiu44oRN',
+			build: 'price_1MCldnLLMTpPeabJPrK9dgud'
 		},
 		all_features: {
-			monthly: 'price_1M2HBQLLMTpPeabJ5YLHXc89',
-			build: 'price_1M2HNRLLMTpPeabJjY2RRDYh'
+			monthly: 'price_1MCleMLLMTpPeabJwEggxbgI',
+			build: 'price_1MCldbLLMTpPeabJen0DFLlu'
 		}
 	},
 	advanced_fixed: {
 		no_features: {
-			monthly: '',
-			build: ''
+			monthly: 'price_1MClw2LLMTpPeabJwPqqrxy6',
+			build: 'price_1MClpyLLMTpPeabJYu76GRp8'
 		},
 		payments: {
-			monthly: '',
-			build: ''
+			monthly: 'price_1MClxCLLMTpPeabJvFiuISxP',
+			build: 'price_1MClsZLLMTpPeabJXIBahudZ'
 		}
 	},
 	advanced_value: {
-		monthly: '',
-		build: ''
+		monthly: 'price_1MCm85LLMTpPeabJ6e7yOSyu',
+		build: 'price_1MCm59LLMTpPeabJkeW8onuC'
 	}
 };
 
@@ -45,7 +45,7 @@ export async function POST({ request }) {
 	let quote_line_items = [];
 
 	// determines what to put into quote based on sections monthly price
-	// TODO: this could get broken if someone chooses more than one type of plan, basic + advanced, etc.
+	// This will just default to a non-typical request header if none of the cases are met...
 	if (payload.web_dev.selected) {
 		header_text = 'Web Development: Draft';
 
@@ -69,6 +69,21 @@ export async function POST({ request }) {
 				quote_line_items.push({ price: pricing_table.basic_fixed.all_features.monthly });
 				quote_line_items.push({ price: pricing_table.basic_fixed.all_features.build });
 				break;
+
+			case 300:
+				quote_line_items.push({ price: pricing_table.advanced_fixed.no_features.monthly });
+				quote_line_items.push({ price: pricing_table.advanced_fixed.no_features.build });
+				break;
+
+			case 500:
+				quote_line_items.push({ price: pricing_table.advanced_fixed.payments.monthly });
+				quote_line_items.push({ price: pricing_table.advanced_fixed.payments.build });
+				break;
+
+			case 100:
+				quote_line_items.push({ price: pricing_table.advanced_value.monthly });
+				quote_line_items.push({ price: pricing_table.advanced_value.build });
+				break;
 		}
 	}
 	if (payload.software_sol.selected) {
@@ -77,7 +92,7 @@ export async function POST({ request }) {
 
 	// do a simple check to see if the quote line items is empty.. if so, we add a blanket empty quote
 	if (quote_line_items.length == 0) {
-		header_text = 'Non-Typical Request: submission under review';
+		header_text = 'Non-Typical Request: submission needs review';
 	}
 
 	let responseJson = { error: false };
