@@ -1,4 +1,3 @@
-
 import sgMail from '@sendgrid/mail';
 import { dev } from '$app/environment';
 import { sendgridConfig } from '../../config';
@@ -18,7 +17,7 @@ const receipt_template = 'd-fe4afc874c58451e8b2ec28b86616fa9';
 const reset_password_template = 'd-a1fb019d9ca14bc5b6fefd5bc2f43a3b';
 
 let msg = {
-	from: fromObj, // Change to your verified sender
+	from: fromObj // Change to your verified sender
 };
 
 export async function sendEmail(type, payload) {
@@ -100,14 +99,22 @@ export async function sendEmail(type, payload) {
 	} else {
 		sgMail.setApiKey(sendgridConfig.apiKey);
 
-		sgMail
-			.send(msg)
-			.then(() => {
-				return 'Email Sent';
-			})
-			.catch((error) => {
-				console.error(error);
+		try {
+			let sgResponse = await sgMail.send(msg);
 
-			});
+			console.log(sgResponse);
+		} catch (e) {
+			console.error(e);
+		}
+
+		// sgMail
+		// 	.send(msg)
+		// 	.then(() => {
+		// 		return 'Email Sent';
+		// 	})
+		// 	.catch((error) => {
+		// 		console.error(error);
+
+		// 	});
 	}
 }
