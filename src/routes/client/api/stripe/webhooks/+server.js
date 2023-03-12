@@ -6,13 +6,16 @@ import { getStorage } from 'firebase-admin/storage';
 import { getFirestore, FieldValue, Timestamp } from 'firebase-admin/firestore';
 import { got } from 'got';
 import { stripeConfig } from '../../../../../config';
-
+import { load } from '../../../+layout.server';
 
 export async function POST({ request }) {
 	//console.log('received webhook event');
 
 	const _rawBody = await request.arrayBuffer();
 	const payload = toBuffer(_rawBody);
+
+	// run server side firebase connections before proceeding with webhook handling.
+	await load();
 
 	const stripe = Stripe(stripeConfig.privateKey);
 	const firestoreCollection = getFirestore().collection('/client-portal-user');
@@ -36,11 +39,11 @@ export async function POST({ request }) {
 			let createdQuoteId = createdQuoteObject.id;
 			let createdQuoteCustomerId = createdQuoteObject.customer;
 
-			// to be filled from firebase query 
+			// to be filled from firebase query
 			let userEmail = '';
 
 			//build a shorthand name for Quote file/object
-			let draftQuoteName = 'Draft_Quote_' + createdQuoteId.slice(-8,-1);
+			let draftQuoteName = 'Draft_Quote_' + createdQuoteId.slice(-8, -1);
 
 			/** Generate firebase event and update subscription/services status & message **/
 			const createdQuoteQuery = await firestoreCollection
@@ -62,8 +65,7 @@ export async function POST({ request }) {
 					}),
 					'subscription.status': 'Draft Quote Generated',
 					'subscription.message':
-						'Thanks for filling out the services form. We will be contacting you soon to get more details.',
-					
+						'Thanks for filling out the services form. We will be contacting you soon to get more details.'
 				});
 			});
 
@@ -111,8 +113,8 @@ export async function POST({ request }) {
 			const finalizedQuoteQuery = await firestoreCollection
 				.where('cuid', '==', finalizedQuoteCustomer)
 				.get();
-			const finalizedQuoteTimeFirestore= Timestamp.now();
-			
+			const finalizedQuoteTimeFirestore = Timestamp.now();
+
 			const finalizedQuoteUnixTimestamp = getUnixTimestamp();
 
 			finalizedQuoteQuery.forEach(async (userDoc) => {
@@ -193,7 +195,7 @@ export async function POST({ request }) {
 			const acceptedQuoteUnixTimestamp = getUnixTimestamp();
 			acceptedQuoteQuery.forEach(async (userDoc) => {
 				let userObject = userDoc.data();
-				customerEmail = userObject.billing.email; // has to go to the billing email 
+				customerEmail = userObject.billing.email; // has to go to the billing email
 				let updateDoc = await userDoc.ref.update({
 					'service_log.events': FieldValue.arrayUnion({
 						time: acceptedQuoteTime,
@@ -313,14 +315,13 @@ export async function POST({ request }) {
 			let paidInvoicePdf = paidInvoice.invoice_pdf;
 			let paidInvoiceUserEmail = await stripe.customers.retrieve(paidInvoiceCustomer).email;
 
-		
 			/** Get the receipt url and pipe it to firebase **/
 			let invoiceChargeId = paidInvoice.charge;
 			let chargeObject = await stripe.charges.retrieve(invoiceChargeId);
 			let chargePageUrl = chargeObject.receipt_url;
-			let parseArray = chargePageUrl.split('?')
+			let parseArray = chargePageUrl.split('?');
 			let receipt_url = parseArray[0] + '/pdf?' + parseArray[1];
-			
+
 			let paidInvoiceName = 'Invoice_' + paidInvoiceId.slice(-8, -1);
 			let receiptName = 'Receipt_' + paidInvoiceId.slice(-8, -1);
 
@@ -351,21 +352,18 @@ export async function POST({ request }) {
 
 			// check for a subscription and if so, add that information into firebase.
 			if (paidInvoice.subscription != null) {
-				
 				userSubscription.id = paidInvoice.subscription;
-				
+
 				let subscriptionObject = await stripe.subscriptions.retrieve(paidInvoice.subscription);
-				
+
 				userSubscription.monthly = subscriptionObject.plan.amount / 100;
 				userSubscription.renewal = subscriptionObject.billing_cycle_anchor;
-				
+
 				let productId = subscriptionObject.plan.product;
 				let productObject = await stripe.products.retrieve(productId);
 
 				userSubscription.plan = productObject.name;
 				userSubscription.options = productObject.description;
-				
-
 			}
 
 			/** Update firebase to reflect changes in the app **/
@@ -418,7 +416,6 @@ export async function POST({ request }) {
 				details: 'Invoice Paid: ' + paidInvoiceId
 			});
 
-			
 			let portalReceiptLink = 'https://southtexas.software/client/portal/receipt/' + receiptName;
 
 			let paidInvoiceCustomerEmail = await sendEmail('receipt', {
@@ -431,7 +428,7 @@ export async function POST({ request }) {
 		// ... handle other event types
 
 		default:
-			//console.log(`Unhandled event type ${event.type}`);
+		//console.log(`Unhandled event type ${event.type}`);
 	}
 
 	let success_reponse = new Response('Success', { status: 200 });
@@ -439,7 +436,7 @@ export async function POST({ request }) {
 }
 
 /**
- * 
+ *
  * @returns {Buffer} html body as a Buffer
  **/
 function toBuffer(ab) {
