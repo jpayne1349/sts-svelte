@@ -69,7 +69,7 @@
 			error: false,
 			message: 'Quote Accepted!'
 		});
-		
+
 		$sessionStore.billing.open_documents[0].processing = true;
 
 		let closePage = await goto('/client/portal/billing');
@@ -91,7 +91,13 @@
 
 	<div class="group">
 		<p class="label">Name</p>
-		<p class="variable">{$sessionStore.billing.name}</p>
+		<p class="variable">
+			{#if $sessionStore.billing.name != ''}
+				{$sessionStore.billing.name}
+			{:else}
+				{$sessionStore.company_name}
+			{/if}
+		</p>
 	</div>
 
 	<div class="group">
