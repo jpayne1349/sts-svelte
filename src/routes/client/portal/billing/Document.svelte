@@ -21,12 +21,14 @@
 				ref($fbStore.storage, '/client-portal-users/' + $sessionStore.cuid + '/' + file.filename)
 			);
 
+			loadingLink = false;
 			let goToFileLocation = await goto(url);
 		} catch (e) {
 			errorFlag = true;
 			//console.log(e);
 
 			// set alert store with e.code or e.message
+			loadingLink = false;
 		}
 	}
 
@@ -69,11 +71,11 @@
 		font-size: 14px;
 		height: 50px;
 	}
-    .text-container {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-    }
+	.text-container {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+	}
 	.doc-name {
 		font-family: openSans-light;
 		margin-left: 5px;
@@ -81,7 +83,7 @@
 	.doc-date {
 		font-size: 10px;
 		font-family: 'openSans-light';
-        margin-left: 15px;
+		margin-left: 15px;
 	}
 	.icon {
 		margin-left: auto;
