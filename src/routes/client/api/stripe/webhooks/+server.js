@@ -459,7 +459,54 @@ export async function POST({ request }) {
 								time: canceledQuoteTime,
 								description: documentFilename + ' was canceled.',
 								type: 'billing'
-							})
+							}),
+							'subscription.status': 'Recent Quote Canceled',
+							'subscription.message':
+								"Uh Oh! It looks like a recent quote was canceled. This happens at expiry or can be manually triggered by us. We'll check in soon!"
+						});
+					}
+				}
+			});
+
+			break;
+
+		case 'invoice.canceled':
+			const canceledInvoiceObject = event.data.object;
+			let canceledInvoiceId = canceledInvoiceObject.id;
+			let canceledInvoiceCustomerId = canceledInvoiceObject.customer;
+
+			const canceledInvoiceQuery = await firestoreCollection
+				.where('cuid', '==', canceledInvoiceCustomerId)
+				.get();
+
+			canceledInvoiceQuery.forEach(async (userDoc) => {
+				let userObject = userDoc.data();
+
+				let openDocuments = userObject.billing.open_documents;
+
+				const canceledInvoiceTime = Timestamp.now();
+
+				for (let document of openDocuments) {
+					if (document.id == canceledInvoiceId) {
+						// get document name from documents list
+						let documentFilename = 'An invoice';
+
+						for (let docName of userObject.billing.documents) {
+							if (docName.id == canceledInvoiceId) {
+								documentFilename = docName.filename;
+							}
+						}
+
+						let updateDoc = await userDoc.ref.update({
+							'billing.open_documents': FieldValue.arrayRemove(document),
+							'service_log.events': FieldValue.arrayUnion({
+								time: canceledInvoiceTime,
+								description: documentFilename + ' was canceled.',
+								type: 'billing'
+							}),
+							'subscription.status': 'Recent Invoice Canceled',
+							'subscription.message':
+								"Uh Oh! It looks like a recent invoice was canceled. This happens at expiry or can be manually triggered by us. We'll check in soon!"
 						});
 					}
 				}
