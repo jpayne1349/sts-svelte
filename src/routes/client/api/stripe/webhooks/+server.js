@@ -470,7 +470,7 @@ export async function POST({ request }) {
 
 			break;
 
-		case 'invoice.canceled':
+		case 'invoice.voided':
 			const canceledInvoiceObject = event.data.object;
 			let canceledInvoiceId = canceledInvoiceObject.id;
 			let canceledInvoiceCustomerId = canceledInvoiceObject.customer;
@@ -501,12 +501,12 @@ export async function POST({ request }) {
 							'billing.open_documents': FieldValue.arrayRemove(document),
 							'service_log.events': FieldValue.arrayUnion({
 								time: canceledInvoiceTime,
-								description: documentFilename + ' was canceled.',
+								description: documentFilename + ' was voided.',
 								type: 'billing'
 							}),
-							'subscription.status': 'Recent Invoice Canceled',
+							'subscription.status': 'Recent Invoice Voided',
 							'subscription.message':
-								"Uh Oh! It looks like a recent invoice was canceled. This happens at expiry or can be manually triggered by us. We'll check in soon!"
+								"Uh Oh! It looks like a recent invoice was voided. We occasionally void invoices from within our system. We'll reach out soon to clarify!"
 						});
 					}
 				}
