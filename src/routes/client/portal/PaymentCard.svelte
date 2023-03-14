@@ -1,22 +1,22 @@
 <script>
 	import { sessionStore } from '../stores';
-    import { onMount } from 'svelte';
-    import { fly } from 'svelte/transition';
+	import { onMount } from 'svelte';
+	import { fly } from 'svelte/transition';
 
-    let shortened_card_type = '';
-    let loaded = false;
-    
-    let visa = false;
-    let mast = false;
-    let disc = false;
-    let amex = false;
-    let appl = false;
-    let goog = false;
+	let shortened_card_type = '';
+	let loaded = false;
 
-    onMount(()=>{
-        shortened_card_type = shortenCardType();
-        loaded = true;
-    });
+	let visa = false;
+	let mast = false;
+	let disc = false;
+	let amex = false;
+	let appl = false;
+	let goog = false;
+
+	onMount(() => {
+		shortened_card_type = shortenCardType();
+		loaded = true;
+	});
 
 	function shortenCardType() {
 		if ($sessionStore.default_payment_method.type == '') {
@@ -25,22 +25,22 @@
 
 		switch ($sessionStore.default_payment_method.type) {
 			case 'visa':
-                visa = true;
+				visa = true;
 				return 'visa';
 				break;
 
 			case 'mastercard':
-                mast = true;
+				mast = true;
 				return 'mast';
 				break;
 
 			case 'discover':
-                disc = true;
+				disc = true;
 				return 'disc';
 				break;
 
 			case 'amex':
-                amex = true;
+				amex = true;
 				return 'amex';
 				break;
 
@@ -48,11 +48,19 @@
 				return 'cc';
 		}
 	}
-
 </script>
 
-<div class="card-icon" class:visa class:amex class:disc class:mast in:fly={{x:-20}}>
-    <div class='chip' ></div>
+<div
+	class="card-icon"
+	class:appl
+	class:goog
+	class:visa
+	class:amex
+	class:disc
+	class:mast
+	in:fly={{ x: -20 }}
+>
+	<div class="chip" />
 	<div class="card-last-four">{$sessionStore.default_payment_method.last_four}</div>
 
 	<div class="card-type">{shortened_card_type}</div>
@@ -87,7 +95,7 @@
 	}
 	.card-icon.appl {
 		background-color: white;
-        border: 1px solid black;
+		border: 1px solid black;
 		color: black;
 	}
 	.card-icon.goog {
@@ -101,22 +109,21 @@
 		bottom: 8px;
 	}
 	.card-type {
-        font-family: monospace;
+		font-family: monospace;
 		position: absolute;
 		font-size: 8px;
 		right: 2px;
 		bottom: 2px;
 	}
-    .chip {
-        width: 5px;
-        height: 5px;
-        position: absolute;
-        left: 5px;
-        top: 7px;
-        background-color: rgb(202, 202, 202);
-        border-radius: 1px;
-    }
-    @media only screen and (max-width: 500px) {
-
+	.chip {
+		width: 5px;
+		height: 5px;
+		position: absolute;
+		left: 5px;
+		top: 7px;
+		background-color: rgb(202, 202, 202);
+		border-radius: 1px;
+	}
+	@media only screen and (max-width: 500px) {
 	}
 </style>
