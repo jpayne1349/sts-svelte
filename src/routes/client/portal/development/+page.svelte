@@ -9,7 +9,7 @@
 			<p class="label">Active Links:</p>
 			<!-- loop through active links -->
 			{#each $sessionStore.service_log.active_links as link, index}
-				<a class="service-link" href={link}>Production/Public</a>
+				<a class="service-link" href={link}>{link}</a>
 			{/each}
 		</div>
 
@@ -17,7 +17,7 @@
 			<p class="label">Preview Links:</p>
 			<!-- loop through active links -->
 			{#each $sessionStore.service_log.preview_links as link, index}
-				<a class="service-link" href={link}>Latest Update</a>
+				<a class="service-link" href={link}>{link}</a>
 			{/each}
 		</div>
 
@@ -26,7 +26,8 @@
 
 			<p class="data">
 				{#if $sessionStore.service_log.code_repo}
-					<a class="service-link" href={$sessionStore.service_log.code_repo}>Public Project Files</a
+					<a class="service-link" href={$sessionStore.service_log.code_repo}
+						>GitHub Version Control</a
 					>
 				{/if}
 			</p>

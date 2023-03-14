@@ -2,7 +2,6 @@
 	import { sessionStore, fbStore } from '../../stores';
 	import PaymentCard from '../PaymentCard.svelte';
 	import Event from '../Event.svelte';
-	
 
 	let latest_event = {
 		time: '',
@@ -18,9 +17,6 @@
 		}
 		return;
 	});
-
-
-	
 </script>
 
 <section class="container">
@@ -74,11 +70,14 @@
 		<p class="section-info">
 			<span class="info-label">Active Links:</span>
 			{#each $sessionStore.service_log.active_links as link}
-				<a href={link}>{link}</a> |
+				<a class="inline-link" href={link}>{link}</a>
 			{/each}
 		</p>
 		<p class="section-info">
-			<span class="info-label">Code Repo:</span>{$sessionStore.service_log.code_repo}
+			<span class="info-label">Code Repo:</span>
+			{#if $sessionStore.service_log.code_repo != ''}
+				<a class="inline-link" href={$sessionStore.service_log.code_repo}>GitHub Version Control</a>
+			{/if}
 		</p>
 		<p class="section-info col">
 			<span class="info-label col">Latest Event</span>
@@ -91,9 +90,7 @@
 			{/if}
 		</p>
 	</div>
-	
 </section>
-
 
 <style>
 	.container {
@@ -156,7 +153,11 @@
 		color: var(--global-green);
 		background-color: #7aa66f19;
 	}
-	
+
+	a.inline-link {
+		color: var(--link);
+		text-decoration: underline;
+	}
 
 	@media only screen and (max-width: 500px) {
 		.container {
@@ -166,8 +167,6 @@
 			font-size: 8px;
 		}
 	}
-
-
 
 	@keyframes spinning {
 		0% {
