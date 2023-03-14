@@ -29,6 +29,7 @@ export async function POST({ request }) {
 		event = stripe.webhooks.constructEvent(payload, sig, stripeConfig.webhookSecret);
 	} catch (err) {
 		let error_reponse = new Response('Webhook Error: ' + err.message, { status: 400 });
+		console.log(error_reponse);
 		return error_reponse;
 	}
 
@@ -425,7 +426,46 @@ export async function POST({ request }) {
 
 			break;
 
-		// ... handle other event types
+		case 'quote.canceled':
+			const canceledQuoteObject = event.data.object;
+			let canceledQuoteId = canceledQuoteObject.id;
+			let canceledQuoteCustomerId = canceledQuoteObject.customer;
+
+			const canceledQuoteQuery = await firestoreCollection
+				.where('cuid', '==', canceledQuoteCustomerId)
+				.get();
+
+			canceledQuoteQuery.forEach(async (userDoc) => {
+				let userObject = userDoc.data();
+
+				let openDocuments = userObject.billing.open_documents;
+
+				const canceledQuoteTime = Timestamp.now();
+
+				for (let document of openDocuments) {
+					if (document.id == canceledQuoteId) {
+						// get document name from documents list
+						let documentFilename = 'A quote';
+
+						for (let docName of userObject.billing.documents) {
+							if (docName.id == canceledQuoteId) {
+								documentFilename = docName.filename;
+							}
+						}
+
+						let updateDoc = await userDoc.ref.update({
+							'billing.open_documents': FieldValue.arrayRemove(document),
+							'service_log.events': FieldValue.arrayUnion({
+								time: canceledQuoteTime,
+								description: documentFilename + ' was canceled.',
+								type: 'billing'
+							})
+						});
+					}
+				}
+			});
+
+			break;
 
 		default:
 		//console.log(`Unhandled event type ${event.type}`);

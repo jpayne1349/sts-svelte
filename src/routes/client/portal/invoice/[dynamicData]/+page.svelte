@@ -23,7 +23,7 @@
 		invoiceStatus = invoiceObject.status;
 		allowPayment = false;
 	}
-	
+
 	if ($sessionStore.default_payment_method.id == '') {
 		redirectToStripe = true;
 	}
@@ -40,7 +40,10 @@
 		paying_invoice = true;
 
 		if (redirectToStripe) {
+			payment_status = 'Redirecting Page';
+
 			let paymentPage = await goto(invoiceObject.hosted_invoice_url);
+			paying_invoice = false;
 
 			return;
 		}
@@ -94,8 +97,6 @@
 					message: 'Payment Succeeded!'
 				});
 
-				
-				
 				// payment succeeded and receipt has been generated.
 				let receiptPage = goto(
 					'/client/portal/receipt/' + $sessionStore.billing.latest_charge.receiptId
@@ -133,7 +134,6 @@
 		let stringArray = string.split(':');
 		return stringArray[0] + '<br>' + stringArray[1];
 	}
-	
 </script>
 
 <section class="container">
@@ -141,7 +141,13 @@
 
 	<div class="group">
 		<p class="label">Name</p>
-		<p class="variable">{$sessionStore.billing.name}</p>
+		<p class="variable">
+			{#if $sessionStore.billing.name != ''}
+				{$sessionStore.billing.name}
+			{:else}
+				{$sessionStore.company_name}
+			{/if}
+		</p>
 	</div>
 
 	<div class="group">
@@ -151,6 +157,8 @@
 				{$sessionStore.address.line1} <br />
 				{$sessionStore.address.city}, {$sessionStore.address.state}
 				{$sessionStore.address.postal_code}
+			{:else}
+				-- No Address On File --
 			{/if}
 		</p>
 	</div>
@@ -169,8 +177,8 @@
 	<div class="group">
 		<p class="label document">Reference Document</p>
 		<p class="variable document">
-			{#if fileReference }
-			<Document file={fileReference} />
+			{#if fileReference}
+				<Document file={fileReference} />
 			{/if}
 		</p>
 	</div>
@@ -201,7 +209,7 @@
 				{:else}
 					Pay Invoice
 				{/if}
-				<img class='lock-icon' src="../../../lock-icon.svg" alt='Secure Transaction' />
+				<img class="lock-icon" src="../../../lock-icon.svg" alt="Secure Transaction" />
 			</button>
 		{:else}
 			<div class="not-allowed">Looks like this invoice has been {invoiceStatus}</div>
@@ -312,12 +320,12 @@
 		margin-right: 10px;
 	}
 	.lock-icon {
-	font-size: 10px;
-	position: absolute;
-	right: 15px;
-	user-select: none;
-	width: 10px;
-}
+		font-size: 10px;
+		position: absolute;
+		right: 15px;
+		user-select: none;
+		width: 10px;
+	}
 
 	@keyframes spinning {
 		0% {
