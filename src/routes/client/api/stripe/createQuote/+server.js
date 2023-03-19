@@ -2,7 +2,6 @@ import { json, error } from '@sveltejs/kit';
 import Stripe from 'stripe';
 import { stripeConfig } from '../../../../../config';
 
-
 const pricing_table = {
 	basic_fixed: {
 		no_features: {
@@ -14,8 +13,8 @@ const pricing_table = {
 			build: 'price_1MCldzLLMTpPeabJfBCXwYzx'
 		},
 		custom_email: {
-			monthly: 'price_1MClfSLLMTpPeabJDiu44oRN',
-			build: 'price_1MCldnLLMTpPeabJPrK9dgud'
+			monthly: 'price_1M2H7ZLLMTpPeabJAMjiV3uc',
+			build: 'price_1M2HMqLLMTpPeabJvaDj0j3X'
 		},
 		all_features: {
 			monthly: 'price_1MCleMLLMTpPeabJwEggxbgI',

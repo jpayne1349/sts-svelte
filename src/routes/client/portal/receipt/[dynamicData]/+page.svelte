@@ -6,38 +6,62 @@
 	let receiptName = $page.params.dynamicData;
 	let validId = false;
 	let storageLink = '';
+	let performingReceiptLookup = true;
 
+	//TODO: Add Spinner with ' retrieving your receipt... '
 
-	// check if receiptId is valid
-	for (let name of $sessionStore.billing.receipts) {
-		if (receiptName == name) {
-			validId = true;
+	validReceiptName();
+
+	function validReceiptName() {
+		if (!$sessionStore.billing) {
+			setTimeout(validReceiptName, 500);
+			return;
 		}
-	}
+		console.log($sessionStore);
+		// check if receiptId is valid
+		for (let docObject of $sessionStore.billing.documents) {
+			let name = docObject.filename;
+			// modify page url path to include a '.pdf' filetype
+			receiptName = receiptName + '.pdf';
 
-	if (validId) {
-		// build storage reference
-		let filePath = 'client-portal-users/' + $sessionStore.cuid + '/' + receiptName + '.pdf';
-		let fileRef = ref($fbStore.storage, filePath);
-		
+			if (receiptName == name) {
+				validId = true;
+				break;
+			}
+		}
 
-		getDownloadURL(fileRef)
-			.then((url) => {
-				storageLink = url;
-				
-			})
-			.catch((e) => {
-				//console.log(e);
-			});
+		if (validId) {
+			// build storage reference
+			let filePath = 'client-portal-users/' + $sessionStore.cuid + '/' + receiptName;
+			let fileRef = ref($fbStore.storage, filePath);
+
+			getDownloadURL(fileRef)
+				.then((url) => {
+					storageLink = url;
+					performingReceiptLookup = false;
+				})
+				.catch((e) => {
+					console.log(e);
+					validId = false;
+					performingReceiptLookup = false;
+				});
+		} else {
+			performingReceiptLookup = false;
+		}
 	}
 </script>
 
 <section class="container">
-	{#if validId}
+	{#if performingReceiptLookup}
+		<div class="loading-container">
+			<div class="loading-title">Retrieving your Receipt!</div>
+			<div class="spinner" />
+		</div>
+	{:else if validId}
 		<div class="object-title">Thanks for your payment!</div>
 		<p class="object-message">
-			You can view your receipt in a seperate window <a href={storageLink} target="_blank" >here</a> or download the file
-			in the viewer below.
+			You can view your receipt in a seperate window <a href={storageLink} target="_blank">here</a> or
+			download the file in the viewer below.
 		</p>
 		<object title="Payment Receipt PDF" data={storageLink} type="application/pdf" height="100%">
 			<p>
@@ -75,7 +99,8 @@
 		min-height: 400px;
 	}
 	.invalid-title,
-	.object-title {
+	.object-title,
+	.loading-title {
 		text-align: center;
 		font-family: openSans-bold;
 		font-size: 24px;
@@ -88,5 +113,36 @@
 		font-size: 14px;
 		font-family: openSans-regular;
 		margin-top: 25px;
+	}
+	.loading-container {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.spinner {
+		content: '';
+		border-radius: 50%;
+		border-top: 4px solid var(--main);
+		border-right: 4px solid transparent;
+		width: 60px;
+		height: 60px;
+		animation-name: spinning;
+		animation-duration: 1.5s;
+		animation-iteration-count: infinite;
+		animation-timing-function: linear;
+		opacity: 1;
+		transition: all 0.2s;
+		margin: 150px 0;
+	}
+	@keyframes spinning {
+		0% {
+			transform: rotate(0deg);
+		}
+
+		100% {
+			transform: rotate(360deg);
+		}
 	}
 </style>
