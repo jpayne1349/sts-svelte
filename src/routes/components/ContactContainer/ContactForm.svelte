@@ -169,7 +169,7 @@
 		</div>
 		<div id="form-body">
 			<label for="form-textarea" />
-			<textarea bind:value={body_value} id="form-textarea" />
+			<textarea bind:value={body_value} id="form-textarea" name="form-textarea" />
 		</div>
 	</div>
 

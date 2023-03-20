@@ -10,14 +10,15 @@
 	let fix_menu = false;
 	let menu_icon;
 
-    // basically when the page is updated, we need to close this
+	// basically when the page is updated, we need to close this
 	let unsub_listener = page.subscribe((storeData) => {
 		show_nav = false;
-        dispatch('clicked', show_nav);
+		dispatch('clicked', show_nav);
 	});
 </script>
 
 <button
+	name="navigation menu"
 	class="menu-icon-container"
 	on:click={() => {
 		show_nav = !show_nav;
