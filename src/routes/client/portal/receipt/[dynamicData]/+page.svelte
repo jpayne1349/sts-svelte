@@ -8,8 +8,6 @@
 	let storageLink = '';
 	let performingReceiptLookup = true;
 
-	//TODO: Add Spinner with ' retrieving your receipt... '
-
 	validReceiptName();
 
 	function validReceiptName() {

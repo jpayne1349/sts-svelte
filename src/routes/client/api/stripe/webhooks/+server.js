@@ -314,7 +314,7 @@ export async function POST({ request }) {
 			let paidInvoiceId = paidInvoice.id;
 			let paidInvoiceCustomer = paidInvoice.customer;
 			let paidInvoicePdf = paidInvoice.invoice_pdf;
-			let paidInvoiceUserEmail = await stripe.customers.retrieve(paidInvoiceCustomer).email;
+			let paidInvoiceUserEmail = paidInvoice.customer_email;
 
 			/** Get the receipt url and pipe it to firebase **/
 			let invoiceChargeId = paidInvoice.charge;
@@ -414,12 +414,12 @@ export async function POST({ request }) {
 				recipient: 'development@southtexas.software',
 				title: 'An invoice has been paid',
 				account: paidInvoiceUserEmail, // pulled from stripe, so email is correct
-				details: 'Invoice Paid: ' + paidInvoiceId
+				details: receiptName
 			});
 
 			let portalReceiptLink = 'https://southtexas.software/client/portal/receipt/' + receiptName;
 
-			let paidInvoiceCustomerEmail = await sendEmail('receipt', {
+			let sendReceiptEmail = await sendEmail('receipt', {
 				recipient: paidInvoiceUserEmail,
 				link: portalReceiptLink
 			});

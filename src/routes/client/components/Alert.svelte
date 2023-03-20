@@ -2,20 +2,16 @@
 	import { alertStore } from '../stores.js';
 	import { fly, fade } from 'svelte/transition';
 
-
 	const unsubFromAlert = alertStore.subscribe((data) => {
 		if (data.show == true) {
 			// set to automatically close after 5 seconds
 			setTimeout(() => {
-            if($alertStore.show) {
-				$alertStore.show = false;
-                }
+				if ($alertStore.show) {
+					$alertStore.show = false;
+				}
 			}, 5000);
 		}
-        
 	});
-
-
 </script>
 
 {#if $alertStore.show}
@@ -32,15 +28,15 @@
 			class="close-alert"
 			on:click={() => {
 				$alertStore.show = false;
-			}}></button
-		>
+			}}
+		/>
 	</div>
 {/if}
 
 <style>
 	.alert {
 		position: fixed;
-		top: 20vh;
+		bottom: 3vh;
 		border-radius: 5px;
 		width: 400px;
 		height: 50px;
@@ -78,32 +74,34 @@
 	}
 	.close-alert {
 		position: absolute;
-		top: 13px;
-		right: 26px;
+		top: 11px;
+		right: 10px;
 		background-color: transparent;
 		box-shadow: none;
-		
+		width: 30px;
+		height: 30px;
 	}
-    .close-alert::before, .close-alert::after {
-        position: absolute;
+	.close-alert::before,
+	.close-alert::after {
+		position: absolute;
 		content: '';
-		width: 3px;
-		height: 15px;
+		width: 2px;
+		height: 20px;
 		background-color: white;
 		transform: rotate(45deg);
-    }
-    .close-alert::after {
-        transform: rotate(-45deg);
-    }
+	}
+	.close-alert::after {
+		transform: rotate(-45deg);
+	}
 
 	@media only screen and (max-width: 500px) {
 		.alert {
 			top: unset;
 			bottom: 15px;
 		}
-        .close-alert {
-            top: 5px;
-		    right: 25px;
-        }
+		.close-alert {
+			top: 5px;
+			right: 25px;
+		}
 	}
 </style>
