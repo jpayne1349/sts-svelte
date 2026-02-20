@@ -44,7 +44,7 @@
 			<a href="/pricing" alt="Pricing">Pricing</a>
 			<a href="/contact-us" alt="Contact Us">Contact</a>
 		</div>
-		<div class="link-group">
+		<!-- <div class="link-group">
 			<a class="head" href="/client" alt="Client Portal">Client Portal</a>
 			{#if $sessionStore.logged_in}
 				<a href="/client/portal/overview" alt="Overview">Overview</a>
@@ -55,7 +55,7 @@
 				<a href="/client/sign-in" alt="Sign In">Sign In</a>
 				<a href="/client/create-account" alt="Create Account">Create Account</a>
 			{/if}
-		</div>
+		</div> -->
 	</div>
 {/if}
 

@@ -100,7 +100,7 @@
 	</a>
 
 	<a class="desktop-link" href="/contact-us" alt="Services">Contact</a>
-	<a class="desktop-link" href={clientPortalLink} alt="Services">Client Portal</a>
+	<!-- <a class="desktop-link" href={clientPortalLink} alt="Services">Client Portal</a> -->
 	<MobileNav on:clicked={setNavbarVisibility} />
 </nav>
 
@@ -109,12 +109,12 @@
 <CookiePopup />
 
 <footer class="footer">
-	<a href="/terms-of-use" class="footer-link ">Terms of Use</a>
+	<a href="/terms-of-use" class="footer-link">Terms of Use</a>
 	<a href="/privacy-policy" class="footer-link">Privacy Policy</a>
 
 	<a href="/cookie-policy" class="footer-link optional">Cookie Policy</a>
 
-	<a href="/contact-us" class="footer-link ">Contact</a>
+	<a href="/contact-us" class="footer-link">Contact</a>
 </footer>
 
 <style>
@@ -150,7 +150,7 @@
 	.logo-wrapper {
 		position: absolute;
 		width: 100%;
-		padding-right: 50px;
+		padding-left: 85px;
 		top: 0;
 		left: 0;
 		height: 15vh;
