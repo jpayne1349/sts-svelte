@@ -1,5 +1,5 @@
 <script>
-	import ContactForm from './ContactContainer/ContactForm.svelte';
+
 
 	export let message;
 	export let status;
@@ -25,9 +25,6 @@
 		Please send us a message about what you were looking for. Thanks.
 	</div>
 
-	<div id="contact-wrapper">
-		<ContactForm {autoSubject} />
-	</div>
 </div>
 
 <style>

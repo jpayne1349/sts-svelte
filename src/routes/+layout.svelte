@@ -1,17 +1,11 @@
 <script>
 	import '../global.css';
-	import CookiePopup from './components/CookiePopup.svelte';
 	import MobileNav from './components/MobileNav.svelte';
 	import LogoIconOnly from './components/LogoIconOnly.svelte';
 	import { fly } from 'svelte/transition';
-	import { cookiePopupStore, sessionStore } from './client/stores';
 	import { page } from '$app/stores';
 	import { browser } from '$app/environment';
 	import LogoNoIcon from './components/LogoNoIcon.svelte';
-
-	// receives the policyCookieSet bool to halt the cookiepopup if necessary
-	export let data;
-	cookiePopupStore.set(data);
 
 	let blurringBg = false;
 	let inClientPortal = false;
@@ -59,12 +53,6 @@
 		currentScroll = scrollY;
 	}
 
-	$: if ($sessionStore.logged_in) {
-		clientPortalLink = '/client/portal/overview';
-	} else {
-		clientPortalLink = '/client';
-	}
-
 	let mobileNavOpen = false;
 
 	function setNavbarVisibility(event) {
@@ -105,8 +93,6 @@
 </nav>
 
 <slot />
-
-<CookiePopup />
 
 <footer class="footer">
 	<a href="/terms-of-use" class="footer-link">Terms of Use</a>

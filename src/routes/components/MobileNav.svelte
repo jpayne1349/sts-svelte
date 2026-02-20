@@ -1,6 +1,6 @@
 <script>
 	import { fly } from 'svelte/transition';
-	import { sessionStore } from '/src/routes/client/stores.js';
+
 	import { page } from '$app/stores';
 	import { onMount, createEventDispatcher } from 'svelte';
 
@@ -9,12 +9,6 @@
 	let show_nav = false;
 	let fix_menu = false;
 	let menu_icon;
-
-	// basically when the page is updated, we need to close this
-	let unsub_listener = page.subscribe((storeData) => {
-		show_nav = false;
-		dispatch('clicked', show_nav);
-	});
 </script>
 
 <button

@@ -1,15 +1,10 @@
 <script>
-	import { afterNavigate,  } from '$app/navigation';
+	import { afterNavigate } from '$app/navigation';
 	import { fly, fade } from 'svelte/transition';
-    import { beforeUpdate } from 'svelte';
-    import { cookiePopupStore } from '../client/stores';
+	import { beforeUpdate } from 'svelte';
 
 	let firstNavigation = false;
-    let showPopup = false;
-
-    beforeUpdate(()=>{
-        showPopup = !$cookiePopupStore.policyCookieSet;
-    });
+	let showPopup = false;
 
 	afterNavigate(({ from }) => {
 		// checks if this is first visit of session
@@ -27,17 +22,15 @@
 				'Content-Type': 'application/json'
 			}
 		});
-	
-        
-
-
-    }
-
-
+	}
 </script>
 
 {#if showPopup && firstNavigation}
-	<div class="cookie-popup" in:fly|global={{ y: 100, delay: 500 }} out:fade|global={{ duration: 200 }}>
+	<div
+		class="cookie-popup"
+		in:fly|global={{ y: 100, delay: 500 }}
+		out:fade|global={{ duration: 200 }}
+	>
 		<div class="row">This website uses cookies to analyze traffic and improve security.</div>
 		<div class="row buttons">
 			<a
@@ -50,7 +43,7 @@
 			<button
 				on:click={() => {
 					showPopup = false;
-                    firstNavigation = false;
+					firstNavigation = false;
 					setCookie();
 				}}
 				class="button okay">Okay</button
