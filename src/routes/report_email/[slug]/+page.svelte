@@ -20,7 +20,7 @@ if(data.error) {
 </script>
 
 {#if show}
-<section in:fly={{y:-100}}>
+<section in:fly|global={{y:-100}}>
     <h3>Thanks for reporting this email!</h3>
 
     <p> { pageMessage } </p>

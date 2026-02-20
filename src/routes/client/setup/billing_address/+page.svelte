@@ -245,14 +245,14 @@
 		</div>
 
 		{#if $sessionStore.billing.use_account_email == false}
-			<label for="billing-email-input" class="label" in:fly={{ y: -20 }}>Billing Email</label>
+			<label for="billing-email-input" class="label" in:fly|global={{ y: -20 }}>Billing Email</label>
 			<input
 				name="billing-email"
 				id="billing-email-input"
 				class="input"
 				type="email"
 				autocomplete="email"
-				in:fly={{ y: -20 }}
+				in:fly|global={{ y: -20 }}
 				bind:this={billing_email}
 				value={$sessionStore.billing.email}
 			/>
@@ -272,13 +272,13 @@
 		</div>
 
 		{#if $sessionStore.billing.use_company_name == false}
-			<label for="billing-name-input" class="label" in:fly={{ y: -20 }}>Billing Name</label>
+			<label for="billing-name-input" class="label" in:fly|global={{ y: -20 }}>Billing Name</label>
 			<input
 				name="billing-name"
 				id="billing-name-input"
 				class="input"
 				type="text"
-				in:fly={{ y: -20 }}
+				in:fly|global={{ y: -20 }}
 				autocomplete="name"
 				bind:this={billing_name}
 				value={$sessionStore.billing.name}

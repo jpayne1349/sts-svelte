@@ -58,7 +58,7 @@
 	class:amex
 	class:disc
 	class:mast
-	in:fly={{ x: -20 }}
+	in:fly|global={{ x: -20 }}
 >
 	<div class="chip" />
 	<div class="card-last-four">{$sessionStore.default_payment_method.last_four}</div>

@@ -21,7 +21,7 @@
 		dispatch('clicked', selected);
 	}}
 	class:selected
-	in:fly={{ y: -20 }}
+	in:fly|global={{ y: -20 }}
 >
 	<div class="service-plan-price">
 		{#if hourly}

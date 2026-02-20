@@ -17,24 +17,24 @@
 </script>
 
 {#if status != 'idle'}
-	<div id="popup-container" in:fly={{ y: -50, duration: 500 }} out:fade >
+	<div id="popup-container" in:fly|global={{ y: -50, duration: 500 }} out:fade|global >
 		{#key title}
-			<div id="popup-title" in:fade >{title}</div>
+			<div id="popup-title" in:fade|global >{title}</div>
 		{/key}
 
-		<div id="status-container" in:fade>
+		<div id="status-container" in:fade|global>
 			{#if status == 'sending'}
 				<Loader failed={status == 'failed'} />
 			{:else if status == 'sent'}
-				<div id="result-icon" in:fade>
+				<div id="result-icon" in:fade|global>
 					<div id="check-mark" />
 				</div>
 			{:else if status == 'failed'}
-				<div id="failed-header" in:fade>Something went wrong.</div>
-				<div in:fade>
+				<div id="failed-header" in:fade|global>Something went wrong.</div>
+				<div in:fade|global>
 					An error report has been sent, please try again soon or send us an email directly.
 				</div>
-				<a in:fade id="email-link" href="mailto: development@southtexas.software">
+				<a in:fade|global id="email-link" href="mailto: development@southtexas.software">
 					development@southtexas.software
 				</a>
 			{:else}

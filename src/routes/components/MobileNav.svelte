@@ -28,16 +28,16 @@
 	bind:this={menu_icon}
 >
 	{#if !show_nav}
-		<div class="menu-icon-bar one" transition:fly={{ y: 8 }} />
+		<div class="menu-icon-bar one" transition:fly|global={{ y: 8 }} />
 	{/if}
 	<div class="menu-icon-bar two" />
 	{#if !show_nav}
-		<div class="menu-icon-bar three" transition:fly={{ y: -8 }} />
+		<div class="menu-icon-bar three" transition:fly|global={{ y: -8 }} />
 	{/if}
 </button>
 
 {#if show_nav}
-	<div class="nav-links" transition:fly={{ y: -200 }}>
+	<div class="nav-links" transition:fly|global={{ y: -200 }}>
 		<div class="link-group">
 			<a class="head" href="/" alt="Home">Home</a>
 			<a href="/services" alt="Services">Services</a>

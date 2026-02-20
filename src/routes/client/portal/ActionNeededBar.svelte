@@ -25,7 +25,7 @@
 </script>
 
 {#if $page.url.pathname.includes(doc.type) == false}
-	<section class="container" in:fly={{ y: -10, delay: 100 }}>
+	<section class="container" in:fly|global={{ y: -10, delay: 100 }}>
 		<div class="doc-container">
 			You have a finalized&nbsp;
 			<button

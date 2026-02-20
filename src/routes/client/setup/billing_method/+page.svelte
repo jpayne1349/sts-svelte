@@ -283,7 +283,7 @@
 				<PaymentElement />
 			</Elements>
 
-			<button id="submit-billing_method" type="submit" for="stripe-form" in:fade={{ delay: 1000 }}>
+			<button id="submit-billing_method" type="submit" for="stripe-form" in:fade|global={{ delay: 1000 }}>
 				{#if !submitting_form}
 					Save
 				{:else}

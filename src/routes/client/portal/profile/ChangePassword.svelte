@@ -115,7 +115,7 @@
 	}
 </script>
 
-<div class="modal" in:fly={{ y: -50 }}>
+<div class="modal" in:fly|global={{ y: -50 }}>
 	<h3>Change Account Password</h3>
 
 	<button

@@ -264,7 +264,7 @@
 			{#if password_validating == true && password_validated == false}
 				<div class="validation-spinner" />
 			{:else if password_validated == true && password_validating == true}
-				<div class="validation-passed" in:fade />
+				<div class="validation-passed" in:fade|global />
 			{/if}
 		</div>
 		<input
@@ -283,7 +283,7 @@
 			{#if password_confirming == true && password_confirmed == false}
 				<div class="validation-spinner" />
 			{:else if password_confirming == true && password_confirmed == true}
-				<div class="validation-passed" in:fade />
+				<div class="validation-passed" in:fade|global />
 			{/if}
 		</div>
 		<input
@@ -304,7 +304,7 @@
 			{#if !submitting_form}
 				Continue
 			{:else}
-				<span class="button-spinner" in:fade />
+				<span class="button-spinner" in:fade|global />
 			{/if}
 		</button>
 	</form>

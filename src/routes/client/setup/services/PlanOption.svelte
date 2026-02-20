@@ -24,7 +24,7 @@
 		dispatch('clicked', selected);
 	}}
 	class:selected
-	in:fly={{ y: -20, delay:animation_delay, duration:800 }}
+	in:fly|global={{ y: -20, delay:animation_delay, duration:800 }}
 >
 
 <img class="dropdown-90" src="../../dropdown-90.svg" alt="arrow" />

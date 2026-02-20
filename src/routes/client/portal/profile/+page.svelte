@@ -205,7 +205,7 @@
 				}}>Delete Account</button
 			>
 			{#if deleteAccountRequested}
-				<div class="confirm-delete-container" in:fly={{ y: -50 }}>
+				<div class="confirm-delete-container" in:fly|global={{ y: -50 }}>
 					<p>Are you sure you want to delete your account?</p>
 					<div class="confirm-delete-buttons">
 						<button

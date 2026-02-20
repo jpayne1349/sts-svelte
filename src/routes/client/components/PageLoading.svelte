@@ -8,8 +8,8 @@
 
 {#if $loadingStore.show }
 
-    <div class='spinner-bg' transition:fade>
-        <div class='loading-spinner' transition:fade ></div>
+    <div class='spinner-bg' transition:fade|global>
+        <div class='loading-spinner' transition:fade|global ></div>
     </div>
 
 {/if}

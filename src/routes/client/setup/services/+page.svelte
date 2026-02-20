@@ -187,7 +187,7 @@
 					<p class="price-estimate">
 						Build: $
 						{#key $subscriptionSetupStore.web_dev.build}
-							<span in:fly={{ y: -20 }} style="display:inline-block"
+							<span in:fly|global={{ y: -20 }} style="display:inline-block"
 								>{$subscriptionSetupStore.web_dev.build}</span
 							>
 						{/key}
@@ -196,7 +196,7 @@
 					<p class="price-estimate">
 						Monthly: $
 						{#key $subscriptionSetupStore.web_dev.monthly}
-							<span in:fly={{ y: -20 }} style="display:inline-block"
+							<span in:fly|global={{ y: -20 }} style="display:inline-block"
 								>{$subscriptionSetupStore.web_dev.monthly}</span
 							>
 						{/key}
@@ -344,7 +344,7 @@
 					<p class="price-estimate">
 						Build: $
 						{#key $subscriptionSetupStore.software_sol.build}
-							<span in:fly={{ y: -20 }} style="display:inline-block"
+							<span in:fly|global={{ y: -20 }} style="display:inline-block"
 								>{$subscriptionSetupStore.software_sol.build}</span
 							>
 						{/key}
@@ -353,7 +353,7 @@
 					<p class="price-estimate">
 						Monthly: $
 						{#key $subscriptionSetupStore.software_sol.monthly}
-							<span in:fly={{ y: -20 }} style="display:inline-block"
+							<span in:fly|global={{ y: -20 }} style="display:inline-block"
 								>{$subscriptionSetupStore.software_sol.monthly}</span
 							>
 						{/key}
@@ -401,7 +401,7 @@
 					class="software-sol-description"
 					bind:value={$subscriptionSetupStore.software_sol.description}
 					placeholder="Please provide a short description of the project."
-					in:fly={{ y: -50 }}
+					in:fly|global={{ y: -50 }}
 				/>
 			{/if}
 		</div>

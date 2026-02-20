@@ -37,7 +37,7 @@
 </script>
 
 {#if showPopup && firstNavigation}
-	<div class="cookie-popup" in:fly={{ y: 100, delay: 500 }} out:fade={{ duration: 200 }}>
+	<div class="cookie-popup" in:fly|global={{ y: 100, delay: 500 }} out:fade|global={{ duration: 200 }}>
 		<div class="row">This website uses cookies to analyze traffic and improve security.</div>
 		<div class="row buttons">
 			<a

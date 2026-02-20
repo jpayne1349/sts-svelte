@@ -95,7 +95,7 @@
 
 	<form method="POST" id="resetPasswordForm" on:submit|preventDefault={submitForm}>
 		{#if !emailSent}
-			<label for="email-label" class="label" in:fly={{ duration: 300, y: -20 }}>Email</label>
+			<label for="email-label" class="label" in:fly|global={{ duration: 300, y: -20 }}>Email</label>
 			<input
 				name="email"
 				id="email-input"
@@ -104,27 +104,27 @@
 				required
 				autocomplete="email"
 				bind:value={emailEntered}
-				in:fly={{ duration: 300, y: -20 }}
+				in:fly|global={{ duration: 300, y: -20 }}
 			/>
 		{/if}
 
 		{#if emailSent}
-			<label for="token-label" class="label" in:fly={{ duration: 300, y: -20 }}>Token</label>
+			<label for="token-label" class="label" in:fly|global={{ duration: 300, y: -20 }}>Token</label>
 			<input
 				name="token"
 				id="token-input"
 				class="input"
 				type="password"
 				required
-				in:fly={{ duration: 300, y: -20 }}
+				in:fly|global={{ duration: 300, y: -20 }}
 				bind:value={tokenEntered}
 			/>
 		{/if}
 
         {#if emailSent}
-            <p in:fade>Check your email for a secure token and input it above. Remember to check all your email folders before requesting a new token. Thank you.</p>
+            <p in:fade|global>Check your email for a secure token and input it above. Remember to check all your email folders before requesting a new token. Thank you.</p>
         {:else}
-		<p in:fade>
+		<p in:fade|global>
 			This will generate a one-time token that will be sent to your account email. Verify the token
 			here to update your password.
 		</p>
@@ -134,7 +134,7 @@
 			{#if !sendingEmail && !emailSent}
 				Send
 			{:else if sendingEmail && !emailSent}
-				<span class="button-spinner" in:fade />
+				<span class="button-spinner" in:fade|global />
 			{:else}
 				Verify Token
 			{/if}

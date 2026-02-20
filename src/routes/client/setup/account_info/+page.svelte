@@ -176,7 +176,7 @@
 		</div>
 
 		{#if $sessionStore.company_is_seperate == true}
-			<div class="checkbox-container" in:fly={{ y: -20 }}>
+			<div class="checkbox-container" in:fly|global={{ y: -20 }}>
 				<input
 					name="remember"
 					type="checkbox"
@@ -191,26 +191,26 @@
 		{/if}
 
 		{#if $sessionStore.company_is_seperate == true && company_in_system == false}
-			<label for="company-name-input" class="label" in:fly={{ y: -20 }}>Company Name</label>
+			<label for="company-name-input" class="label" in:fly|global={{ y: -20 }}>Company Name</label>
 			<input
 				name="company-name"
 				id="company-name-input"
 				class="input"
 				type="text"
-				in:fly={{ y: -20 }}
+				in:fly|global={{ y: -20 }}
 				value={$sessionStore.company_name}
 			/>
 		{/if}
 
 		<!-- TODO: needs a confirm/verify button to check if this exists... -->
 		{#if $sessionStore.company_is_seperate == true && company_in_system == true}
-			<label for="company-id-input" class="label" in:fly={{ y: -20 }}>Company Unique ID</label>
+			<label for="company-id-input" class="label" in:fly|global={{ y: -20 }}>Company Unique ID</label>
 			<input
 				name="company-id"
 				id="company-id-input"
 				class="input"
 				type="text"
-				in:fly={{ y: -20 }}
+				in:fly|global={{ y: -20 }}
 			/>
 		{/if}
 
@@ -218,7 +218,7 @@
 			{#if !submitting_form}
 				Continue
 			{:else}
-				<span class="button-spinner" in:fade />
+				<span class="button-spinner" in:fade|global />
 			{/if}
 		</button>
 	</form>

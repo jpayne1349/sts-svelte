@@ -23,7 +23,7 @@ export async function load({ params }) {
 			code: e.message
 		};
     
-		throw redirect(307, '/client/portal/billing/quote_not_found=true');
+		redirect(307, '/client/portal/billing/quote_not_found=true');
 
 	}
 	return {

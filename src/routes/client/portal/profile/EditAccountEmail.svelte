@@ -164,7 +164,7 @@
 	}
 </script>
 
-<div class="modal" in:fly={{ y: -50 }}>
+<div class="modal" in:fly|global={{ y: -50 }}>
 	<h3>Update Account Email</h3>
 
 	<button

@@ -15,7 +15,7 @@
 </script>
 
 {#if $alertStore.show}
-	<div class="alert" class:error={$alertStore.error} in:fly={{ duration: 500, y: -150 }} out:fade>
+	<div class="alert" class:error={$alertStore.error} in:fly|global={{ duration: 500, y: -150 }} out:fade|global>
 		{#if !$alertStore.error}
 			<span class="checkmark" />
 		{:else}

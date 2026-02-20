@@ -14,7 +14,7 @@
 	let displayed_time = timestamp_string.slice(16, 21);
 </script>
 
-<div class="event-container" in:slide|local >
+<div class="event-container" in:slide >
 	<p class="desc">{description}</p>
 
 	<div class="info-row">

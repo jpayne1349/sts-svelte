@@ -100,9 +100,9 @@
 </script>
 
 <section class="container">
-	<div class="big-spinner" transition:slide />
+	<div class="big-spinner" transition:slide|global />
 	{#key status_message}
-		<p class="status-message" transition:slide>
+		<p class="status-message" transition:slide|global>
 			{status_message}
 		</p>
 	{/key}

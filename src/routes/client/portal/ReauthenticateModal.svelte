@@ -70,7 +70,7 @@
 			{#if !submitting_form}
 				Continue
 			{:else}
-				<span class="button-spinner" in:fade />
+				<span class="button-spinner" in:fade|global />
 			{/if}
 		</button>
 	</form>

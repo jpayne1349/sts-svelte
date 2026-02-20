@@ -92,7 +92,7 @@
 	</div>
 
 	{#if showWebDevDetails}
-		<div class="details-pullover" transition:fly={{ x: 300 }}>
+		<div class="details-pullover" transition:fly|global={{ x: 300 }}>
 			<button
 				on:click={() => {
 					showWebDevDetails = !showWebDevDetails;
@@ -101,7 +101,7 @@
 				><div
 					class:active={showWebDevDetails}
 					class="details-arrow pullover"
-					in:fade={{ delay: 500 }}
+					in:fade|global={{ delay: 500 }}
 				/></button
 			>
 			<h4 class="details-header">Web Dev Pricing Explained</h4>
@@ -140,7 +140,7 @@
 	{/if}
 
 	{#if showConsultingDetails}
-		<div class="details-pullover" transition:fly={{ x: 300 }}>
+		<div class="details-pullover" transition:fly|global={{ x: 300 }}>
 			<button
 				on:click={() => {
 					showConsultingDetails = !showConsultingDetails;
@@ -149,7 +149,7 @@
 				><div
 					class:active={showConsultingDetails}
 					class="details-arrow pullover"
-					in:fade={{ delay: 500 }}
+					in:fade|global={{ delay: 500 }}
 				/></button
 			>
 			<h4 class="details-header">Consulting Pricing Explained</h4>

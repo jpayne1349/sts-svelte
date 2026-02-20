@@ -40,7 +40,7 @@
 	}
 </script>
 
-<button class="document-container" in:slide|local on:click={retrieveCloudDocument}>
+<button class="document-container" in:slide on:click={retrieveCloudDocument}>
 	<div class="text-container">
 		<p class="doc-name">{file.filename}</p>
 
